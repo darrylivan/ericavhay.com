@@ -1,1 +1,33 @@
-<p>This is the partial for view 1.</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <!--Sidebar content-->
+
+
+      Sort by:
+      <select ng-model="orderProp">
+        <option value="-date">newest</option>
+        <option value="name">alphabetical</option>
+        <option value="date">oldest</option>
+      </select>
+
+    </div>
+  </div>
+  <div class="row">
+      <!--Body content-->
+
+    <div >
+      <ul class="works " masonry>
+        <li class="col-md-2 col-sm-3 masonry-brick" ng-repeat="work in works | filter:{archive:false} | filter:{featured:true} | orderBy:orderProp"
+            class="thumbnail work-listing">
+          <a href="#/portfolio/{{work.id}}" class="thumb"><img ng-src="{{work.imageUrl}}" alt="{{work.name}}"></a>
+          <a href="#/portfolio/{{work.id}}">{{work.name}}</a>
+          <p>{{work.width}}" x {{work.height}}"</p>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+

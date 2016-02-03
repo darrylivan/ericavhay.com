@@ -5,10 +5,16 @@ angular.module('myApp.portfolio', ['ngRoute'])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/portfolio', {
     templateUrl: 'portfolio/portfolio.html',
-    controller: 'portfolioCtrl'
+    controller: 'PortfolioCtrl'
   });
+
 }])
 
-.controller('portfolioCtrl', [function() {
+.controller('PortfolioCtrl', function( $scope, $http) {
+  $scope.works = [];
+  $http.get('portfolio/works.json').success( function( data ) {
+    $scope.works = data;
+  });
 
-}]);
+  $scope.orderProp = '-date';
+});

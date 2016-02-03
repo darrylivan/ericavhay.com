@@ -8,7 +8,7 @@ describe('myApp.portfolio module', function() {
 
     it('should ....', inject(function($controller) {
       //spec body
-      var portfolioCtrl = $controller('portfolioCtrl');
+      var portfolioCtrl = $controller('PortfolioCtrl');
       expect(portfolioCtrl).toBeDefined();
     }));
 
