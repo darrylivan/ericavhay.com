@@ -3,9 +3,18 @@
 angular.module('myApp.work', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/portfolio', {
+  $routeProvider.
+  when('/portfolio', {
     templateUrl: 'work/portfolio.html',
     controller: 'WorkCtrl'
+  }).
+  when('/work/:workId', {
+    templateUrl: 'work/work-detail.html',
+    controller: 'WorkDetailCtrl'
+  }).
+  when('/work/inquire/:workId', {
+    templateUrl: 'work/work-purchase.html',
+    controller: 'WorkDetailCtrl'
   });
 
 }])
@@ -14,14 +23,6 @@ angular.module('myApp.work', ['ngRoute'])
   $http.get('work/works.json').success( function( data ) {
     $scope.works = data;
   });
-
-  $scope.showCaption = function(work) {
-    work.showCaption = true;
-  }
-
-  $scope.hideCaption = function(work) {
-    work.showCaption = false;
-  }
 
   $scope.orderProp = '-date';
 }])
@@ -98,4 +99,12 @@ angular.module('myApp.work', ['ngRoute'])
   });
 
 
+/* Work Services */
+var workServices = angular.module('myApp.workServices', ['ngResource']);
+workServices.factory('Work', ['$resource',
+  function($resource){
+    return $resource('work/work-:workId.json', {}, {
+      query: {method:'GET', params:{workId:'Work'}, isArray:true}
+    });
+  }]);
 

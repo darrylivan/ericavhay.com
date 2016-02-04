@@ -12,14 +12,8 @@ angular.module('myApp', [
   'myApp.workServices'
 ]).
 config(['$routeProvider', function($routeProvider) {
+
+  // set default route when unrecognized...
   $routeProvider.
-  when('/work/:workId', {
-    templateUrl: 'work/work-detail.html',
-    controller: 'WorkDetailCtrl'
-  }).
-  when('/work/inquire/:workId', {
-    templateUrl: 'work/work-purchase.html',
-    controller: 'WorkDetailCtrl'
-  }).
   otherwise({redirectTo: '/portfolio'});
 }]);

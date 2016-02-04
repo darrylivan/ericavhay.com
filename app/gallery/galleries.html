@@ -1,5 +1,39 @@
-<p>This is the partial for view 2.</p>
-<p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-2">
+      <!--Sidebar content-->
+
+    </div>
+  </div>
+  <div class="row">
+    <!--Body content-->
+
+    <div>
+      <ul class="grid" masonry="true">
+        <li masonry-tile class=""
+            ng-repeat="gallery in galleries | filter:{active:'1'} "
+            class="thumbnail work-listing">
+          <div class="tile-container ">
+            <a href="#/gallery/{{gallery.id}}" class="thumb"><img ng-src="{{gallery.imageUrl}}" alt="{{gallery.name}}"></a>
+            <div class="caption">
+              <a class="title" href="#/gallery/{{gallery.id}}">{{gallery.name}}</a>
+              <br/>
+              <div class="pull-right">
+                <a class="phone" href="tel:{{gallery.phone}}" title="contact the gallery">{{gallery.phone}}</a><br/>
+                <a class="email" href="tel:{{gallery.phone}}" title="contact the gallery">{{gallery.phone}}</a>
+              </div>
+              <p>
+                <span class="contact-name">{{gallery.contact}}</span><br/>
+                <span class="address">{{gallery.location}}</span>
+              </p>
+
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+

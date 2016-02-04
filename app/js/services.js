@@ -3,11 +3,11 @@
  */
 
 
-/* Work Services */
-var workServices = angular.module('myApp.workServices', ['ngResource']);
-workServices.factory('Work', ['$resource',
+
+var galleryServices = angular.module('myApp.galleryServices', ['ngResource']);
+workServices.factory('Gallery', ['$resource',
   function($resource){
-    return $resource('work/work-:workId.json', {}, {
-      query: {method:'GET', params:{workId:'Work'}, isArray:true}
+    return $resource('gallery/gallery-:galleryId.json', {}, {
+      query: {method:'GET', params:{galleryId:'Gallery'}, isArray:true}
     });
   }]);
