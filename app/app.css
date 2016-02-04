@@ -1,25 +1,196 @@
 /* app css stylesheet */
 
+body {
+    font-family: 'Poiret One', cursive;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-family: 'Quicksand', sans-serif;
+    font-family: 'Alegreya Sans SC', sans-serif;
+    font-family: 'Josefin Sans', sans-serif;
+    background-color:#ffffff;
+}
+
+div {
+    background-color: transparent;
+}
+a {
+    color: #ff0000;
+}
+ a:hover {
+    color: #880000;
+    text-decoration: none;
+}
+
 
 .thumb {
-  margin: -0.5em 1em 1.5em 0;
-  padding-bottom: 1em;
-  height: auto;
-  max-height: 400px;
+    margin: -0.5em 1em 1.5em 0;
+    padding-bottom: 1em;
+    height: auto;
+    max-height: 400px;
 
 }
 
-ul.works {
-  list-style: none;
+
+/* menu **/
+
+.navbar-header
+{
+    font-size: 44px;
+    margin-top:5px;
+    color:#ff0000;
+    font-weight: bold;
+}
+
+.vhay-nav {
+    margin-top: 17px;
+    font-size: 18px;
+    margin-left:10px;
+}
+.navbar-header span {
+    color:#333;
+}
+
+.navbar-header span.hover-true {
+    color:#FF0000;
+}
+
+
+/*  portfolio theme **/
+
+.tile-container {
+    margin-right: 10px;
+    position: relative;
+    box-shadow: 4px 4px 2px #888888;
+    border-radius: 0px;
 
 }
 
-.works li {
-  float:left;
-  margin-bottom: 10px;
-
+.tile-container .caption {
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    opacity: 1.0;
+    font-size: 14px;
+    color: #222;
+    padding: 5px;
+    background-color: #ffffff;
 }
 
-.works li img {
-  width:100%
+.tile-container .caption a {
+    color: #222;
+}
+
+.tile-container .caption a:hover {
+    color: #880000;
+    text-decoration: none;
+}
+
+.tile-container .caption .title {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.tile-container .caption .sold {
+    color: #FF0000;
+}
+
+.tile-container .caption.show_true {
+    opacity: 1.0;
+}
+
+.grid li img {
+    width: 100%
+}
+
+/* masonry */
+.grid {
+    border: none;
+    padding: 0;
+}
+
+.grid li {
+    width: 20%;
+    display: inline-block;
+    height: auto;
+    border: none;
+    margin-bottom: 10px;
+    margin-right: 0px;
+}
+
+@media (min-width: 750px) and (max-width: 970px) {
+    .grid li {
+        width: 33.33%;
+    }
+}
+
+@media (min-width: 400px) and (max-width: 749px) {
+    .grid li {
+        width: 50%;
+    }
+}
+
+@media (max-width: 399px) {
+    .grid li {
+        width: 100%;
+    }
+
+    body {
+        margin-left:10px;
+    }
+}
+
+/**** word-detail ****/
+.work-detail
+{
+    font-size: 18px;
+}
+
+.work-detail .detail-card {
+    background-color: #ffffff;
+}
+
+.work-detail .detail-card {
+    box-shadow: 4px 4px 2px #888888;
+    padding: 20px;
+}
+.work-detail img {
+    box-shadow: 4px 4px 2px #888888;
+    width:100%;
+}
+
+.work-detail .title
+{
+    font-size: 32px;
+    font-weight: bold;
+}
+
+/**** Transitions ****/
+
+.masonry,
+.masonry li { /* apply before masonry add class */
+    position: absolute; /* important to add it before enter animation start */
+
+    -webkit-transition-duration: .7s;
+    transition-duration: .7s;
+
+    -webkit-transition-property: all;
+    transition-property: all;
+}
+
+.masonry .masonry-enter { /* limit animated properties for entering elements */
+    -webkit-transition-property: -webkit-transform, opacity;
+    transition-property: transform, opacity;
+}
+
+.masonry-enter,
+.masonry-leave.masonry-leave-active {
+    opacity: 0;
+    -webkit-transform: scale(0.1);
+    transform: scale(0.1);
+}
+
+.masonry-leave,
+.masonry-enter.masonry-enter-active {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
 }

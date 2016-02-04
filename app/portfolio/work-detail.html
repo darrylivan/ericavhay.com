@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row ">
+    <!--Body content-->
+    <div class="work-detail">
+      <div class="col-md-4 col-sm-6">
+        <div class="detail-card">
+
+          <span class="title">{{work.name}}</span>
+          <p>
+            {{work.width}}" x {{work.height}}" &dash; {{work.notes}}<br/>
+            {{work.date | date:'MMM/yy' }}
+          </p>
+          <a ng-hide="work.sold" class="inquire" href="#/work/inquire/{{work.id}}">[ inquire for purchase ]</a>
+          <a class="PIN_1454536214850_pin_it_button_20 PIN_1454536214850_pin_it_button_en_20_gray PIN_1454536214850_pin_it_button_inline_20 PIN_1454536214850_pin_it_beside_20"
+             data-pin-href="https://www.pinterest.com/pin/create/button/?guid=i6HFiZA_cWFi-1&amp;url=http%3A%2F%2Fwww.ericavhay.com%2Fportfolio%2Fwork%2Fview%2Fid%2F502&amp;media=http%3A%2F%2Fwww.ericavhay.com%2F%2Fimages%2Fuploads%2Fimage.jpg&amp;description=erica%20vhay%20oil%20painting-emmy"
+             data-pin-log="button_pinit" data-pin-config="beside"><span class="PIN_1454536214850_hidden"
+                                                                        id="PIN_1454536214850_pin_count_0"><i></i></span></a>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6"
+           class="thumbnail ">
+        <img ng-src="{{work.imageUrl}}" alt="{{work.name}}">
+      </div>
+    </div>
+  </div>
+</div>

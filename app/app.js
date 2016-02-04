@@ -4,12 +4,22 @@
 angular.module('myApp', [
   'ngRoute',
   'ui.bootstrap',
-  'wu.masonry',
+  'myApp.animations',
   'myApp.menu',
   'myApp.portfolio',
   'myApp.gallery',
-  'myApp.version'
+  'myApp.version',
+  'myApp.workServices'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/portfolio'});
+  $routeProvider.
+  when('/work/:workId', {
+    templateUrl: 'portfolio/work-detail.html',
+    controller: 'WorkCtrl'
+  }).
+  when('/work/inquire/:workId', {
+    templateUrl: 'portfolio/work-purchase.html',
+    controller: 'WorkCtrl'
+  }).
+  otherwise({redirectTo: '/portfolio'});
 }]);

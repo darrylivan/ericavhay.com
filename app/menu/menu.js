@@ -11,6 +11,12 @@ angular.module('myApp.menu', ['ui.bootstrap'])
 
     };
 
+    $scope.hoverNav = false;
+    $scope.setHover = function( val )
+    {
+      $scope.hoverNav = val;
+    }
+
     $scope.status = {
       isopen: false
     };

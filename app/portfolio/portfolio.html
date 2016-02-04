@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container">
   <div class="row">
     <div class="col-md-2">
       <!--Sidebar content-->
@@ -14,15 +14,28 @@
     </div>
   </div>
   <div class="row">
-      <!--Body content-->
+    <!--Body content-->
 
-    <div >
-      <ul class="works " masonry>
-        <li class="col-md-2 col-sm-3 masonry-brick" ng-repeat="work in works | filter:{archive:false} | filter:{featured:true} | orderBy:orderProp"
+    <div>
+      <ul class="grid" masonry="true">
+        <li masonry-tile class=""
+            ng-repeat="work in works | filter:{archive:false} | filter:{featured:true} | orderBy:orderProp"
             class="thumbnail work-listing">
-          <a href="#/portfolio/{{work.id}}" class="thumb"><img ng-src="{{work.imageUrl}}" alt="{{work.name}}"></a>
-          <a href="#/portfolio/{{work.id}}">{{work.name}}</a>
-          <p>{{work.width}}" x {{work.height}}"</p>
+          <div class="tile-container ">
+            <a href="#/work/{{work.id}}" class="thumb"><img ng-src="{{work.imageUrl}}" alt="{{work.name}}"></a>
+            <div class="caption">
+              <a class="title" href="#/work/{{work.id}}">{{work.name}}</a>
+              <br/>
+              <div class="pull-right">
+                <a ng-hide="work.sold" class="inquire" href="#/work/inquire/{{work.id}}" title="inquire for purchase">[
+                  inquire ]</a>
+                <span ng-show="work.sold" class="sold">[ sold ]</span>
+              </div>
+              <span class="notes">{{work.width}}" x {{work.height}}" <span
+                  ng-if="work.notes">{{ '/' + work.notes }}</span> </span><br/>
+
+            </div>
+          </div>
         </li>
       </ul>
     </div>

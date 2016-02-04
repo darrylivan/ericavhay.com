@@ -6,12 +6,17 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "angular": "~1.4.0",
+    "angular": "~1.4.9",
     "angular-route": "~1.4.0",
     "angular-loader": "~1.4.0",
     "angular-mocks": "~1.4.0",
-    "angular-masonry": "~0.11.1",
+    "bootstrap": "~3.1.1",
+    "fizzy-ui-utils": "~2.0.x",
+    "masonry": "latest",
+    "angular-masonry-directive": "latest",
     "angular-bootstrap": "~1.1.2",
-    "html5-boilerplate": "~5.2.0"
+    "html5-boilerplate": "~5.2.0",
+    "angular-resource": "1.4.x",
+    "angular-animate": "1.4.x"
   }
 }
