@@ -89,10 +89,10 @@ app/                    --> all of the source files for the application
       version-directive_test.js  --> version directive tests
       interpolate-filter.js      --> custom interpolation filter
       interpolate-filter_test.js --> interpolate filter tests
-  portfolio/                --> the portfolio view template and logic
+  work/                --> the portfolio view template and logic
     portfolio.html            --> the partial template
-    portfolio.js              --> the controller logic
-    portfolio_test.js         --> tests of the controller
+    work.js              --> the controller logic
+    work_test.js         --> tests of the controller
   gallery/                --> the galleries view template and logic
     galleries.html            --> the partial template
     galleries.js              --> the controller logic

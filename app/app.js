@@ -6,7 +6,7 @@ angular.module('myApp', [
   'ui.bootstrap',
   'myApp.animations',
   'myApp.menu',
-  'myApp.portfolio',
+  'myApp.work',
   'myApp.gallery',
   'myApp.version',
   'myApp.workServices'
@@ -14,12 +14,12 @@ angular.module('myApp', [
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.
   when('/work/:workId', {
-    templateUrl: 'portfolio/work-detail.html',
-    controller: 'WorkCtrl'
+    templateUrl: 'work/work-detail.html',
+    controller: 'WorkDetailCtrl'
   }).
   when('/work/inquire/:workId', {
-    templateUrl: 'portfolio/work-purchase.html',
-    controller: 'WorkCtrl'
+    templateUrl: 'work/work-purchase.html',
+    controller: 'WorkDetailCtrl'
   }).
   otherwise({redirectTo: '/portfolio'});
 }]);

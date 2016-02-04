@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module('myApp.portfolio', ['ngRoute'])
+angular.module('myApp.work', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/portfolio', {
-    templateUrl: 'portfolio/portfolio.html',
-    controller: 'PortfolioCtrl'
+    templateUrl: 'work/portfolio.html',
+    controller: 'WorkCtrl'
   });
 
 }])
-.controller('PortfolioCtrl', ['$scope', '$http', 'Work', function( $scope, $http) {
+.controller('WorkCtrl', ['$scope', '$http', 'Work', function( $scope, $http) {
   $scope.works = [];
   $http.get('work/works.json').success( function( data ) {
     $scope.works = data;
@@ -25,7 +25,7 @@ angular.module('myApp.portfolio', ['ngRoute'])
 
   $scope.orderProp = '-date';
 }])
-.controller('WorkCtrl', ['$scope', '$routeParams', 'Work',
+.controller('WorkDetailCtrl', ['$scope', '$routeParams', 'Work',
   function( $scope, $routeParams, Work ) {
   $scope.work = Work.get({workId: $routeParams.workId}, function( work ) {
     // do anything special, or just allow data bindings to do it...
@@ -82,6 +82,15 @@ angular.module('myApp.portfolio', ['ngRoute'])
                 });
               });
             }
+
+            /* call this after a bit to reformat after images are loaded
+             need to update this to actually wait for images loaded!
+            * */
+            setTimeout(function () {
+              element.masonry("reload");
+            }, 1500);
+
+
           });
         };
       }
