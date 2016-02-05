@@ -3,13 +3,15 @@
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
   'ngRoute',
+  'ngTouch',
   'ui.bootstrap',
   'myApp.animations',
   'myApp.menu',
   'myApp.work',
   'myApp.gallery',
   'myApp.version',
-  'myApp.workServices'
+  'myApp.workServices',
+  'myApp.galleryServices'
 ]).
 config(['$routeProvider', function($routeProvider) {
 

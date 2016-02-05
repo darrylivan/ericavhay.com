@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row ">
+    <!--Body content-->
+    <div class="gallery-detail">
+      <div class="col-md-4 col-sm-6">
+        <div class="detail-card">
+
+          <span class="title">{{gallery.name}}</span>
+          <p>
+            {{gallery.width}}" x {{gallery.height}}" &dash; {{gallery.notes}}<br/>
+            {{gallery.date | date:'MMM/yy' }}
+          </p>
+          <a ng-hide="gallery.sold" class="inquire" href="#/gallery/{{gallery.id}}"></a>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-4"
+           class="thumbnail ">
+        <div >
+          <div style="height: 305px">
+            <uib-carousel interval="myInterval" no-wrap="noWrapSlides">
+              <uib-slide ng-repeat="slide in slides" active="slide.active" >
+                <img ng-src="{{slide.imageUrl}}" style="margin:auto; width:auto; height:305px">
+                <div class="carousel-caption">
+                  <p>{{slide.name}}</p>
+                </div>
+              </uib-slide>
+            </uib-carousel>
+          </div>
+        </div>
+        <!-- img ng-src="{{gallery.imageUrl}}" alt="{{gallery.name}}" -->
+      </div>
+    </div>
+  </div>
+</div>

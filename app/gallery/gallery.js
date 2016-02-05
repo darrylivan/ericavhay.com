@@ -1,5 +1,16 @@
 'use strict';
 
+
+/* services */
+
+var galleryServices = angular.module('myApp.galleryServices', ['ngResource']);
+galleryServices.factory('Gallery', ['$resource',
+  function($resource){
+    return $resource('http://www.ericavhay.com/portfolio/gallery/viewJson/id/:galleryId', {}, {
+      query: {method:'GET', params:{galleryId:'Gallery'}, isArray:true}
+    });
+  }]);
+
 angular.module('myApp.gallery', ['ngRoute'])
 
   .config(['$routeProvider', function ($routeProvider) {
@@ -29,11 +40,10 @@ angular.module('myApp.gallery', ['ngRoute'])
           array[currentIndex] = array[randomIndex];
           array[randomIndex] = temporaryValue;
         }
-
         return array;
       };
 
-      $http.get('gallery/galleries.json').success(function (data) {
+      $http.get('http://www.ericavhay.com/portfolio/gallery/indexJson').success(function (data) {
         $scope.galleries = data;
 
         // randomize the order.
@@ -41,6 +51,29 @@ angular.module('myApp.gallery', ['ngRoute'])
       });
 
       //$scope.orderProp = 'name';
+    }])
+  .controller('GalleryDetailCtrl', ['$scope', '$routeParams', 'Gallery',
+    function( $scope, $routeParams, Gallery ) {
+      $scope.gallery = Gallery.get({galleryId: $routeParams.galleryId}, function( gallery ) {
+        // do anything special, or just allow data bindings to do it...
+        console.log( gallery);
+        var active = true;
+        for (var i = 0; i < gallery.works.length; i++)
+        {
+          gallery.works[i]['active'] = active;
+          active = false;
+        }
+        $scope.slides = gallery.works;
+
+        return gallery;
+      });
+
+
+      /* for slider */
+      $scope.myInterval = 5000;
+      $scope.noWrapSlides = false;
+
+
     }])
   .directive("masonry", function () {
     var NGREPEAT_SOURCE_RE = '<!-- ngRepeat: ((.*) in ((.*?)( track by (.*))?)) -->';
@@ -105,3 +138,4 @@ angular.module('myApp.gallery', ['ngRoute'])
       }
     };
   });
+
