@@ -27,4 +27,8 @@ angular.module('myApp.menu', ['ui.bootstrap'])
       $scope.status.isopen = !$scope.status.isopen;
     };
 
+    $scope.name = ['e', 'r', 'i', 'c', 'a', ' ', 'v', 'h', 'a', 'y'];
+
+
+
   });

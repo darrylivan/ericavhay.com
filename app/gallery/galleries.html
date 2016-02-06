@@ -12,22 +12,23 @@
       <ul class="grid" masonry="true">
         <li masonry-tile class=""
             ng-repeat="gallery in galleries | filter:{active:'1'} "
-            class="thumbnail work-listing">
+            class="thumbnail work-listing"   itemscope itemtype="http://schema.org/ArtGallery" >
           <div class="tile-container ">
-            <a href="#/gallery/{{gallery.id}}" class="thumb"><img ng-src="{{gallery.imageUrl}}" alt="{{gallery.name}}"></a>
             <div class="caption">
-              <a class="title" href="#/gallery/{{gallery.id}}">{{gallery.name}}</a>
-              <br/>
+              <h3>
+                <a itemprop="name" class="title" href="#/gallery/{{gallery.id}}">{{gallery.name}}</a>
+              </h3>
               <div class="pull-right">
-                <a class="phone" href="tel:{{gallery.phone}}" title="contact the gallery">{{gallery.phone}}</a><br/>
-                <a class="email" href="tel:{{gallery.phone}}" title="contact the gallery">{{gallery.phone}}</a>
+                <a itemprop="telephone" class="phone" href="tel:{{gallery.phone}}" title="contact the gallery">{{gallery.phone}}</a><br/>
               </div>
               <p>
-                <span class="contact-name">{{gallery.contact}}</span><br/>
-                <span class="address">{{gallery.location}}</span>
+                <span itemprop="contactPoint" class="contact-name">{{gallery.contact}}</span><br/>
+                <a itemprop="email" class="email" href="tel:{{gallery.phone}}" title="email the gallery">{{gallery.email}}</a><br/>
+                <span itemprop="address" class="address">{{gallery.location}}</span>
               </p>
 
             </div>
+            <a href="#/gallery/{{gallery.id}}" class="thumb"><img ng-src="{{gallery.imageUrl}}" alt="{{gallery.name}}"></a>
           </div>
         </li>
       </ul>

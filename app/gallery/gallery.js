@@ -72,7 +72,11 @@ angular.module('myApp.gallery', ['ngRoute'])
       /* for slider */
       $scope.myInterval = 5000;
       $scope.noWrapSlides = false;
-
+      $scope.showCaptionBackground = false;
+      $scope.captionBackground = function( show )
+      {
+        $scope.showCaptionBackground = show;
+      }
 
     }])
   .directive("masonry", function () {
@@ -125,11 +129,13 @@ angular.module('myApp.gallery', ['ngRoute'])
               });
             }
 
+
             /* call this after a bit to reformat after images are loaded
              need to update this to actually wait for images loaded!
              * */
             setTimeout(function () {
               element.masonry("reload");
+              element.css('opacity', '1.0');
             }, 1500);
 
 

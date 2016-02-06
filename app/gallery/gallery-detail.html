@@ -1,27 +1,50 @@
 <div class="container">
   <div class="row ">
     <!--Body content-->
-    <div class="gallery-detail">
-      <div class="col-md-4 col-sm-6">
+    <div itemscope itemtype="http://schema.org/ArtGallery" class="gallery-detail">
+      <div class="col-sm-6">
         <div class="detail-card">
-
-          <span class="title">{{gallery.name}}</span>
+          <h1 itemprop="name" class="title">{{gallery.name}}</h1>
           <p>
-            {{gallery.width}}" x {{gallery.height}}" &dash; {{gallery.notes}}<br/>
-            {{gallery.date | date:'MMM/yy' }}
+          <span itemprop="contactPoint">
+          {{gallery.contact}}
+          </span><br/>
+          <span itemprop="telephone">
+          {{gallery.phone}}
+          </span><br/>
+          <span itemprop="email">
+          {{gallery.email}}
+          </span><br/>
           </p>
-          <a ng-hide="gallery.sold" class="inquire" href="#/gallery/{{gallery.id}}"></a>
+          <span itemprop="url">
+            <a target="_blank" href="{{gallery.website}}" title="{{gallery.name}}">
+              {{gallery.website}}
+            </a>
+          </span><br/>
+
+          <p itemprop="description">
+            {{gallery.description}}
+          </p>
+          <address itemprop="address">
+            {{gallery.location}}
+          </address>
+          <br/>
+
+          </p>
+
         </div>
       </div>
-      <div class="col-md-3 col-sm-4"
+      <div class="col-sm-1"></div>
+      <div class="col-sm-4"
            class="thumbnail ">
-        <div >
-          <div style="height: 305px">
-            <uib-carousel interval="myInterval" no-wrap="noWrapSlides">
-              <uib-slide ng-repeat="slide in slides" active="slide.active" >
+        <div>
+          <div style="height: 345px">
+            <uib-carousel interval="myInterval" no-wrap="noWrapSlides" ng-mouseover="captionBackground(true)"
+                          ng-mouseout="captionBackground(false)">
+              <uib-slide ng-repeat="slide in slides" active="slide.active">
                 <img ng-src="{{slide.imageUrl}}" style="margin:auto; width:auto; height:305px">
-                <div class="carousel-caption">
-                  <p>{{slide.name}}</p>
+                <div class="carousel-caption carousel-caption-background-{{showCaptionBackground}}">
+                  <p>{{slide.name}}<br/>&nbsp; <span ng-show="slide.sold == 'true'"><span style="color:#FF0000">sold</span></span></p>
                 </div>
               </uib-slide>
             </uib-carousel>

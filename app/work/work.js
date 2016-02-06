@@ -20,7 +20,7 @@ angular.module('myApp.work', ['ngRoute'])
 }])
 .controller('WorkCtrl', ['$scope', '$http', 'Work', function( $scope, $http) {
   $scope.works = [];
-  $http.get('work/works.json').success( function( data ) {
+  $http.get('http://www.ericavhay.com/portfolio/work/indexJson').success( function( data ) {
     $scope.works = data;
   });
 
@@ -89,7 +89,7 @@ angular.module('myApp.work', ['ngRoute'])
             * */
             setTimeout(function () {
               element.masonry("reload");
-            }, 1500);
+            }, 2500);
 
 
           });
@@ -103,7 +103,7 @@ angular.module('myApp.work', ['ngRoute'])
 var workServices = angular.module('myApp.workServices', ['ngResource']);
 workServices.factory('Work', ['$resource',
   function($resource){
-    return $resource('work/work-:workId.json', {}, {
+    return $resource('http://www.ericavhay.com/portfolio/work/viewJson/id/:workId', {}, {
       query: {method:'GET', params:{workId:'Work'}, isArray:true}
     });
   }]);

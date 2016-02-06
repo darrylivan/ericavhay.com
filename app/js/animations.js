@@ -5,7 +5,6 @@ var workAnimations = angular.module('myApp.animations', ['ngAnimate']);
 
 workAnimations.animation('.work', function () {
 
-
   var animateUp = function (element, className, done) {
     if (className != 'active') {
       return;

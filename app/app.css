@@ -1,23 +1,27 @@
 /* app css stylesheet */
 
 body {
-    font-family: 'Poiret One', cursive;
-    font-family: 'PT Sans Narrow', sans-serif;
-    font-family: 'Quicksand', sans-serif;
-    font-family: 'Alegreya Sans SC', sans-serif;
-    font-family: 'Josefin Sans', sans-serif;
-    background-color:#ffffff;
+
+    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Cabin', sans-serif;
+
+    background-color: #ffffff;
 }
 
-div {
-    background-color: transparent;
-}
 a {
-    color: #ff0000;
+    color: #d24d57;
 }
- a:hover {
+
+a:hover {
     color: #880000;
     text-decoration: none;
+}
+
+
+
+.view-container {
+    min-height: 400px;
 }
 
 
@@ -29,30 +33,55 @@ a {
 
 }
 
-
 /* menu **/
 
-.navbar-header
+.navbar-default {
+    background-color: #333;
+    padding-bottom: 5px
+}
+
+
+.navbar-default .navbar-nav>li>a
 {
+    color: #fff;
+}
+
+.navbar-default .navbar-nav>li>a:hover,
+.navbar-default .navbar-nav>li>a:active,
+.navbar-default .navbar-nav>li>a:focus,
+.navbar-default .navbar-nav>li>a::selection {
+    color: #d24d57;
+}
+
+
+.navbar-header {
+    font-family: 'Bitter', serif;
     font-size: 44px;
-    margin-top:5px;
-    color:#ff0000;
+    margin-top: 0px;
+    color: #999999;
     font-weight: bold;
+    position: relative;
 }
 
 .vhay-nav {
     margin-top: 17px;
-    font-size: 18px;
-    margin-left:10px;
-}
-.navbar-header span {
-    color:#333;
+    font-size: 20px;
+    margin-left: 10px;
 }
 
+.navbar-header .vhay {
+    color: #d24d57;
+}
+
+.navbar-header .subtitle {
+    font-size: 14px;
+    position: absolute;
+    top:49px;
+    left:126px;
+}
 .navbar-header span.hover-true {
-    color:#FF0000;
+    color: #d24d57;
 }
-
 
 /*  work/portfolio theme **/
 
@@ -70,13 +99,13 @@ a {
     bottom: 0;
     opacity: 1.0;
     font-size: 14px;
-    color: #222;
+    color: #737373;
     padding: 5px;
     background-color: #ffffff;
 }
 
 .tile-container .caption a {
-    color: #222;
+    /* color: #710909; */
 }
 
 .tile-container .caption a:hover {
@@ -86,11 +115,10 @@ a {
 
 .tile-container .caption .title {
     font-weight: bold;
-    font-size: 16px;
 }
 
-.tile-container .caption .sold {
-    color: #FF0000;
+.sold {
+    color: #2e2e2e;
 }
 
 .tile-container .caption.show_true {
@@ -105,16 +133,31 @@ a {
 .grid {
     border: none;
     padding: 0;
+    margin: 0;
 }
 
+
+
 .grid li {
-    width: 24.5%;
+    width:292px;
     display: inline-block;
     height: auto;
     border: none;
+    padding:0;
+    /*
+    margin-left: 0;
+    margin-right: 0;
+    */
     margin-bottom: 10px;
+}
+
+
+/*
+.grid li {
+    left: 0;
     margin-right: 0px;
 }
+
 
 @media (min-width: 750px) and (max-width: 970px) {
     .grid li {
@@ -132,35 +175,34 @@ a {
     .grid li {
         width: 100%;
     }
-
+*/
+@media (max-width: 399px) {
     body {
-        margin-left:10px;
+        margin-left: 10px;
     }
 }
 
 /**** word-detail ****/
-.work-detail
-{
+.work-detail {
     font-size: 18px;
 }
 
-.work-detail .detail-card {
+.detail-card {
     background-color: #ffffff;
 }
 
-.work-detail .detail-card {
+.detail-card {
     box-shadow: 4px 4px 2px #888888;
     padding: 20px;
 }
+
 .work-detail img {
     box-shadow: 4px 4px 2px #888888;
-    width:100%;
+    width: 100%;
 }
 
-.work-detail .title
-{
-    font-size: 32px;
-    font-weight: bold;
+.title {
+
 }
 
 /**** Transitions ****/
@@ -195,3 +237,20 @@ a {
     transform: scale(1);
 }
 
+footer {
+    margin-top: 35px;
+    border-top: 1px solid #929292;
+    background-color: #393939;
+    color: #ffffff;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    position: relative;
+    z-index: -1;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-family: 'Bitter', serif;
+}

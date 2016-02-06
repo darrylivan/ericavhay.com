@@ -11,7 +11,8 @@ angular.module('myApp', [
   'myApp.gallery',
   'myApp.version',
   'myApp.workServices',
-  'myApp.galleryServices'
+  'myApp.galleryServices',
+  'myApp.footer'
 ]).
 config(['$routeProvider', function($routeProvider) {
 

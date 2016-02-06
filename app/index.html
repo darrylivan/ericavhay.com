@@ -16,9 +16,8 @@
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link
-      href='https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700|Poiret+One|Josefin+Sans:400,700|Quicksand|Alegreya+Sans+SC:400,700,800'
-      rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700|Noto+Sans:400,700|Bitter:400,700|Cabin:400,700'
+        rel='stylesheet' type='text/css'>
 
   <!-- for CSS Transitions and/or Keyframe Animations -->
   <link rel="stylesheet" href="css/animations.css">
@@ -32,11 +31,12 @@
 
 <div ng-controller="menuCtrl">
 
-  <div class="navbar navbar-default">
+  <div class="navbar navbar-fixed-top navbar-default">
     <div class="container">
       <div class="navbar-header">
         erica <span class="vhay hover-{{hoverNav}}" ng-mouseover="setHover(true)"
                     ng-mouseout="setHover(false)">vhay</span>
+        <span class="subtitle">oil painter</span>
       </div>
       <div class="collapse navbar-collapse vhay-nav navbar-right">
         <ul class="nav navbar-nav">
@@ -61,10 +61,42 @@
   </div>
 
 </div>
+
+<div style="height:100px; clear: both;">
+  <!-- create a space for the menu to be at the top. -->
+</div>
+
 <div class="view-container">
   <div ng-view class="view-frame"></div>
 </div>
-<div>Angular seed app: v<span app-version></span></div>
+
+
+<div ng-controller="FooterCtrl">
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-sm-4">
+        </div>
+
+        <div class="col-sm-4">
+          <ul class="list-unstyled">
+            <li>
+              <a href="tel:928.255.8884" title="erica vhay phone number" >928.255.8884</a><br/>
+            </li>
+            <li>
+              <a href="mailto:info@ericavhay.com" title="erica vhay email" >info@ericavhay.com</a><br/>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-sm-4">
+          &copy; Erica Vhay, {{date | date:'yyyy'}}
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
 
 <!-- In production use:
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
@@ -103,6 +135,7 @@
 <script src="js/services.js"></script>
 <script src="menu/menu.js"></script>
 <script src="gallery/gallery.js"></script>
+<script src="footer/footer.js"></script>
 <script src="components/version/version.js"></script>
 <script src="components/version/version-directive.js"></script>
 <script src="components/version/interpolate-filter.js"></script>
