@@ -2,7 +2,7 @@
   <div class="row ">
     <!--Body content-->
     <div itemscope itemtype="http://schema.org/ArtGallery" class="gallery-detail">
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <div class="detail-card">
           <h1 itemprop="name" class="title">{{gallery.name}}</h1>
           <p>
@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="col-sm-1"></div>
-      <div class="col-sm-4"
+      <div class="col-sm-7"
            class="thumbnail ">
         <div>
           <div style="height: 345px">
@@ -44,7 +44,8 @@
               <uib-slide ng-repeat="slide in slides" active="slide.active">
                 <img ng-src="{{slide.imageUrl}}" style="margin:auto; width:auto; height:305px">
                 <div class="carousel-caption carousel-caption-background-{{showCaptionBackground}}">
-                  <p>{{slide.name}}<br/>&nbsp; <span ng-show="slide.sold == 'true'"><span style="color:#FF0000">sold</span></span></p>
+                  <p>{{slide.name}}<br/>&nbsp; <span ng-show="slide.sold == 'true'"><span
+                      style="color:#FF0000">sold</span></span></p>
                 </div>
               </uib-slide>
             </uib-carousel>

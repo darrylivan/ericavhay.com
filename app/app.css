@@ -6,7 +6,7 @@ body {
     font-family: 'Ubuntu', sans-serif;
     font-family: 'Cabin', sans-serif;
 
-    background-color: #ffffff;
+    background-color: #333333;
 }
 
 a {
@@ -18,8 +18,11 @@ a:hover {
     text-decoration: none;
 }
 
+
 .view-container {
     min-height: 400px;
+    background-color:#ffffff;
+    padding-bottom:40px;
 }
 
 .thumb {
@@ -32,6 +35,12 @@ a:hover {
 
 /* menu **/
 
+
+.menu-spacer {
+    height:100px;
+    clear: both;
+    background-color: #ffffff;
+}
 .navbar-default {
     background-color: #333;
     padding-bottom: 5px
@@ -221,7 +230,7 @@ a:hover {
 }
 
 footer {
-    margin-top: 35px;
+    margin-top: 0px;
     border-top: 1px solid #929292;
     background-color: #393939;
     color: #ffffff;

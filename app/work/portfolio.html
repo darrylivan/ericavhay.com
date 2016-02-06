@@ -1,7 +1,12 @@
 <div class="container">
-  <div class="row-fluid">
-    <div class="col-md-2">
+  <div class="row">
+    <div class="col-md-12">
       <!--Sidebar content-->
+      <ul class="list-inline">
+        <li ng-repeat="style in styles" class="style-listing" >
+          <a href="" ng-click="filterOnStyle( style )" >{{style}}</a>
+        </li>
+      </ul>
     </div>
   </div>
   <div class="row">
@@ -9,9 +14,9 @@
 
 
     <ul class="grid  " masonry="true" style="list-style: none;">
-      <li masonry-tile class="col-sm-3"
-          ng-repeat="work in works | filter:{archive:false} | filter:{featured:true} | orderBy:orderProp"
-          class="thumbnail work-listing">
+      <li masonry-tile
+          ng-repeat="work in works | filter:{archive:false} | filter:{featured:true} | filter:selectedStyles) | orderBy:orderProp"
+          class="thumbnail work-listing  {{work.style}} ">
         <div class="tile-container ">
           <a href="#/work/{{work.id}}" class="thumb"><img ng-src="{{work.imageUrl}}" alt="{{work.name}}"></a>
           <div class="caption">

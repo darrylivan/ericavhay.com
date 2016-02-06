@@ -24,7 +24,23 @@ angular.module('myApp.work', ['ngRoute'])
     $scope.works = data;
   });
 
+  $scope.filterOnStyle = function( style )
+  {
+    console.log('filtering on ' + style );
+    if (style == 'all')
+    {
+      $scope.selectedStyles = $scope.styles;
+    }
+    else
+    {
+      $scope.selectedStyles = [style];
+    }
+
+  }
+
   $scope.orderProp = '-date';
+  $scope.styles = [ 'landscape', 'portrait', 'abstract', 'edibles'];
+  $scope.selectedStyles = $scope.styles;
 }])
 .controller('WorkDetailCtrl', ['$scope', '$routeParams', 'Work',
   function( $scope, $routeParams, Work ) {
