@@ -34,16 +34,18 @@
   <div class="navbar navbar-fixed-top navbar-default">
     <div class="container">
       <div class="navbar-header">
+        <a href="http://www.ericavhay.com">
         erica <span class="vhay hover-{{hoverNav}}" ng-mouseover="setHover(true)"
                     ng-mouseout="setHover(false)">vhay</span>
+        </a>
         <span class="subtitle">oil painter</span>
       </div>
       <div class="collapse navbar-collapse vhay-nav navbar-right">
         <ul class="nav navbar-nav">
-          <li><a href="#/portfolio">portfolio</a></li>
-          <li><a href="#/galleries">galleries</a></li>
-          <li><a href="#/about">about</a></li>
-          <li><a href="#/contact">contact</a></li>
+          <li><a class="{{portfolioActive}}" href="#/portfolio">portfolio</a></li>
+          <li><a class="{{galleriesActive}}"  href="#/venues">venues</a></li>
+          <li><a class="{{aboutActive}}"  href="#/about">about</a></li>
+          <li><a class="{{contactActive}}"  href="#/contact">contact</a></li>
           <li uib-dropdown on-toggle="toggled(open)">
             <a href uib-dropdown-toggle>admin</a>
             <ul uib-dropdown-menu aria-labelledby="simple-dropdown">
@@ -132,6 +134,7 @@
 <script src="js/filters.js"></script>
 <script src="js/animations.js"></script>
 <script src="work/work.js"></script>
+<script src="js/site.js"></script>
 <script src="js/services.js"></script>
 <script src="menu/menu.js"></script>
 <script src="gallery/gallery.js"></script>

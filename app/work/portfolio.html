@@ -1,24 +1,37 @@
+<div class="intro-title">
+  <div class="container overflow-hidden">
+    <div class="row">
+      <div class="col-sm-12">
+        <p class="lead text-large fade-in pull-right" ng-if="runAnimation">
+          <span title="erica vhay oil painter">erica vhay</span>. <strong>featured work.</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container">
   <div class="row">
     <div class="col-md-12">
       <!--Sidebar content-->
-      <ul class="list-inline">
-        <li ng-repeat="style in styles" class="style-listing" >
-          <a href="" ng-click="filterOnStyle( style )" >{{style}}</a>
+      <ul class="list-inline button-list">
+        <li ng-repeat="style in styles" class="style-listing ">
+          <a href="" ng-click="filterOnStyle( style )" title="oil painting style">{{style}}</a>
         </li>
       </ul>
     </div>
   </div>
+
   <div class="row">
     <!--Body content-->
 
 
     <ul class="grid  " masonry="true" style="list-style: none;">
       <li masonry-tile
-          ng-repeat="work in works | filter:{archive:false} | filter:{featured:true} | filter:selectedStyles) | orderBy:orderProp"
+          ng-repeat="work in works | filter:{archive:'false'} | filter:{featured:true} | filter:filters | orderBy:orderProp"
           class="thumbnail work-listing  {{work.style}} ">
         <div class="tile-container ">
-          <a href="#/work/{{work.id}}" class="thumb"><img ng-src="{{work.imageUrl}}" alt="{{work.name}}"></a>
+          <a href="#/work/{{work.id}}" class=""><img ng-src="{{work.imageUrl}}" alt="{{work.name}}"></a>
           <div class="caption">
             <h3>
               <a class="title" href="#/work/{{work.id}}">{{work.name}}</a>

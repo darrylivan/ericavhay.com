@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.work', ['ngRoute'])
+angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.
@@ -18,10 +18,28 @@ angular.module('myApp.work', ['ngRoute'])
   });
 
 }])
-.controller('WorkCtrl', ['$scope', '$http', 'Work', function( $scope, $http) {
+.controller('WorkCtrl', ['$scope', '$http', '$timeout', 'Work', function( $scope, $http, $timeout) {
   $scope.works = [];
+  $scope.filters = {};
+  $scope.styles = [ 'all' ];
+
   $http.get('http://www.ericavhay.com/portfolio/work/indexJson').success( function( data ) {
     $scope.works = data;
+    $scope.runAnimation = false;
+
+    for (var i = 0; i < data.length; i++)
+    {
+      var work = data[i];
+      if ($scope.styles.indexOf( work.style ) == -1)
+      {
+        if (( typeof work.style !== 'undefined' ) && ( work.style !== '') && (work.archive !== 'true')  && (work.featured === 'true'))
+        {
+          $scope.styles.push( work.style );
+        }
+      }
+    }
+
+    $timeout(function() { $scope.runAnimation = true;});
   });
 
   $scope.filterOnStyle = function( style )
@@ -29,18 +47,16 @@ angular.module('myApp.work', ['ngRoute'])
     console.log('filtering on ' + style );
     if (style == 'all')
     {
-      $scope.selectedStyles = $scope.styles;
+      $scope.filters = {};
     }
     else
     {
-      $scope.selectedStyles = [style];
+      $scope.filters.style = style ;
     }
 
   }
 
   $scope.orderProp = '-date';
-  $scope.styles = [ 'landscape', 'portrait', 'abstract', 'edibles'];
-  $scope.selectedStyles = $scope.styles;
 }])
 .controller('WorkDetailCtrl', ['$scope', '$routeParams', 'Work',
   function( $scope, $routeParams, Work ) {
@@ -84,7 +100,7 @@ angular.module('myApp.work', ['ngRoute'])
             element.masonry(options);
 
             element.on("$destroy", function () {
-              element.masonry('destroy')
+              //element.masonry('destroy')
             });
 
             if (options.model) {
@@ -95,7 +111,7 @@ angular.module('myApp.work', ['ngRoute'])
                   // Wait inside directives to render
                   setTimeout(function () {
                     element.masonry("reload");
-                  });
+                  }, 500);
                 });
               });
             }
@@ -105,7 +121,7 @@ angular.module('myApp.work', ['ngRoute'])
             * */
             setTimeout(function () {
               element.masonry("reload");
-            }, 2500);
+            }, 500);
 
 
           });

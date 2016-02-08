@@ -10,6 +10,7 @@ angular.module('myApp', [
   'myApp.work',
   'myApp.gallery',
   'myApp.version',
+  'myApp.site',
   'myApp.workServices',
   'myApp.galleryServices',
   'myApp.footer'

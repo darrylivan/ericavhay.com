@@ -3,7 +3,7 @@
 
 /* services */
 
-var galleryServices = angular.module('myApp.galleryServices', ['ngResource']);
+var galleryServices = angular.module('myApp.galleryServices', ['ngResource', 'ngAnimate']);
 galleryServices.factory('Gallery', ['$resource',
   function($resource){
     return $resource('http://www.ericavhay.com/portfolio/gallery/viewJson/id/:galleryId', {}, {
@@ -14,18 +14,29 @@ galleryServices.factory('Gallery', ['$resource',
 angular.module('myApp.gallery', ['ngRoute'])
 
   .config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/galleries', {
+    $routeProvider
+      .when('/galleries', {
       templateUrl: 'gallery/galleries.html',
       controller: 'GalleryCtrl'
-    }).when('/gallery/:galleryId', {
+    })
+      .when('/venues', {
+        templateUrl: 'gallery/galleries.html',
+        controller: 'GalleryCtrl'
+      })
+      .when('/contact', {
+      templateUrl: 'gallery/contact.html',
+      controller: 'GalleryCtrl'
+    })
+      .when('/gallery/:galleryId', {
       templateUrl: 'gallery/gallery-detail.html',
       controller: 'GalleryDetailCtrl'
     });
 
   }])
-  .controller('GalleryCtrl', ['$scope', '$http', 'Gallery',
-    function ($scope, $http, Gallery) {
+  .controller('GalleryCtrl', ['$scope', '$http', '$timeout', 'Gallery',
+    function ($scope, $http, $timeout, Gallery) {
       $scope.galleries = [];
+      $scope.runAnimation = false;
 
       /* for shuffling the order of the galleries */
       function shuffle(array) {
@@ -48,10 +59,14 @@ angular.module('myApp.gallery', ['ngRoute'])
 
         // randomize the order.
         $scope.galleries = shuffle($scope.galleries);
+
+        // now, run any animations.
+        $timeout(function() { $scope.runAnimation = true;});
       });
 
-      //$scope.orderProp = 'name';
+
     }])
+
   .controller('GalleryDetailCtrl', ['$scope', '$routeParams', 'Gallery',
     function( $scope, $routeParams, Gallery ) {
       $scope.gallery = Gallery.get({galleryId: $routeParams.galleryId}, function( gallery ) {
@@ -113,7 +128,7 @@ angular.module('myApp.gallery', ['ngRoute'])
             element.masonry(options);
 
             element.on("$destroy", function () {
-              element.masonry('destroy')
+              //element.masonry('destroy')
             });
 
             if (options.model) {
