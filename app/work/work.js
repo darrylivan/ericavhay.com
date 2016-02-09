@@ -8,9 +8,17 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
     templateUrl: 'work/portfolio.html',
     controller: 'WorkCtrl'
   }).
+  when('/work/admin', {
+    templateUrl: 'work/admin.html',
+    controller: 'WorkAdminCtrl'
+  }).
   when('/work/:workId', {
     templateUrl: 'work/work-detail.html',
     controller: 'WorkDetailCtrl'
+  }).
+  when('/work/update/:workId', {
+    templateUrl: 'work/work-update.html',
+    controller: 'WorkUpdateCtrl'
   }).
   when('/work/inquire/:workId', {
     templateUrl: 'work/work-purchase.html',
@@ -39,7 +47,8 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
       }
     }
 
-    $timeout(function() { $scope.runAnimation = true;});
+    $timeout(function() { $scope.runAnimation = true;}, 500);
+
   });
 
   $scope.filterOnStyle = function( style )
@@ -57,7 +66,51 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
   }
 
   $scope.orderProp = '-date';
+
 }])
+  .controller('WorkAdminCtrl', ['$scope', '$http', '$timeout', 'Work', function( $scope, $http, $timeout) {
+    $scope.works = [];
+    $scope.filters = {};
+    $scope.styles = [  ];
+
+    $http.get('http://www.ericavhay.com/portfolio/work/indexJson').success( function( data ) {
+      $scope.works = data;
+      $scope.runAnimation = false;
+      $scope.styles = [ 'all' ];
+
+      for (var i = 0; i < data.length; i++)
+      {
+        var work = data[i];
+        if ($scope.styles.indexOf( work.style ) == -1)
+        {
+          if (( typeof work.style !== 'undefined' ) && ( work.style !== '') && (work.archive !== 'true')  && (work.featured === 'true'))
+          {
+            $scope.styles.push( work.style );
+          }
+        }
+      }
+
+      $timeout(function() { $scope.runAnimation = true;}, 500);
+
+    });
+
+    $scope.filterOnStyle = function( style )
+    {
+      console.log('filtering on ' + style );
+      if (style == 'all')
+      {
+        $scope.filters = {};
+      }
+      else
+      {
+        $scope.filters.style = style ;
+      }
+
+    }
+
+    $scope.orderProp = '-date';
+
+  }])
 .controller('WorkDetailCtrl', ['$scope', '$routeParams', 'Work',
   function( $scope, $routeParams, Work ) {
   $scope.work = Work.get({workId: $routeParams.workId}, function( work ) {
@@ -66,6 +119,49 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
 
 
 }])
+  .controller('WorkUpdateCtrl', ['$scope', '$routeParams', 'Work', 'Styles', 'Galleries',
+    function( $scope, $routeParams, Work, Styles, Galleries ) {
+      $scope.tryAutoPrice = false;
+      $scope.supplement = 0;
+      $scope.autoPrice = 'not set';
+      $scope.styles = [];
+      $scope.galleries = [];
+
+      $scope.work = Work.get({workId: $routeParams.workId}, function( work ) {
+        // do anything special, or just allow data bindings to do it...
+      });
+
+
+      $scope.styles = Styles.query({}, function( styles ) {
+        // do anything special, or just allow data bindings to do it...
+
+      });
+
+
+      $scope.galleries = Galleries.query({}, function( galleries ) {
+        // do anything special, or just allow data bindings to do it...
+
+      });
+
+
+      $scope.computeAutoPrice = function(  )
+      {
+        const MIN_PRICE = 55.0;
+        const EXPONENT_FACTOR = 1.35;
+        const LINEAR_FACTOR = 18;
+
+        var area = $scope.work.height * $scope.work.width;
+
+        // work on square root of area...
+        var sqArea = Math.sqrt(area);
+
+        var psif = LINEAR_FACTOR;
+        var price = Math.pow( sqArea, 2 )*EXPONENT_FACTOR + psif * sqArea + MIN_PRICE;
+        price = Math.floor( price / 10  ) * 10;
+        $scope.autoPrice = ( price + parseInt( $scope.supplement ));
+      }
+
+    }])
   .directive("masonry", function () {
     var NGREPEAT_SOURCE_RE = '<!-- ngRepeat: ((.*) in ((.*?)( track by (.*))?)) -->';
     return {

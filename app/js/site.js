@@ -5,19 +5,26 @@
 
 angular.module('myApp.site', ['ngRoute', 'ngAnimate'])
 
-  .config(['$routeProvider', function($routeProvider) {
-    $routeProvider.
-    when('/about', {
-      templateUrl: 'partials/about.html',
-      controller: 'SiteCtrl'
-    });
+  .config(['$routeProvider', function ($routeProvider) {
+    $routeProvider
+      .when('/about', {
+        templateUrl: 'partials/about.html',
+        controller: 'SiteCtrl'
+      })
+    ;
 
   }])
-  .controller('SiteCtrl', ['$scope', '$timeout',
-    function( $scope, $timeout) {
-    $scope.runAnimation = false;
+  .controller('SiteCtrl', function ($scope,
+                                    USER_ROLES,
+                                    AuthService) {
 
-    // now, run any animations.
-    $timeout(function() { $scope.runAnimation = true;});
+    $scope.currentUser = null;
+    $scope.userRoles = USER_ROLES;
+    $scope.isAuthorized = AuthService.isAuthorized;
 
-  }]);
+    $scope.setCurrentUser = function (user) {
+      $scope.currentUser = user;
+    };
+
+
+  })

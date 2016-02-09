@@ -1,0 +1,154 @@
+<div class="container">
+  <div class="row ">
+    <!--Body content-->
+    <form class="form-horizontal">
+      <div class="work-detail">
+        <div class=" col-sm-5">
+          <div class="form-group">
+            <label for="name" class="col-sm-3 control-label">name</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="name" name="name" placeholder="name" ng-model="work.name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="notes" class="col-sm-3 control-label">notes</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="notes" placeholder="notes" ng-model="work.notes">
+            </div>
+          </div>
+
+          <!-- featured info -->
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-9">
+              <div class="checkbox">
+                <label>
+                  <input id="featured" name="featured" ng-model="work.featured" type="checkbox"> featured
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- archive info -->
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-9">
+              <div class="checkbox">
+                <label>
+                  <input id="archive" name="archive" ng-model="work.archive" type="checkbox"> archive
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- sold info -->
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-9">
+              <div class="checkbox">
+                <label>
+                  <input ng-model="work.sold" type="checkbox"> sold
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group" ng-if="work.sold">
+            <label for="notes" class="col-sm-3 control-label">soldDate</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="soldDate" placeholder="soldDate" ng-model="work.soldDate">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="styleId" class="col-sm-3 control-label">style</label>
+            <div class="col-sm-9">
+              <select ng-model="work.styleId" class="form-control" name="styleId">
+                <option ng-repeat="style in styles" class="style-listing " value="{{style.id}}">{{style.name}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="galleryId" class="col-sm-3 control-label">gallery</label>
+            <div class="col-sm-9">
+              <select ng-model="work.galleryId" class="form-control" name="style">
+                <option ng-repeat="gallery in galleries" class="gallery-listing " value="{{gallery.id}}">{{gallery.name}}</option>
+              </select>
+            </div>
+          </div>
+
+
+        </div>
+
+        <!-- second column -->
+        <div class="col-sm-5">
+
+          <div class="form-group">
+            <label for="width" class="col-sm-3 control-label">size &rdquo;</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" id="width" name="width" placeholder="width in inches"
+                     ng-model="work.width">
+            </div>
+            <div class="col-sm-1">x</div>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" id="height" name="height" placeholder="height in inches"
+                     ng-model="work.height">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="width" class="col-sm-3 control-label">price ($)</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="price" name="price" placeholder="price" ng-model="work.price">
+            </div>
+          </div>
+
+          <!-- price info -->
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+              <div class="checkbox">
+                <label>
+                  <input ng-model="tryAutoPrice" type="checkbox"> auto price
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group" ng-if="tryAutoPrice">
+            <label for="supplement" class="col-sm-3 control-label">autoprice</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" name="supplement" id="supplement"
+                     placeholder="supplement" ng-model="supplement"/>
+            </div>
+            <div class="col-sm-3">
+              <input type="button" class="form-control btn btn-warning"
+                     ng-click="computeAutoPrice()" value="Auto Price"/>
+            </div>
+            <div class="col-sm-1">=</div>
+            <div class="col-sm-3">
+              <input type="text" class="form-control " id="autoPrice" ng-model="autoPrice"/>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="width" class="col-sm-3 control-label">internal notes</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="internalNotes"
+                     placeholder="internal notes" ng-model="work.internalNotes">
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+              <button type="submit" class="btn btn-warning">save</button>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="col-sm-2"
+             class="thumbnail ">
+          <img ng-src="{{work.imageUrl}}" alt="{{work.name}}">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

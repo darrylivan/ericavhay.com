@@ -3,14 +3,6 @@
 
 /* services */
 
-var galleryServices = angular.module('myApp.galleryServices', ['ngResource', 'ngAnimate']);
-galleryServices.factory('Gallery', ['$resource',
-  function($resource){
-    return $resource('http://www.ericavhay.com/portfolio/gallery/viewJson/id/:galleryId', {}, {
-      query: {method:'GET', params:{galleryId:'Gallery'}, isArray:true}
-    });
-  }]);
-
 angular.module('myApp.gallery', ['ngRoute'])
 
   .config(['$routeProvider', function ($routeProvider) {
@@ -160,3 +152,17 @@ angular.module('myApp.gallery', ['ngRoute'])
     };
   });
 
+
+var galleryServices = angular.module('myApp.galleryServices', ['ngResource', 'ngAnimate']);
+galleryServices.factory('Gallery', ['$resource',
+  function($resource){
+    return $resource('http://www.ericavhay.com/portfolio/gallery/viewJson/id/:galleryId', {}, {
+      query: {method:'GET', params:{galleryId:'Gallery'}, isArray:true}
+    });
+  }]);
+galleryServices.factory('Galleries', ['$resource',
+  function($resource){
+    return $resource('http://www.ericavhay.com/portfolio/gallery/indexJson', {}, {
+      query: {method:'GET', isArray:true}
+    });
+  }]);

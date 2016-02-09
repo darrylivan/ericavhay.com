@@ -28,7 +28,7 @@
 
     <ul class="grid  " masonry="true" style="list-style: none;">
       <li masonry-tile
-          ng-repeat="work in works | filter:{archive:'false'} | filter:{featured:true} | filter:filters | orderBy:orderProp"
+          ng-repeat="work in works | filter:{archive:false} | filter:{featured:true} | filter:filters | orderBy:orderProp"
           class="thumbnail work-listing  {{work.style}} ">
         <div class="tile-container ">
           <a href="#/work/{{work.id}}" class=""><img ng-src="{{work.imageUrl}}" alt="{{work.name}}"></a>
@@ -37,10 +37,10 @@
               <a class="title" href="#/work/{{work.id}}">{{work.name}}</a>
             </h3>
             <div class="pull-right">
-              <a ng-show="work.sold=='false'" class="inquire" href="#/work/inquire/{{work.id}}"
+              <a ng-show="work.sold==false" class="inquire" href="#/work/inquire/{{work.id}}"
                  title="inquire for purchase">[
                 inquire ]</a>
-              <span ng-show="work.sold=='true'" class="sold">[ sold ]</span>
+              <span ng-show="work.sold==true" class="sold">[ sold ]</span>
             </div>
               <span class="notes">{{work.width}}" x {{work.height}}" <span
                   ng-if="work.notes">{{ '/' + work.notes }}</span> </span><br/>

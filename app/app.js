@@ -11,8 +11,11 @@ angular.module('myApp', [
   'myApp.gallery',
   'myApp.version',
   'myApp.site',
+  'myApp.user',
+  'myApp.styleServices',
   'myApp.workServices',
   'myApp.galleryServices',
+  'myApp.authServices',
   'myApp.footer'
 ]).
 config(['$routeProvider', function($routeProvider) {

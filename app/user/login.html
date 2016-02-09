@@ -1,0 +1,38 @@
+<div class="intro-title">
+  <div class="container overflow-hidden">
+    <div class="row">
+      <div class="col-sm-12">
+        <p class="lead text-large fade-in pull-right" >
+          <span title="erica vhay oil painter">erica vhay</span>. <strong>sign in.</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <form name="loginForm" ng-controller="UserCtrl" class="form-inline"
+            ng-submit="login(credentials)" novalidate>
+        <div class="form-group">
+          <!-- label for="username">Username:</label -->
+          <input type="text" id="username" placeholder="username" name="username"
+               class="form-control"  ng-model="credentials.username">
+        </div>
+        <div class="form-group">
+          <!-- label for="password">Password:</label -->
+          <input type="password" id="password" placeholder="password" name="password"
+                 class="form-control"    ng-model="credentials.password">
+        </div>
+        <div class="form-group">
+          <button class="btn btn-warning" type="submit">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+</div>
+
+

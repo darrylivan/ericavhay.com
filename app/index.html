@@ -15,7 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700|Noto+Sans:400,700|Bitter:400,700|Cabin:400,700'
         rel='stylesheet' type='text/css'>
 
@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="menu/menu.css">
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-<body>
+<body ng-controller="SiteCtrl">
 
 <div ng-controller="menuCtrl">
 
@@ -46,7 +46,7 @@
           <li><a class="{{galleriesActive}}"  href="#/venues">venues</a></li>
           <li><a class="{{aboutActive}}"  href="#/about">about</a></li>
           <li><a class="{{contactActive}}"  href="#/contact">contact</a></li>
-          <li uib-dropdown on-toggle="toggled(open)">
+          <li ng-if="currentUser" uib-dropdown on-toggle="toggled(open)">
             <a href uib-dropdown-toggle>admin</a>
             <ul uib-dropdown-menu aria-labelledby="simple-dropdown">
               <li role="menuitem"><a href="#/gallery/admin">galleries</a></li>
@@ -93,7 +93,10 @@
         </div>
 
         <div class="col-sm-4">
-          &copy; Erica Vhay, {{date | date:'yyyy'}}
+          &copy; Erica Vhay, {{date | date:'yyyy'}}<br/>
+          <a  ng-if="!currentUser" href="'#/login"><i class="glyphicon glyphicon-star-empty"></i></a>
+          <a  ng-if="currentUser" href="'#/logout"><i class="glyphicon glyphicon-star"></i></a>
+
         </div>
       </div>
     </div>
@@ -134,11 +137,13 @@
 <script src="js/filters.js"></script>
 <script src="js/animations.js"></script>
 <script src="work/work.js"></script>
-<script src="js/site.js"></script>
 <script src="js/services.js"></script>
 <script src="menu/menu.js"></script>
+<script src="user/user.js"></script>
+<script src="style/style.js"></script>
 <script src="gallery/gallery.js"></script>
 <script src="footer/footer.js"></script>
+<script src="js/site.js"></script>
 <script src="components/version/version.js"></script>
 <script src="components/version/version-directive.js"></script>
 <script src="components/version/interpolate-filter.js"></script>

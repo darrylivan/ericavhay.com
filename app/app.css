@@ -98,7 +98,6 @@ a:hover {
     position: relative;
     /* box-shadow: 4px 4px 2px #888888; */
     border-radius: 0px;
-
 }
 
 .tile-container .caption {
@@ -202,6 +201,21 @@ a:hover {
 
 }
 
+
+
+/** admin **/
+
+ul.admin li .admin-row-container
+{
+    clear:both;
+}
+
+ul.admin li .admin-row-container img
+{
+    float:left;
+    max-height: 50px;
+    margin-right: 10px;
+}
 /**** Transitions ****/
 .masonry,
 .masonry li { /* apply before masonry add class */
@@ -277,6 +291,14 @@ h1, h2, h3, h4, h5, h6 {
     padding-top: 80px;
     padding-bottom: 60px;
     min-height: 227px;
+    color: #737373;
+}
+
+
+.intro-title-admin {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    min-height: 27px;
     color: #737373;
 }
 
