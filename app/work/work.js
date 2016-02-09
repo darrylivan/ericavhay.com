@@ -119,18 +119,51 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
 
 
 }])
-  .controller('WorkUpdateCtrl', ['$scope', '$routeParams', 'Work', 'Styles', 'Galleries',
-    function( $scope, $routeParams, Work, Styles, Galleries ) {
+  .controller('WorkUpdateCtrl', ['$scope', '$routeParams', 'Work', 'Styles', 'Galleries', '$filter',
+    function( $scope, $routeParams, Work, Styles, Galleries, $filter ) {
       $scope.tryAutoPrice = false;
       $scope.supplement = 0;
+      $scope.basePrice = 0;
       $scope.autoPrice = 'not set';
       $scope.styles = [];
       $scope.galleries = [];
 
       $scope.work = Work.get({workId: $routeParams.workId}, function( work ) {
         // do anything special, or just allow data bindings to do it...
+
+        // calculate auto price
+        const MIN_PRICE = 55.0;
+        const EXPONENT_FACTOR = 1.35;
+        const LINEAR_FACTOR = 18;
+
+        var area = $scope.work.height * $scope.work.width;
+
+        // work on square root of area...
+        var sqArea = Math.sqrt(area);
+
+        var psif = LINEAR_FACTOR;
+        var price = Math.pow( sqArea, 2 )*EXPONENT_FACTOR + psif * sqArea + MIN_PRICE;
+        price = Math.floor( price / 10  ) * 10;
+        $scope.basePrice = price;
+        $scope.autoPrice =  $scope.basePrice + $scope.supplement ;
       });
 
+      $scope.updateAuto = function()
+      {
+        $scope.autoPrice =  $scope.basePrice + $scope.supplement ;
+      }
+
+      $scope.updateSoldDate = function()
+      {
+        if ($scope.work.sold)
+        {
+          // see if we need to set the sold date
+          if ( ($scope.work.soldDate === '') || ($scope.work.soldDate === '0000-00-00'))
+          {
+            $scope.work.soldDate = $filter('date')(new Date(), "yyyy-MM-dd");
+          }
+        }
+      }
 
       $scope.styles = Styles.query({}, function( styles ) {
         // do anything special, or just allow data bindings to do it...
@@ -144,22 +177,8 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
       });
 
 
-      $scope.computeAutoPrice = function(  )
-      {
-        const MIN_PRICE = 55.0;
-        const EXPONENT_FACTOR = 1.35;
-        const LINEAR_FACTOR = 18;
 
-        var area = $scope.work.height * $scope.work.width;
 
-        // work on square root of area...
-        var sqArea = Math.sqrt(area);
-
-        var psif = LINEAR_FACTOR;
-        var price = Math.pow( sqArea, 2 )*EXPONENT_FACTOR + psif * sqArea + MIN_PRICE;
-        price = Math.floor( price / 10  ) * 10;
-        $scope.autoPrice = ( price + parseInt( $scope.supplement ));
-      }
 
     }])
   .directive("masonry", function () {
