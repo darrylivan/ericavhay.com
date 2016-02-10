@@ -26,12 +26,12 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
   });
 
 }])
-.controller('WorkCtrl', ['$scope', '$http', '$timeout', 'Work', function( $scope, $http, $timeout) {
+.controller('WorkCtrl', ['$scope', '$http', '$timeout', 'Work', function( $scope, $http, $timeout, Work) {
   $scope.works = [];
   $scope.filters = {};
   $scope.styles = [ 'all' ];
 
-  $http.get('http://www.ericavhay.com/portfolio/work/indexJson').success( function( data ) {
+  Work.query( function( data ) {
     $scope.works = data;
     $scope.runAnimation = false;
 
@@ -68,12 +68,13 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
   $scope.orderProp = '-date';
 
 }])
-  .controller('WorkAdminCtrl', ['$scope', '$http', '$timeout', 'Work', function( $scope, $http, $timeout) {
+  .controller('WorkAdminCtrl', ['$scope', '$http', '$timeout', 'Work', function( $scope, $http, $timeout, Work) {
+    $scope.work = new Work;
     $scope.works = [];
     $scope.filters = {};
     $scope.styles = [  ];
 
-    $http.get('http://www.ericavhay.com/portfolio/work/indexJson').success( function( data ) {
+    Work.query( function( data ) {
       $scope.works = data;
       $scope.runAnimation = false;
       $scope.styles = [ 'all' ];
@@ -113,7 +114,7 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
   }])
 .controller('WorkDetailCtrl', ['$scope', '$routeParams', 'Work',
   function( $scope, $routeParams, Work ) {
-  $scope.work = Work.get({workId: $routeParams.workId}, function( work ) {
+  $scope.work = Work.query({id: $routeParams.workId}, function( work ) {
     // do anything special, or just allow data bindings to do it...
   });
 
@@ -128,16 +129,15 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
       $scope.styles = [];
       $scope.galleries = [];
 
-      $scope.work = Work.get({workId: $routeParams.workId}, function( work ) {
-        // do anything special, or just allow data bindings to do it...
+      $scope.work = Work.get({id: $routeParams.workId}, function( work ) {
 
-        // calculate auto price
+        console.log(work);
+        // calculate auto price after work is loaded.
         const MIN_PRICE = 55.0;
         const EXPONENT_FACTOR = 1.35;
         const LINEAR_FACTOR = 18;
 
         var area = $scope.work.height * $scope.work.width;
-
         // work on square root of area...
         var sqArea = Math.sqrt(area);
 
@@ -145,14 +145,17 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
         var price = Math.pow( sqArea, 2 )*EXPONENT_FACTOR + psif * sqArea + MIN_PRICE;
         price = Math.floor( price / 10  ) * 10;
         $scope.basePrice = price;
-        $scope.autoPrice =  $scope.basePrice + $scope.supplement ;
+
+        $scope.updateAuto();
       });
 
+      /* when supplement changes, calculate the new autoprice */
       $scope.updateAuto = function()
       {
         $scope.autoPrice =  $scope.basePrice + $scope.supplement ;
       }
 
+      /* when sold is set to true, need to set the sold date to today if not already set */
       $scope.updateSoldDate = function()
       {
         if ($scope.work.sold)
@@ -176,12 +179,25 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
 
       });
 
-
-
+      $scope.save = function( work )
+      {
+        if ($scope.work.id) {
+          // update existing.
+          console.log('sending update...');
+          Work.update({id: $scope.work.id}, $scope.work);
+        } else {
+          // create new
+          $scope.work.$save().then(function(response) {
+            $scope.work.push(response)
+          });
+        }
+      }
 
 
     }])
   .directive("masonry", function () {
+
+    /* set up the masonry stuff */
     var NGREPEAT_SOURCE_RE = '<!-- ngRepeat: ((.*) in ((.*?)( track by (.*))?)) -->';
     return {
       compile: function(element, attrs) {
@@ -250,8 +266,10 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
 var workServices = angular.module('myApp.workServices', ['ngResource']);
 workServices.factory('Work', ['$resource',
   function($resource){
-    return $resource('http://www.ericavhay.com/portfolio/work/viewJson/id/:workId', {}, {
-      query: {method:'GET', params:{workId:'Work'}, isArray:true}
+    return $resource('http://www.ericavhay.com/portfolio/work/json/:id', {id: '@id'}, {
+      update: {
+        method:'PUT'
+      }
     });
   }]);
 
