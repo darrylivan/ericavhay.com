@@ -10,8 +10,7 @@ angular.module('myApp.site', ['ngRoute', 'ngAnimate'])
       .when('/about', {
         templateUrl: 'partials/about.html',
         controller: 'SiteCtrl'
-      })
-    ;
+      });
 
   }])
   .controller('SiteCtrl', function ($scope,

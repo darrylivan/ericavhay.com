@@ -18,16 +18,26 @@ angular.module('myApp.gallery', ['ngRoute'])
       .when('/contact', {
       templateUrl: 'gallery/contact.html',
       controller: 'GalleryCtrl'
+      })
+      .when('/gallery/update/:galleryId', {
+        templateUrl: 'gallery/update.html',
+        controller: 'GalleryCtrl'
     })
+      .when('/gallery/admin', {
+        templateUrl: 'gallery/admin.html',
+        controller: 'GalleryCtrl'
+      })
       .when('/gallery/:galleryId', {
       templateUrl: 'gallery/gallery-detail.html',
       controller: 'GalleryDetailCtrl'
     });
 
   }])
-  .controller('GalleryCtrl', ['$scope', '$http', '$timeout', 'Gallery',
-    function ($scope, $http, $timeout, Gallery) {
+  .controller('GalleryCtrl', ['$scope',  '$timeout', '$routeParams', 'Gallery',
+    function ($scope, $timeout, $routeParams, Gallery ) {
       $scope.galleries = [];
+      $scope.gallery = {};
+
       $scope.runAnimation = false;
 
       /* for shuffling the order of the galleries */
@@ -46,7 +56,7 @@ angular.module('myApp.gallery', ['ngRoute'])
         return array;
       };
 
-      $http.get('http://www.ericavhay.com/portfolio/gallery/indexJson').success(function (data) {
+      Gallery.query(function (data) {
         $scope.galleries = data;
 
         // randomize the order.
@@ -54,6 +64,9 @@ angular.module('myApp.gallery', ['ngRoute'])
 
         // now, run any animations.
         $timeout(function() { $scope.runAnimation = true;});
+      });
+
+      $scope.gallery = Gallery.get({id: $routeParams.galleryId}, function( gallery ) {
       });
 
 
@@ -156,13 +169,9 @@ angular.module('myApp.gallery', ['ngRoute'])
 var galleryServices = angular.module('myApp.galleryServices', ['ngResource', 'ngAnimate']);
 galleryServices.factory('Gallery', ['$resource',
   function($resource){
-    return $resource('http://www.ericavhay.com/portfolio/gallery/viewJson/id/:galleryId', {}, {
-      query: {method:'GET', params:{galleryId:'Gallery'}, isArray:true}
-    });
-  }]);
-galleryServices.factory('Galleries', ['$resource',
-  function($resource){
-    return $resource('http://www.ericavhay.com/portfolio/gallery/indexJson', {}, {
-      query: {method:'GET', isArray:true}
+    return $resource('http://www.ericavhay.com/portfolio/gallery/json/:id', {id: '@id'}, {
+      update: {
+        method:'PUT'
+      }
     });
   }]);

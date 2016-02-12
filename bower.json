@@ -19,5 +19,11 @@
     "html5-boilerplate": "~5.2.0",
     "angular-resource": "1.4.x",
     "angular-animate": "1.4.x"
+  },
+  "resolutions": {
+    "angular": "~1.4.9",
+    "angular-touch": "~1.4.0",
+    "angular-resource": "1.4.x",
+    "angular-animate": "1.4.x"
   }
 }

@@ -17,7 +17,7 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
     controller: 'WorkDetailCtrl'
   }).
   when('/work/update/:workId', {
-    templateUrl: 'work/work-update.html',
+    templateUrl: 'work/update.html',
     controller: 'WorkUpdateCtrl'
   }).
   when('/work/inquire/:workId', {
@@ -26,7 +26,7 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
   });
 
 }])
-.controller('WorkCtrl', ['$scope', '$http', '$timeout', 'Work', function( $scope, $http, $timeout, Work) {
+.controller('WorkCtrl', ['$scope', '$timeout', 'Work', function( $scope, $timeout, Work) {
   $scope.works = [];
   $scope.filters = {};
   $scope.styles = [ 'all' ];
@@ -40,7 +40,8 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
       var work = data[i];
       if ($scope.styles.indexOf( work.style ) == -1)
       {
-        if (( typeof work.style !== 'undefined' ) && ( work.style !== '') && (work.archive !== 'true')  && (work.featured === 'true'))
+        if (( typeof work.style !== 'undefined' ) && ( work.style !== '') &&
+          (work.archive !== true)  && (work.featured === true))
         {
           $scope.styles.push( work.style );
         }
@@ -68,7 +69,7 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
   $scope.orderProp = '-date';
 
 }])
-  .controller('WorkAdminCtrl', ['$scope', '$http', '$timeout', 'Work', function( $scope, $http, $timeout, Work) {
+  .controller('WorkAdminCtrl', ['$scope', '$timeout', 'Work', function( $scope, $timeout, Work) {
     $scope.work = new Work;
     $scope.works = [];
     $scope.filters = {};
@@ -84,7 +85,8 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
         var work = data[i];
         if ($scope.styles.indexOf( work.style ) == -1)
         {
-          if (( typeof work.style !== 'undefined' ) && ( work.style !== '') && (work.archive !== 'true')  && (work.featured === 'true'))
+          if (( typeof work.style !== 'undefined' ) && ( work.style !== '') &&
+            (work.archive !== true)  && (work.featured === true))
           {
             $scope.styles.push( work.style );
           }
@@ -106,9 +108,7 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
       {
         $scope.filters.style = style ;
       }
-
     }
-
     $scope.orderProp = '-date';
 
   }])
@@ -120,8 +120,8 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
 
 
 }])
-  .controller('WorkUpdateCtrl', ['$scope', '$routeParams', 'Work', 'Styles', 'Galleries', '$filter',
-    function( $scope, $routeParams, Work, Styles, Galleries, $filter ) {
+  .controller('WorkUpdateCtrl', ['$scope', '$routeParams', 'Work', 'Style', 'Gallery', '$filter',
+    function( $scope, $routeParams, Work, Style, Gallery, $filter ) {
       $scope.tryAutoPrice = false;
       $scope.supplement = 0;
       $scope.basePrice = 0;
@@ -168,13 +168,13 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
         }
       }
 
-      $scope.styles = Styles.query({}, function( styles ) {
+      $scope.styles = Style.query({}, function( styles ) {
         // do anything special, or just allow data bindings to do it...
 
       });
 
 
-      $scope.galleries = Galleries.query({}, function( galleries ) {
+      $scope.galleries = Gallery.query({}, function( galleries ) {
         // do anything special, or just allow data bindings to do it...
 
       });

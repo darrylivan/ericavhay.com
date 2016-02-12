@@ -1,0 +1,97 @@
+<div class="container">
+  <div class="row ">
+    <!--Body content-->
+    <form class="form-horizontal" ng-submit="save(gallery)">
+      <div class="detail">
+        <div class="col-sm-2"
+             class="thumbnail ">
+          <img ng-src="{{gallery.imageUrl}}" alt="{{gallery.name}}">
+        </div>
+
+        <div class=" col-sm-5">
+          <div class="form-group">
+            <label for="name" class="col-sm-3 control-label">name</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="name" name="name" placeholder="name" ng-model="gallery.name">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="contact" class="col-sm-3 control-label">contact</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="contact" placeholder="contact" ng-model="gallery.contact">
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="location" class="col-sm-3 control-label">location</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="location" placeholder="location" ng-model="gallery.location">
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="phone" class="col-sm-3 control-label">phone</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="phone" placeholder="phone" ng-model="gallery.phone">
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="website" class="col-sm-3 control-label">website</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="website" placeholder="website" ng-model="gallery.website">
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="email" class="col-sm-3 control-label">email</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="email" placeholder="email" ng-model="gallery.email">
+            </div>
+          </div>
+
+
+        </div>
+
+        <!-- second column -->
+        <div class="col-sm-5">
+
+          <!-- active info -->
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+              <div class="checkbox">
+                <label>
+                  <input id="active" name="active" ng-model="gallery.active" type="checkbox"> active
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description" class="col-sm-3 control-label">description</label>
+            <div class="col-sm-9">
+              <textarea class="form-control" name="description" id="description"
+                        placeholder="description" ng-model="gallery.description"></textarea>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="col-sm-offset-7 col-sm-5">
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+              <button type="submit" class="btn btn-warning">save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

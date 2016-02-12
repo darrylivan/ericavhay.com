@@ -179,7 +179,7 @@ a:hover {
 }
 
 /**** word-detail ****/
-.work-detail {
+.detail {
     font-size: 18px;
 }
 
@@ -192,7 +192,7 @@ a:hover {
     padding: 20px;
 }
 
-.work-detail img {
+.detail img {
     /* box-shadow: 4px 4px 2px #888888; */
     width: 100%;
 }
