@@ -2,8 +2,9 @@
   <div class="container overflow-hidden">
     <div class="row">
       <div class="col-sm-12">
-        <p class="lead text-large fade-in pull-right" ng-if="runAnimation">
-          <span title="erica vhay oil painter">erica vhay</span>. <strong>get in touch.</strong>
+        <p class="lead text-large fade-in " ng-if="runAnimation">
+          <span title="erica vhay oil painter">
+          <strong>get in touch<span class="highlight">.</span></strong></span>
         </p>
       </div>
     </div>
@@ -11,13 +12,16 @@
 </div>
 
 
-<div class="dark-section pad-bottom pad-top">
 
-  <div class="container">
-    <div class="row">
 
-      <p class="lead col-sm-3">Erica Vhay's manager</p>
-      <div class="address col-sm-3">
+<div class="container pad-top pad-bottom">
+
+  <div class="row">
+    <!--Body content-->
+
+    <div class="col-sm-3">
+      <p class="lead ">Erica Vhay's manager</p>
+      <div class="address ">
         <ul class="list-unstyled">
           <li>
             Darryl Brown<br>
@@ -31,23 +35,9 @@
         </ul>
 
       </div>
-      <p class="lead col-sm-6">You may also contact the venues below directly.</p>
-
+      <p class="lead ">You may also contact the venues where she shows directly.</p>
     </div>
-  </div>
-</div>
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-2">
-      <!--Sidebar content-->
-
-    </div>
-  </div>
-  <div class="row">
-    <!--Body content-->
-
-    <div>
+    <div class="col-sm-9">
       <ul class="grid" masonry="true">
         <li masonry-tile class=""
             ng-repeat="gallery in galleries | filter:{active:true} "

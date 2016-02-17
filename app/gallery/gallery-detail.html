@@ -1,58 +1,76 @@
+<div class="intro-title">
+  <div class="container overflow-hidden">
+    <div class="row">
+      <div class="col-sm-12">
+        <p class="lead text-large fade-in " ng-if="runAnimation">
+          <span title="erica vhay oil painter"> <strong>{{gallery.name}}<span class="highlight">.</span></strong></span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container">
-  <div class="row ">
+  <div class="row " style="margin-bottom:30px;">
     <!--Body content-->
     <div itemscope itemtype="http://schema.org/ArtGallery" class="detail">
       <div class="col-sm-4">
-        <div class="detail-card">
-          <h1 itemprop="name" class="title">{{gallery.name}}</h1>
-          <p>
-          <span itemprop="contactPoint">
-          {{gallery.contact}}
-          </span><br/>
-          <span itemprop="telephone">
-          {{gallery.phone}}
-          </span><br/>
-          <span itemprop="email">
-          {{gallery.email}}
-          </span><br/>
-          </p>
-          <span itemprop="url">
-            <a target="_blank" href="{{gallery.website}}" title="{{gallery.name}}">
-              {{gallery.website}}
-            </a>
-          </span><br/>
+        <hr/>
+        <div class="row">
 
-          <p itemprop="description">
-            {{gallery.description}}
-          </p>
-          <address itemprop="address">
-            {{gallery.location}}
-          </address>
-          <br/>
+          <div class="detail-card text-right">
 
-          </p>
-
-        </div>
-      </div>
-      <div class="col-sm-1"></div>
-      <div class="col-sm-7"
-           class="thumbnail ">
-        <div>
-          <div style="height: 345px">
-            <uib-carousel interval="myInterval" no-wrap="noWrapSlides" ng-mouseover="captionBackground(true)"
-                          ng-mouseout="captionBackground(false)">
-              <uib-slide ng-repeat="slide in slides" active="slide.active">
-                <img ng-src="{{slide.imageUrl}}" style="margin:auto; width:auto; height:305px">
-                <div class="carousel-caption carousel-caption-background-{{showCaptionBackground}}">
-                  <p>{{slide.name}}<br/>&nbsp; <span ng-show="slide.sold == 'true'"><span
-                      style="color:#FF0000">sold</span></span></p>
-                </div>
-              </uib-slide>
-            </uib-carousel>
+            <span itemprop="contactPoint"><strong>
+              {{gallery.contact}}
+            </strong>
+            </span><br/>
+            <span itemprop="telephone">
+            {{gallery.phone}}
+            </span><br/>
+            <span itemprop="email">
+            {{gallery.email}}
+            </span>
+            <span ng-if="gallery.description" itemprop="description">
+              {{gallery.description}}
+            </span><br/>
+            <span itemprop="address">
+              {{gallery.location}}
+            </span><br/>
+            <span>
+              <a itemprop="url" target="_blank" href="{{gallery.website}}" title="{{gallery.name}}" style="position: relative; left:-5px;">
+                website
+              </a>
+            </span>
           </div>
         </div>
-        <!-- img ng-src="{{gallery.imageUrl}}" alt="{{gallery.name}}" -->
       </div>
     </div>
+  </div>
+
+  <div class="row">
+    <!--Body content-->
+    <ul class="grid  " masonry="true" style="list-style: none;">
+      <li masonry-tile
+          ng-repeat="work in gallery.works | filter:{archive:false} | filter:{featured:true} | filter:filters | orderBy:orderProp"
+          class="thumbnail work-listing  {{work.style}} ">
+        <div class="tile-container ">
+          <a href="#/work/{{work.id}}" class=""><img ng-src="{{work.imageUrl}}" alt="{{work.name}}"></a>
+          <div class="caption">
+            <h3>
+              <a class="title" href="#/work/{{work.id}}">{{work.name}}</a>
+            </h3>
+            <div class="pull-right">
+              <a ng-show="work.sold==false" class="inquire" href="#/work/inquire/{{work.id}}"
+                 title="inquire for purchase">[
+                inquire ]</a>
+              <span ng-show="work.sold==true" class="sold">[ sold ]</span>
+            </div>
+              <span class="notes">{{work.width}}" x {{work.height}}" <span
+                  ng-if="work.notes">{{ ' / ' + work.notes }}</span> </span><br/>
+
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>

@@ -2,8 +2,9 @@
   <div class="container overflow-hidden">
     <div class="row">
       <div class="col-sm-12">
-        <p class="lead text-large fade-in pull-right" ng-if="runAnimation">
-          <span title="erica vhay oil painter">erica vhay</span>. <strong>featured work.</strong>
+        <p class="lead text-large fade-in " ng-if="runAnimation">
+          <span title="erica vhay oil painter">
+          <strong>featured work<span class="highlight">.</span></strong></span>
         </p>
       </div>
     </div>
@@ -15,7 +16,7 @@
     <div class="col-md-12">
       <!--Sidebar content-->
       <ul class="list-inline button-list">
-        <li ng-repeat="style in styles" class="style-listing ">
+        <li ng-repeat="style in styleNames" class="style-listing ">
           <a href="" ng-click="filterOnStyle( style )" title="oil painting style">{{style}}</a>
         </li>
       </ul>
@@ -24,7 +25,6 @@
 
   <div class="row">
     <!--Body content-->
-
 
     <ul class="grid  " masonry="true" style="list-style: none;">
       <li masonry-tile
@@ -43,7 +43,7 @@
               <span ng-show="work.sold==true" class="sold">[ sold ]</span>
             </div>
               <span class="notes">{{work.width}}" x {{work.height}}" <span
-                  ng-if="work.notes">{{ '/' + work.notes }}</span> </span><br/>
+                  ng-if="work.notes">{{ ' / ' + work.notes }}</span> </span><br/>
 
           </div>
         </div>

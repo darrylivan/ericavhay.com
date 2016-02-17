@@ -1,0 +1,56 @@
+<div class="intro-title-admin">
+  <div class="container overflow-hidden">
+    <div class="row">
+      <div class="col-sm-12">
+        <p class="lead text-large fade-in pull-right" ng-if="runAnimation">
+          <span title="erica vhay oil painter">erica vhay</span>. <strong>sold.</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <!--Sidebar content-->
+      <ul class="list-inline button-list">
+        <li ng-repeat="style in styles" class="style-listing ">
+          <a href="" ng-click="filterOnStyle( style )" title="oil painting style">{{style}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <!--Body content-->
+
+    <div class="col-sm-12 subtitle"><p class="lead">${{soldTotal}}</p></div>
+    <div class="clearfix"></div>
+    <ul class="admin  "  style="list-style: none;">
+      <li ng-repeat="work in works | filter:{sold:true} | filter:filters | orderBy:'-soldDate' "
+          class="thumbnail work-listing  {{work.style}} ">
+        <div class="admin-row-container ">
+          <img ng-src="{{work.imageUrl}}" alt="{{work.name}}">
+          <div class="">
+            <a class="" title="update"  href="#/work/update/{{work.id}}"><i class="glyphicon-pencil glyphicon"></i> {{work.name}}</a>
+            ${{work.price}} |
+            <span ng-if="work.sold=='true'"><span style="color:#f00;">sold</span> | </span>
+            <span ng-if="work.featured=='true'">featured | </span>
+            <span ng-if="work.archive=='true'">archived | </span>
+              <span class="notes">{{work.width}}" x {{work.height}}"
+                <span
+                    ng-if="work.notes">{{ '| ' + work.notes }}</span>
+              </span>
+          </div>
+          <div class="clear:both;"></div>
+          &nbsp;
+        </div>
+        <div class="clear:both;"></div>
+      </li>
+    </ul>
+
+  </div>
+</div>
+
+

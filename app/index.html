@@ -16,8 +16,10 @@
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700|Noto+Sans:400,700|Bitter:400,700|Cabin:400,700'
-        rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Halant:300,400" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Dosis:700,800,200,300,400' rel='stylesheet' type='text/css'>
 
   <!-- for CSS Transitions and/or Keyframe Animations -->
   <link rel="stylesheet" href="css/animations.css">
@@ -46,15 +48,14 @@
           <li><a class="{{galleriesActive}}"  href="#/venues">venues</a></li>
           <li><a class="{{aboutActive}}"  href="#/about">about</a></li>
           <li><a class="{{contactActive}}"  href="#/contact">contact</a></li>
-          <li ng-if="currentUser" uib-dropdown on-toggle="toggled(open)">
+          <li ng-if="currentUser" uib-dropdown on-toggle="toggled(close)">
             <a href uib-dropdown-toggle>admin</a>
             <ul uib-dropdown-menu aria-labelledby="simple-dropdown">
-              <li role="menuitem"><a href="#/gallery/admin">galleries</a></li>
-              <li role="menuitem"><a href="#/work/admin">work</a></li>
-              <li role="menuitem"><a href="#/show/admin">admin</a></li>
-              <li role="menuitem"><a href="#/show/admin">admin</a></li>
-              <li class="divider"></li>
-              <li role="menuitem"><a href="#">Separated link</a></li>
+              <li role="menuitem"><a href="#/gallery/admin">gallery admin</a></li>
+              <li role="menuitem"><a href="#/gallery/create">create gallery</a></li>
+              <li role="menuitem"><a href="#/work/admin">work admin</a></li>
+              <li role="menuitem"><a href="#/work/create">create work</a></li>
+              <li role="menuitem"><a href="#/work/sold">sold work</a></li>
             </ul>
           </li>
         </ul>
@@ -69,12 +70,12 @@
 </div>
 
 <div class="view-container">
-  <div ng-view class="view-frame"></div>
+  <div ng-view class="view-frame"  autoscroll="true" ></div>
 </div>
 
 
 <div ng-controller="FooterCtrl">
-  <footer class="footer">
+  <div class="footer">
     <div class="container">
       <div class="row">
 
@@ -94,13 +95,13 @@
 
         <div class="col-sm-4">
           &copy; Erica Vhay, {{date | date:'yyyy'}}<br/>
-          <a  ng-if="!currentUser" href="'#/login"><i class="glyphicon glyphicon-star-empty"></i></a>
-          <a  ng-if="currentUser" href="'#/logout"><i class="glyphicon glyphicon-star"></i></a>
+          <a ng-if="!currentUser" href="#/login"><i class="glyphicon glyphicon-user"></i> login</a>
+          <a ng-if="currentUser" href="#/logout"><i class="glyphicon glyphicon-star"></i></a>
 
         </div>
       </div>
     </div>
-  </footer>
+  </div>
 </div>
 
 <!-- In production use:

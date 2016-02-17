@@ -8,33 +8,33 @@ angular.module('myApp.gallery', ['ngRoute'])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/galleries', {
-      templateUrl: 'gallery/galleries.html',
-      controller: 'GalleryCtrl'
-    })
+        templateUrl: 'gallery/galleries.html',
+        controller: 'GalleryCtrl'
+      })
       .when('/venues', {
         templateUrl: 'gallery/galleries.html',
         controller: 'GalleryCtrl'
       })
       .when('/contact', {
-      templateUrl: 'gallery/contact.html',
-      controller: 'GalleryCtrl'
+        templateUrl: 'gallery/contact.html',
+        controller: 'GalleryCtrl'
       })
       .when('/gallery/update/:galleryId', {
         templateUrl: 'gallery/update.html',
         controller: 'GalleryCtrl'
-    })
+      })
       .when('/gallery/admin', {
         templateUrl: 'gallery/admin.html',
         controller: 'GalleryCtrl'
       })
       .when('/gallery/:galleryId', {
-      templateUrl: 'gallery/gallery-detail.html',
-      controller: 'GalleryDetailCtrl'
-    });
+        templateUrl: 'gallery/gallery-detail.html',
+        controller: 'GalleryCtrl'
+      });
 
   }])
-  .controller('GalleryCtrl', ['$scope',  '$timeout', '$routeParams', 'Gallery',
-    function ($scope, $timeout, $routeParams, Gallery ) {
+  .controller('GalleryCtrl', ['$scope', '$timeout', '$routeParams', 'Gallery',
+    function ($scope, $timeout, $routeParams, Gallery) {
       $scope.galleries = [];
       $scope.gallery = {};
 
@@ -63,41 +63,53 @@ angular.module('myApp.gallery', ['ngRoute'])
         $scope.galleries = shuffle($scope.galleries);
 
         // now, run any animations.
-        $timeout(function() { $scope.runAnimation = true;});
+        $timeout(function () {
+          $scope.runAnimation = true;
+        });
       });
 
-      $scope.gallery = Gallery.get({id: $routeParams.galleryId}, function( gallery ) {
-      });
+      if ('undefined' != typeof $routeParams.galleryId) {
+
+        $scope.gallery = Gallery.get({id: $routeParams.galleryId}, function (gallery) {
+          // do anything special, or just allow data bindings to do it...
+          console.log(gallery);
+          if (typeof gallery.works !== 'undefined') {
+
+            var active = true;
+            for (var i = 0; i < gallery.works.length; i++) {
+              gallery.works[i]['active'] = active;
+              active = false;
+            }
+            $scope.slides = gallery.works;
+
+          }
+
+          return gallery;
+        });
+      }
 
 
-    }])
-
-  .controller('GalleryDetailCtrl', ['$scope', '$routeParams', 'Gallery',
-    function( $scope, $routeParams, Gallery ) {
-      $scope.gallery = Gallery.get({galleryId: $routeParams.galleryId}, function( gallery ) {
-        // do anything special, or just allow data bindings to do it...
-        console.log( gallery);
-        var active = true;
-        for (var i = 0; i < gallery.works.length; i++)
-        {
-          gallery.works[i]['active'] = active;
-          active = false;
+      $scope.save = function (gallery) {
+        if ($scope.gallery.id) {
+          // update existing.
+          console.log('sending update...');
+          Gallery.update({id: $scope.gallery.id}, $scope.gallery);
+        } else {
+          // create new
+          $scope.gallery.$save().then(function (response) {
+            $scope.gallery.push(response)
+          });
         }
-        $scope.slides = gallery.works;
-
-        return gallery;
-      });
+      }
 
 
       /* for slider */
       $scope.myInterval = 5000;
       $scope.noWrapSlides = false;
       $scope.showCaptionBackground = false;
-      $scope.captionBackground = function( show )
-      {
+      $scope.captionBackground = function (show) {
         $scope.showCaptionBackground = show;
       }
-
     }])
   .directive("masonry", function () {
     var NGREPEAT_SOURCE_RE = '<!-- ngRepeat: ((.*) in ((.*?)( track by (.*))?)) -->';
@@ -168,10 +180,10 @@ angular.module('myApp.gallery', ['ngRoute'])
 
 var galleryServices = angular.module('myApp.galleryServices', ['ngResource', 'ngAnimate']);
 galleryServices.factory('Gallery', ['$resource',
-  function($resource){
+  function ($resource) {
     return $resource('http://www.ericavhay.com/portfolio/gallery/json/:id', {id: '@id'}, {
       update: {
-        method:'PUT'
+        method: 'PUT'
       }
     });
   }]);

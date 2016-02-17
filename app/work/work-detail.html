@@ -1,25 +1,49 @@
-<div class="container">
+<div class="intro-title">
+  <div class="container overflow-hidden">
+    <div class="row">
+      <div class="col-sm-12">
+        <p class="lead text-large fade-in " ng-if="runAnimation">
+          <span title="erica vhay oil painter">
+          <strong>{{work.name}}<span class="highlight">.</span></strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container fade-in-on-update updated-true">
+  <h1 title="flagstaff oil painter erica vhay work title"></h1>
   <div class="row ">
     <!--Body content-->
     <div class="detail">
       <div class="col-md-4 col-sm-6">
         <div class="detail-card">
-
-          <span class="title">{{work.name}}</span>
           <p>
-            {{work.width}}" x {{work.height}}" &dash; {{work.notes}}<br/>
+            {{work.width}}" x {{work.height}}"
+          </p>
+          <p>{{work.notes}}</p>
+          <p>
             {{work.date | date:'MMM/yy' }}
           </p>
-          <a ng-hide="work.sold" class="inquire" href="#/work/inquire/{{work.id}}">[ inquire for purchase ]</a>
-          <a class="PIN_1454536214850_pin_it_button_20 PIN_1454536214850_pin_it_button_en_20_gray PIN_1454536214850_pin_it_button_inline_20 PIN_1454536214850_pin_it_beside_20"
-             data-pin-href="https://www.pinterest.com/pin/create/button/?guid=i6HFiZA_cWFi-1&amp;url=http%3A%2F%2Fwww.ericavhay.com%2Fportfolio%2Fwork%2Fview%2Fid%2F502&amp;media=http%3A%2F%2Fwww.ericavhay.com%2F%2Fimages%2Fuploads%2Fimage.jpg&amp;description=erica%20vhay%20oil%20painting-emmy"
-             data-pin-log="button_pinit" data-pin-config="beside"><span class="PIN_1454536214850_hidden"
-                                                                        id="PIN_1454536214850_pin_count_0"><i></i></span></a>
+
+          <hr/>
+          <div ng-if="!work.sold" class="text-muted text-right">
+            purchase inquiries, contact: <br/>
+            <h4><strong>{{gallery.name}}</strong></h4>
+            <span class="">{{gallery.contact}}</span><br/>
+            <span class="phone"><a href="tel:{{gallery.phone}}">{{gallery.phone}}</a></span><br/>
+            <span class="email">{{gallery.email}}</span>
+            <span class="address">{{gallery.location}}</span><br/>
+          </div>
+          <p ng-if="work.sold"> [ sold ]</p>
+
         </div>
       </div>
-      <div class="col-md-4 col-sm-6"
-           class="thumbnail ">
-        <img ng-src="{{work.imageUrl}}" alt="{{work.name}}">
+      <div class="col-md-8 col-sm-6" class="">
+        <div class="text-right">
+          <img ng-src="{{work.imageUrl}}" alt="{{work.name}}"
+               style="max-width: 100%; max-height: 500px; width: auto; height: auto;">
+        </div>
       </div>
     </div>
   </div>
