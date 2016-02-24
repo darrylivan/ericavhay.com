@@ -20,6 +20,14 @@ angular.module('myApp.menu', ['ui.bootstrap'])
             }
         }
 
+    /* for setting active class */
+        $scope.getClass = function (path) {
+            if ($location.path().substr(0, path.length) === path) {
+                return 'active';
+            } else {
+                return '';
+            }
+        }
 
         /* for controlling dropdown on main menu */
         $scope.status = {

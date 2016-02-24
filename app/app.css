@@ -19,7 +19,7 @@ hr {
   border-color: #d24d57;
 }
 
-a:hover {
+a:hover, li.active a, a.active {
   color: #880000;
   text-decoration: none;
 }
