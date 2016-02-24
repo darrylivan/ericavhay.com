@@ -7,6 +7,8 @@ angular.module('myApp.menu', ['ui.bootstrap'])
     }])
 
     .controller('menuCtrl', function ($scope, $location) {
+
+        /* for controlling collapsable dropdown on mobile */
         $scope.navCollapsed = true;
         $scope.toggleNav = function (href) {
             $scope.navCollapsed = !$scope.navCollapsed;
@@ -18,10 +20,11 @@ angular.module('myApp.menu', ['ui.bootstrap'])
             }
         }
 
+
+        /* for controlling dropdown on main menu */
         $scope.status = {
             isopen: false
         };
-
         $scope.toggleDropdown = function ($event) {
             $event.preventDefault();
             $event.stopPropagation();

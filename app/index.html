@@ -51,18 +51,18 @@
       </div>
       <div class="collapse navbar-collapse vhay-nav navbar-right"  ng-class="!navCollapsed && 'in'">
         <ul class="nav navbar-nav">
-          <li><a class="{{portfolioActive}}" href="#/portfolio">portfolio</a></li>
-          <li><a class="{{galleriesActive}}" href="#/venues">venues</a></li>
-          <li><a class="{{aboutActive}}"  href="#/about">about</a></li>
-          <li><a class="{{contactActive}}" href="#/contact">contact</a></li>
+          <li><a class="{{portfolioActive}}" ng-click="toggleNav('/portfolio')" target="_self" href="#/portfolio">portfolio</a></li>
+          <li><a class="{{galleriesActive}}" ng-click="toggleNav('/venues')" target="_self"  href="#/venues">venues</a></li>
+          <li><a class="{{aboutActive}}"   ng-click="toggleNav('/about')" href="#/about">about</a></li>
+          <li><a class="{{contactActive}}"  ng-click="toggleNav('/contact')" href="#/contact">contact</a></li>
           <li ng-if="currentUser" uib-dropdown on-toggle="toggled(close)">
             <a href uib-dropdown-toggle>admin</a>
             <ul uib-dropdown-menu aria-labelledby="simple-dropdown">
-              <li role="menuitem"><a  href="#/gallery/admin">gallery admin</a></li>
-              <li role="menuitem"><a href="#/gallery/create">create gallery</a></li>
-              <li role="menuitem"><a href="#/work/admin">work admin</a></li>
-              <li role="menuitem"><a  href="#/work/create">create work</a></li>
-              <li role="menuitem"><a  href="#/work/sold">sold work</a></li>
+              <li role="menuitem"><a  ng-click="toggleNav('/gallery/admin')"  href="#/gallery/admin">gallery admin</a></li>
+              <li role="menuitem"><a  ng-click="toggleNav('/gallery/create')"  href="#/gallery/create">create gallery</a></li>
+              <li role="menuitem"><a  ng-click="toggleNav('/work/admin')"  href="#/work/admin">work admin</a></li>
+              <li role="menuitem"><a  ng-click="toggleNav('/work/create')"  href="#/work/create">create work</a></li>
+              <li role="menuitem"><a  ng-click="toggleNav('/work/sold')"  href="#/work/sold">sold work</a></li>
             </ul>
           </li>
         </ul>
