@@ -166,7 +166,9 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
             });
 
             $scope.selectImage = function () {
-                $scope.change();
+                $scope.$apply(function () {
+                    $scope.changed = true;
+                });
                 $scope.imageFile = document.getElementById('file').files[0];
             }
 
@@ -245,11 +247,11 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
             }
 
             $scope.change = function () {
-                $scope.$apply(function () {
-                    $scope.changed = true;
-                    $scope.updateAuto();
-                    console.log('changed = true');
-                });
+
+                $scope.changed = true;
+                $scope.updateAuto();
+                console.log('changed = true');
+
             }
 
         }])
