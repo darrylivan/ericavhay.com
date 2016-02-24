@@ -5,7 +5,7 @@
       <div class="detail">
         <div class="col-sm-2"
              class="thumbnail ">
-          <img ng-src="{{work.imageUrl}}" alt="{{work.name}}">
+          <img ng-src="{{work.imageUrl}}" alt="{{work.name}}" ng-if="work.imageUrl">
 
           <!-- price info -->
           <div class="form-group">
@@ -51,13 +51,15 @@
           <div class="form-group">
             <label for="name" class="col-sm-3 control-label">name</label>
             <div class="col-sm-9">
-              <input type="text" ng-change="change()" class="form-control" id="name" name="name" placeholder="name" ng-model="work.name">
+              <input type="text" ng-change="change()" class="form-control" id="name" name="name" placeholder="name"
+                     ng-model="work.name">
             </div>
           </div>
           <div class="form-group">
             <label for="notes" class="col-sm-3 control-label">notes</label>
             <div class="col-sm-9">
-              <input type="text"  ng-change="change()"  class="form-control" id="notes" placeholder="notes" ng-model="work.notes">
+              <input type="text" ng-change="change()" class="form-control" id="notes" placeholder="notes"
+                     ng-model="work.notes">
             </div>
           </div>
 
@@ -65,7 +67,7 @@
           <div class="form-group">
             <label for="styleId" class="col-sm-3 control-label">style</label>
             <div class="col-sm-9">
-              <select ng-model="work.styleId"  ng-change="change()"  class="form-control" name="styleId" id="styleId">
+              <select ng-model="work.styleId" ng-change="change()" class="form-control" name="styleId" id="styleId">
                 <option ng-repeat="style in styles" class="style-listing " value="{{style.id}}">{{style.name}}</option>
               </select>
             </div>
@@ -74,7 +76,8 @@
           <div class="form-group">
             <label for="galleryId" class="col-sm-3 control-label">gallery</label>
             <div class="col-sm-9">
-              <select ng-model="work.galleryId"  ng-change="change()"  class="form-control" name="galleryId" id="galleryId">
+              <select ng-model="work.galleryId" ng-change="change()" class="form-control" name="galleryId"
+                      id="galleryId">
                 <option ng-repeat="gallery in galleries | filter:{active:true}" class="gallery-listing "
                         value="{{gallery.id}}">{{gallery.name}}
                 </option>
@@ -87,7 +90,8 @@
             <label for="width" class="col-sm-3 control-label">size</label>
             <div class="col-sm-3">
               <div class="input-group">
-                <input  ng-change="change()"  type="text" class="form-control" id="width" name="width" placeholder="width in inches"
+                <input ng-change="change()" type="text" class="form-control" id="width" name="width"
+                       placeholder="width in inches"
                        ng-model="work.width">
                 <span class="input-group-addon">"</span>
               </div>
@@ -95,7 +99,8 @@
             <div class="col-sm-1">x</div>
             <div class="col-sm-3">
               <div class="input-group">
-                <input ng-change="change()"  type="text" class="form-control" id="height" name="height" placeholder="height in inches"
+                <input ng-change="change()" type="text" class="form-control" id="height" name="height"
+                       placeholder="height in inches"
                        ng-model="work.height">
                 <span class="input-group-addon">"</span>
               </div>
@@ -108,7 +113,7 @@
             <div class="col-sm-9">
               <div class="input-group">
                 <span class="input-group-addon">$</span>
-                <input type="text"  ng-change="change()"  class="form-control" id="price" name="price" placeholder="price"
+                <input type="text" ng-change="change()" class="form-control" id="price" name="price" placeholder="price"
                        ng-model="work.price">
               </div>
             </div>
@@ -125,7 +130,8 @@
             <div class="col-sm-offset-3 col-sm-9">
               <div class="checkbox">
                 <label>
-                  <input id="featured" ng-change="change()"  name="featured" ng-model="work.featured" type="checkbox"> featured
+                  <input id="featured" ng-change="change()" name="featured" ng-model="work.featured" type="checkbox">
+                  featured
                 </label>
               </div>
             </div>
@@ -136,7 +142,8 @@
             <div class="col-sm-offset-3 col-sm-9">
               <div class="checkbox">
                 <label>
-                  <input id="archive" name="archive" ng-change="change()"  ng-model="work.archive" type="checkbox"> archive
+                  <input id="archive" name="archive" ng-change="change()" ng-model="work.archive" type="checkbox">
+                  archive
                 </label>
               </div>
             </div>
@@ -147,7 +154,7 @@
             <div class="col-sm-offset-3 col-sm-9">
               <div class="checkbox">
                 <label>
-                  <input ng-model="work.sold" ng-change="updateSoldDate()"  type="checkbox"> sold
+                  <input ng-model="work.sold" ng-change="updateSoldDate()" type="checkbox"> sold
                 </label>
               </div>
             </div>
@@ -156,25 +163,36 @@
             <label for="notes" class="col-sm-3 control-label">sold date</label>
             <div class="col-sm-9">
               <input type="text" class="form-control" id="soldDate" placeholder="soldDate"
-                     ng-model="work.soldDate" ng-change="change()"  >
+                     ng-model="work.soldDate" ng-change="change()">
             </div>
           </div>
+
+          <div class="form-group" ng-if="work.id">
+            <label for="width" class="col-sm-3 control-label">
+              <span ng-if="work.imageUrl">Re-</span>Set Image
+            </label>
+            <div class="col-sm-9">
+              <!-- if this is a new work, display 'add image' only after creating the work -->
+              <input type="file" id="file" ng-model="imageFile" onchange="angular.element(this).scope().selectImage(this)" />
+            </div>
+          </div>
+
 
           <div class="form-group">
             <label for="width" class="col-sm-3 control-label">internal</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" name="internalNotes"  ng-change="change()"
+              <input type="text" class="form-control" name="internalNotes" ng-change="change()"
                      placeholder="internal notes" ng-model="work.internalNotes">
             </div>
           </div>
-
-
         </div>
 
         <div class="col-sm-offset-7 col-sm-5">
           <div class="form-group">
             <div class="col-sm-offset-3 col-sm-9">
-              <button ng-if="changed" type="submit" class="btn btn-warning ">save</button>
+              <button ng-if="changed" type="submit" class="btn btn-warning ">save
+                <span ng-if="saving"><i class="glyphicon glyphicon-refresh spinning"></i></span>
+              </button>
               <button ng-if="!changed" disabled="disabled" type="submit" class="btn btn-warning  ">save</button>
             </div>
           </div>

@@ -48,6 +48,8 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
             $scope.galleries = [];
             $scope.updated = false;
 
+            $scope.imageFile = false;
+
             /* to accumulate the total of sold paintings */
             $scope.soldTotal = 0;
 
@@ -114,8 +116,8 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
 
                     });
 
-                    console.log(work);
-
+                    /* after getting the work, update auto pricing and
+                     notify the controller we are updated */
                     $scope.updateAuto();
                     $scope.updated = true;
 
@@ -154,66 +156,104 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
 
             $scope.styles = Style.query({}, function (styles) {
                 // do anything special, or just allow data bindings to do it...
-                console.log('styles ');
-                console.log($scope.styles);
                 $scope.setStyles();
 
             });
-
 
             $scope.galleries = Gallery.query({}, function (galleries) {
                 // do anything special, or just allow data bindings to do it...
 
             });
 
+            $scope.selectImage = function () {
+                $scope.change();
+                $scope.imageFile = document.getElementById('file').files[0];
+            }
+
+            $scope.setImage = function () {
+
+                if ($scope.imageFile) {
+                    console.log('image file set ');
+                    var fd = new FormData();
+
+                    fd.append("file", files[0]);
+                    var uploadUrl = 'rest.ericavhay.com/portfolio/work/setImageJson';
+
+                    $http.post(uploadUrl, fd, {
+                        withCredentials: true,
+                        headers: {'Content-Type': undefined},
+                        transformRequest: angular.identity
+                    }).success(
+                        function (data) {
+                            $scope.work = data;
+                            $scope.updated = true;
+                        }
+                    ).error(
+                        function () {
+                            alert('set image failed.')
+                        }
+                    );
+
+
+                    /*
+
+                     var r = new FileReader();
+                     r.onloadend = function (e) {
+                     $scope.rawImage = e.target.result;
+                     //send you binary data via $http or $resource or do anything else with it
+
+                     /*
+                     $scope.work.setImage( $scope.rawImage, function()
+                     {
+                     document.getElementById('file').value = null;
+
+                     });
+                     }
+
+                     r.readAsBinaryString( $scope.imageFile );
+                     }
+                     */
+                } else {
+                    console.log('image file not set');
+                }
+
+
+            }
+
             $scope.save = function (work) {
+                $scope.saving = true;
                 if ($scope.work.id) {
                     // update existing.
-                    console.log('sending update...');
                     Work.update({id: $scope.work.id}, $scope.work, function (work) {
                         if (typeof work.name !== 'undefined') {
                             $scope.changed = false;
                         }
+                        $scope.saving = false;
                     });
                 } else {
                     // create new
-                    console.log('sending create...');
-                    console.log($scope.work);
-                    console.log('object above......');
                     $scope.work.$save().then(function (response) {
                         if (typeof response.name !== 'undefined') {
                             $scope.changed = false;
                         }
+                        $scope.saving = false;
                     });
                 }
+
+                /* check for new image */
+                $scope.setImage();
             }
 
             $scope.change = function () {
-                $scope.changed = true;
-                $scope.updateAuto();
+                $scope.$apply(function () {
+                    $scope.changed = true;
+                    $scope.updateAuto();
+                    console.log('changed = true');
+                });
             }
 
-
-            $scope.imgLoadedEvents = {
-
-                always: function (instance) {
-                    // Do stuff
-                    console.log('always called')
-                },
-
-                done: function (instance) {
-                    //angular.element(instance.elements[0]).addClass('loaded');
-
-                    console.log('loaded');
-                },
-
-                fail: function (instance) {
-                    // Do stuff
-                }
-
-            };
         }])
-   ;
+;
 
 
 /* Work Services */
