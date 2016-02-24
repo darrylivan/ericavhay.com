@@ -178,6 +178,8 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
                 } else {
                     // create new
                     console.log('sending create...');
+                    console.log($scope.work);
+                    console.log('object above......');
                     $scope.work.$save().then(function (response) {
                         if (typeof response.name !== 'undefined') {
                             $scope.changed = false;
