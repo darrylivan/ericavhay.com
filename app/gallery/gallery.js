@@ -57,10 +57,10 @@ angular.module('myApp.gallery', ['ngRoute'])
       };
 
       Gallery.query(function (data) {
-        $scope.galleries = data;
+        //$scope.galleries = data;
 
         // randomize the order.
-        $scope.galleries = shuffle($scope.galleries);
+        $scope.galleries = shuffle(data);
 
         // now, run any animations.
         $timeout(function () {
@@ -70,7 +70,7 @@ angular.module('myApp.gallery', ['ngRoute'])
 
       if ('undefined' != typeof $routeParams.galleryId) {
 
-        $scope.gallery = Gallery.get({id: $routeParams.galleryId}, function (gallery) {
+        Gallery.get({id: $routeParams.galleryId}, function (gallery) {
           // do anything special, or just allow data bindings to do it...
           console.log(gallery);
           if (typeof gallery.works !== 'undefined') {
@@ -81,7 +81,7 @@ angular.module('myApp.gallery', ['ngRoute'])
               active = false;
             }
             $scope.slides = gallery.works;
-
+            $scope.gallery = gallery;
           }
 
           return gallery;

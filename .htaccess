@@ -7,9 +7,9 @@ RewriteCond %{REQUEST_FILENAME} !-d
 # otherwise forward it to app directory
 RewriteCond . app/index.html
 
-#RewriteCond %{HTTP_HOST} ^(www\.)?test.ericavhay\.com$ [NC]
-#RewriteRule !^app/ /app%{REQUEST_URI} [L,NC]
+RewriteCond %{HTTP_HOST} ^(www\.)?test.ericavhay\.com$ [NC]
+RewriteRule !^app/ /app%{REQUEST_URI} [L,NC]
 
-#RewriteCond %{HTTP_HOST} ^test.ericavhay\.com$
-#RewriteRule (.*) http://www.test.ericavhay.com/$1 [R=301,L]
-#RewriteRule ^$ app [L]
+RewriteCond %{HTTP_HOST} ^test.ericavhay\.com$
+RewriteRule (.*) http://www.test.ericavhay.com/$1 [R=301,L]
+RewriteRule ^$ app [L]
