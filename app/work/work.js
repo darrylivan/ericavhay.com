@@ -128,9 +128,9 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
             /* when supplement changes, calculate the new autoprice */
             $scope.updateAuto = function () {
                 // calculate auto price after work is loaded.
-                const MIN_PRICE = 55.0;
-                const EXPONENT_FACTOR = 1.35;
-                const LINEAR_FACTOR = 18;
+                var MIN_PRICE = 55.0;
+                var EXPONENT_FACTOR = 1.35;
+                var LINEAR_FACTOR = 18;
 
                 var area = $scope.work.height * $scope.work.width;
                 // work on square root of area...
