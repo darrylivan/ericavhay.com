@@ -4,10 +4,12 @@ RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# otherwise forward it to index.php
-RewriteRule . app
+# otherwise forward it to app directory
+RewriteCond . app/index.html
 
-# so Yii knows it's the production server
-# per DH, environment variables set with Apache must have the HTTP_ prefix
-# see http://wiki.dreamhost.com/Suexec#Apache_Module_mod_env for details
-SetEnv HTTP_2B_PRODUCTION true
+#RewriteCond %{HTTP_HOST} ^(www\.)?test.ericavhay\.com$ [NC]
+#RewriteRule !^app/ /app%{REQUEST_URI} [L,NC]
+
+#RewriteCond %{HTTP_HOST} ^test.ericavhay\.com$
+#RewriteRule (.*) http://www.test.ericavhay.com/$1 [R=301,L]
+#RewriteRule ^$ app [L]
