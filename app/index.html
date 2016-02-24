@@ -36,26 +36,36 @@
   <div class="navbar navbar-fixed-top navbar-default left-buffer">
     <div class="container">
       <div class="navbar-header">
-        <a href="http://www.ericavhay.com">
+        <button type="button" class="navbar-toggle" data-toggle="collapse"  ng-click="toggleNav()" >
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="#/portfolio" class="hidden-xs" title="flagstaff oil painter artist">
           erica <span class="vhay hover-{{hoverNav}}" ng-mouseover="setHover(true)"
                       ng-mouseout="setHover(false)">vhay</span>
+          <span  class="subtitle">artist</span>
         </a>
-        <span title="flagstaff oil painter artist" class="subtitle">artist</span>
+        <a href="http://www.ericavhay.com" class="visible-xs" title="flagstaff oil painter artist">
+          e<span class="vhay hover-{{hoverNav}}" ng-mouseover="setHover(true)"
+                      ng-mouseout="setHover(false)">v</span>
+        </a>
       </div>
-      <div class="collapse navbar-collapse vhay-nav navbar-right">
+      <div class="collapse navbar-collapse vhay-nav navbar-right"  ng-class="!navCollapsed && 'in'">
         <ul class="nav navbar-nav">
           <li><a class="{{portfolioActive}}" href="#/portfolio">portfolio</a></li>
           <li><a class="{{galleriesActive}}" href="#/venues">venues</a></li>
-          <li><a class="{{aboutActive}}" href="#/about">about</a></li>
+          <li><a class="{{aboutActive}}"  href="#/about">about</a></li>
           <li><a class="{{contactActive}}" href="#/contact">contact</a></li>
           <li ng-if="currentUser" uib-dropdown on-toggle="toggled(close)">
             <a href uib-dropdown-toggle>admin</a>
             <ul uib-dropdown-menu aria-labelledby="simple-dropdown">
-              <li role="menuitem"><a href="#/gallery/admin">gallery admin</a></li>
+              <li role="menuitem"><a  href="#/gallery/admin">gallery admin</a></li>
               <li role="menuitem"><a href="#/gallery/create">create gallery</a></li>
               <li role="menuitem"><a href="#/work/admin">work admin</a></li>
-              <li role="menuitem"><a href="#/work/create">create work</a></li>
-              <li role="menuitem"><a href="#/work/sold">sold work</a></li>
+              <li role="menuitem"><a  href="#/work/create">create work</a></li>
+              <li role="menuitem"><a  href="#/work/sold">sold work</a></li>
             </ul>
           </li>
         </ul>
@@ -111,9 +121,16 @@
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
 -->
 <!--  for masonry -->
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/masonry/2.1.08/jquery.masonry.min.js"></script>
+<script src="../bower_components/jquery/dist/jquery.js"></script>
+<script src="../bower_components/jquery-bridget/jquery-bridget.js"></script>
+<script src="../bower_components/ev-emitter/ev-emitter.js"></script>
+<script src="../bower_components/get-size/get-size.js"></script>
+<script src="../bower_components/desandro-matches-selector/matches-selector.js"></script>
+<script src="../bower_components/fizzy-ui-utils/utils.js"></script>
+<script src="../bower_components/outlayer/item.js"></script>
+<script src="../bower_components/outlayer/outlayer.js"></script>
+<script src="../bower_components/masonry/masonry.js"></script>
+<script src="../bower_components/imagesloaded/imagesloaded.js"></script>
 <!-- end masonry -->
 
 <script src="../bower_components/angular/angular.js"></script>
@@ -121,6 +138,7 @@
 <script src="../bower_components/angular-resource/angular-resource.js"></script>
 <script src="../bower_components/angular-animate/angular-animate.js"></script>
 <script src="../bower_components/angular-touch/angular-touch.min.js"></script>
+<script src="../bower_components/angular-masonry/angular-masonry.js"></script>
 <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <!-- required module to enable animation support in AngularJS -->
 <script src="../bower_components/angular-animate/angular-animate.js"></script>

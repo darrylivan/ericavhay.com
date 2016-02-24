@@ -17,8 +17,8 @@
     <!--Body content-->
 
     <div>
-      <ul class="grid" masonry="true">
-        <li masonry-tile class=""
+      <div class="grid" masonry>
+        <div class="masonry-brick"
             ng-repeat="gallery in galleries | filter:{active:true} "
             class="thumbnail work-listing" itemscope itemtype="http://schema.org/ArtGallery">
           <div class="tile-container ">
@@ -38,8 +38,8 @@
             </div>
             <a href="#/gallery/{{gallery.id}}" class=""><img ng-src="{{gallery.imageUrl}}" alt="{{gallery.name}}"></a>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
 
   </div>

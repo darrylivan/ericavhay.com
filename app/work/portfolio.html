@@ -27,10 +27,10 @@
     <!--Body content-->
     <div class="col-md-12">
 
-      <ul class="grid  " masonry="true" style="list-style: none;">
-        <li masonry-tile
-            ng-repeat="work in works | filter:{archive:false} | filter:{featured:true} | filter:filters | orderBy:orderProp"
-            class="thumbnail work-listing  {{work.style}} ">
+      <div masonry class="grid  ">
+        <div class="masonry-brick"
+             ng-repeat="work in works | filter:{archive:false} | filter:{featured:true} | filter:filters | orderBy:orderProp"
+             class="thumbnail work-listing  {{work.style}} ">
           <div class="tile-container ">
             <a href="#/work/{{work.id}}" class=""><img ng-src="{{work.imageUrl}}" alt="{{work.name}}"></a>
             <div class="caption">
@@ -48,10 +48,8 @@
 
             </div>
           </div>
-        </li>
-      </ul>
-
-
+        </div>
+      </div>
     </div>
   </div>
 </div>

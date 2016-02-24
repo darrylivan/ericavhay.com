@@ -48,7 +48,7 @@ a:hover {
 
 .navbar-default {
   background-color: #ffffff;
-  padding-bottom: 5px
+  padding-bottom: 5px;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -76,7 +76,7 @@ a:hover {
 }
 
 .vhay-nav {
-  margin-top: 17px;
+  margin-top: 8px;
   font-size: 20px;
   margin-left: 15px;
 }
@@ -139,7 +139,7 @@ a:hover {
   opacity: 1.0;
 }
 
-.grid li img {
+.grid img {
   width: 100%
 }
 
@@ -150,7 +150,7 @@ a:hover {
   margin: 0;
 }
 
-.grid li {
+.grid > div {
   width: 24.9%;
   display: inline-block;
   height: auto;
@@ -162,24 +162,27 @@ a:hover {
 }
 
 @media (min-width: 991px) and (max-width: 1200px) {
-  .grid li {
+  .grid > div {
     width: 33.33%;
   }
 }
 
 @media (min-width: 770px) and (max-width: 990px) {
-  .grid li {
+  .grid > div {
     width: 50%;
   }
 }
 
 @media (max-width: 769px) {
-  .grid li {
+  .grid > div {
     width: 100%;
   }
-}
 
-@media (max-width: 769px) {
+  .vhay-nav
+  {
+    border: none;
+  }
+
   .left-buffer {
     margin-left: 10px;
   }

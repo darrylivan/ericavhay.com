@@ -2,33 +2,33 @@
 
 angular.module('myApp.menu', ['ui.bootstrap'])
 
-  .config(['$routeProvider', function($routeProvider) {
+    .config(['$routeProvider', function ($routeProvider) {
 
-  }])
+    }])
 
-  .controller('menuCtrl', function($scope) {
-    $scope.toggled = function(open) {
+    .controller('menuCtrl', function ($scope, $location) {
+        $scope.navCollapsed = true;
+        $scope.toggleNav = function (href) {
+            $scope.navCollapsed = !$scope.navCollapsed;
+            console.log('toggled nav collapse');
+            if (typeof href !== 'undefined') {
 
-    };
+                console.log(href);
+                $location.path( href );
+            }
+        }
 
-    $scope.hoverNav = false;
-    $scope.setHover = function( val )
-    {
-      $scope.hoverNav = val;
-    }
+        $scope.status = {
+            isopen: false
+        };
 
-    $scope.status = {
-      isopen: false
-    };
+        $scope.toggleDropdown = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.status.isopen = !$scope.status.isopen;
+        };
 
-    $scope.toggleDropdown = function($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
-      $scope.status.isopen = !$scope.status.isopen;
-    };
-
-    $scope.name = ['e', 'r', 'i', 'c', 'a', ' ', 'v', 'h', 'a', 'y'];
+        $scope.name = ['e', 'r', 'i', 'c', 'a', ' ', 'v', 'h', 'a', 'y'];
 
 
-
-  });
+    });
