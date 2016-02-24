@@ -27,8 +27,9 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
         });
 
     }])
-    .controller('WorkCtrl', ['$scope', '$timeout', '$routeParams', 'Work', 'Style', 'Gallery', '$filter',
-        function ($scope, $timeout, $routeParams, Work, Style, Gallery, $filter) {
+    .controller('WorkCtrl', ['$scope', '$timeout', '$routeParams', 'Work',
+        'Style', 'Gallery', '$filter', '$http',
+        function ($scope, $timeout, $routeParams, Work, Style, Gallery, $filter, $http) {
             /* for single work pages. */
             $scope.work = new Work;
             $scope.gallery = {};
@@ -170,31 +171,45 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
                     $scope.changed = true;
                 });
                 $scope.imageFile = document.getElementById('file').files[0];
-            }
+            };
 
             $scope.setImage = function () {
 
+                var saving = false;
                 if ($scope.imageFile) {
+                    $scope.saving = true;
+                    saving = true;
+
                     console.log('image file set ');
                     var fd = new FormData();
 
-                    fd.append("file", files[0]);
-                    var uploadUrl = 'rest.ericavhay.com/portfolio/work/setImageJson';
+                    fd.append("file", $scope.imageFile);
+                    var uploadUrl = 'https://www.rest.ericavhay.com/portfolio/work/setImageJson/id/' +
+                        $scope.work.id;
 
-                    $http.post(uploadUrl, fd, {
+                    $http({
+                        method: 'post',
+                        url: uploadUrl,
+                        data: fd,
                         withCredentials: true,
-                        headers: {'Content-Type': undefined},
+                        headers: {'Content-Type': undefined },
                         transformRequest: angular.identity
-                    }).success(
-                        function (data) {
-                            $scope.work = data;
-                            $scope.updated = true;
-                        }
-                    ).error(
-                        function () {
-                            alert('set image failed.')
-                        }
-                    );
+                    })
+                        .then(
+                            function (response) {
+
+                                console.log('returned data ' );
+                                console.log(response.data);
+                                $scope.work = response.data;
+                                $scope.updated = true;
+                                $scope.saving = false;
+                            }
+                            ,
+                            function () {
+                                $scope.saving = false;
+                                alert('set image failed.')
+                            }
+                        );
 
 
                     /*
@@ -219,8 +234,9 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
                     console.log('image file not set');
                 }
 
+                return saving;
 
-            }
+            };
 
             $scope.save = function (work) {
                 $scope.saving = true;
@@ -230,7 +246,9 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
                         if (typeof work.name !== 'undefined') {
                             $scope.changed = false;
                         }
-                        $scope.saving = false;
+                        $scope.saving = $scope.setImage();
+                        /* check for new image */
+
                     });
                 } else {
                     // create new
@@ -242,8 +260,6 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
                     });
                 }
 
-                /* check for new image */
-                $scope.setImage();
             }
 
             $scope.change = function () {
