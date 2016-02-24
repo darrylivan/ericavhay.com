@@ -35,7 +35,13 @@
             <span class="email">{{gallery.email}}</span>
             <span class="address">{{gallery.location}}</span><br/>
           </div>
-          <p ng-if="work.sold"> [ sold ]</p>
+          <p ng-if="work.sold"> [ sold ]
+          </p>
+          <a ng-if="currentUser" title="update" href="#/work/update/{{work.id}}"><i
+              class="glyphicon-pencil glyphicon"></i>
+            edit
+          </a>
+
 
         </div>
       </div>

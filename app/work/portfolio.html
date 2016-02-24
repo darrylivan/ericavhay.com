@@ -45,6 +45,9 @@
               </div>
               <span class="notes">{{work.width}}" x {{work.height}}" <span
                   ng-if="work.notes">{{ ' / ' + work.notes }}</span> </span><br/>
+              <a  ng-if="currentUser"  title="update" href="#/work/update/{{work.id}}"><i class="glyphicon-pencil glyphicon"></i>
+                edit
+              </a>
 
             </div>
           </div>
