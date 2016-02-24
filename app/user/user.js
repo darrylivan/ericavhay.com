@@ -49,7 +49,7 @@ authServices
       return $http
       (
         {
-          url: 'http://www.ericavhay.com/site/jsonLogin',
+          url: 'http://www.rest.ericavhay.com/site/jsonLogin',
           params: credentials,
           method: 'GET'
         })

@@ -8,7 +8,7 @@ body {
   font-family: 'Dosis', sans-serif;
   font-family: 'Raleway', sans-serif;
 
-  background-color: #333333;
+  background-color: #ffffff;
 }
 
 a {
@@ -67,11 +67,11 @@ a:hover {
 }
 
 .navbar-header {
-  font-family: 'Bitter', serif;
+  /* font-family: 'Bitter', serif; */
   font-size: 24px;
   margin-top: 15px;
   color: #999999;
-  font-weight: bold;
+  /* font-weight: bold; */
   position: relative;
 }
 
@@ -180,10 +180,12 @@ a:hover {
 }
 
 @media (max-width: 769px) {
-  body {
+  .left-buffer {
     margin-left: 10px;
   }
 }
+
+
 
 /**** word-detail ****/
 .detail {
@@ -259,7 +261,10 @@ div.footer {
   padding-bottom: 50px;
   position: relative;
 
+  width: 100%;
+  overflow: hidden;
 }
+
 
 h1 {
   font-size: 75px;
@@ -341,6 +346,7 @@ position: relative;
 .button-list li a {
   border-radius: 2px;
   padding: 5px;
+  margin-left: 5px;
   /* border: 1px solid #737373; */
   color: #737373;
 }

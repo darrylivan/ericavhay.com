@@ -10,34 +10,28 @@
   </div>
 </div>
 
-  <div class="row">
-    <!--Body content-->
+<div class="row">
+  <!--Body content-->
 
 
-    <ul class="admin  "  style="list-style: none;">
-      <li ng-repeat="gallery in galleries | filter:filters | orderBy:orderProp"
-          class="thumbnail gallery-listing  {{gallery.style}} ">
-        <div class="admin-row-container ">
-            <img ng-src="{{gallery.imageUrl}}" alt="{{gallery.name}}">
-          <div class="">
-            <a class="" title="update"  href="#/gallery/update/{{gallery.id}}"><i class="glyphicon-pencil glyphicon"></i> {{gallery.name}}</a>
-            ${{gallery.price}} |
-            <span ng-if="gallery.sold=='true'"><span style="color:#f00;">sold</span> | </span>
-            <span ng-if="gallery.featured=='true'">featured | </span>
-            <span ng-if="gallery.archive=='true'">archived | </span>
+  <ul class="admin  " style="list-style: none;">
+    <li ng-repeat="gallery in galleries | filter:filters | orderBy:orderProp"
+        class="thumbnail gallery-listing  {{gallery.style}} ">
+      <div class="admin-row-container ">
+        <img ng-src="{{gallery.imageUrl}}" alt="{{gallery.name}}">
+        <div class="">
+          <a class="" title="update" href="#/gallery/update/{{gallery.id}}"><i class="glyphicon-pencil glyphicon"></i>
+            {{gallery.name}}</a>
+          ${{gallery.price}} |
+          <span ng-if="gallery.description">{{ gallery.description }}</span>
 
-              <span class="notes">{{gallery.width}}" x {{gallery.height}}"
-                <span
-                  ng-if="gallery.notes">{{ '|' + gallery.notes }}</span>
-              </span>
-          </div>
-          <div class="clear:both;"></div>
-          &nbsp;
         </div>
         <div class="clear:both;"></div>
-      </li>
-    </ul>
-  </div>
+        &nbsp;
+      </div>
+      <div class="clear:both;"></div>
+    </li>
+  </ul>
 </div>
 
 

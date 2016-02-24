@@ -28,8 +28,8 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
     });
 
   }])
-  .controller('WorkCtrl', ['$scope', '$timeout', '$routeParams', 'Work', 'Style', 'Gallery',
-    function ($scope, $timeout, $routeParams, Work, Style, Gallery) {
+  .controller('WorkCtrl', ['$scope', '$timeout', '$routeParams', 'Work', 'Style', 'Gallery', '$filter',
+    function ($scope, $timeout, $routeParams, Work, Style, Gallery, $filter) {
       /* for single work pages. */
       $scope.work = new Work;
       $scope.gallery = {};
@@ -55,7 +55,7 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
       Work.query(function (data) {
         $scope.works = data;
         $scope.runAnimation = false;
-        $scope.styleNames = ['all'];
+        $scope.styleNames = [];
         for (var i = 0; i < data.length; i++) {
           var work = data[i];
           if ($scope.styleNames.indexOf(work.style) == -1) {
@@ -73,17 +73,41 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
         $timeout(function () {
           $scope.runAnimation = true;
         }, 500);
+        $scope.setStyles();
+
         $scope.updated = true;
 
       });
 
+      $scope.setStyles = function()
+      {
+        var tmp = [{name: 'all'}];
+
+        for (var i = 0; i < $scope.styleNames.length; i++)
+        {
+          for (var j = 0; j < $scope.styles.length; j++)
+          {
+            var name = $scope.styleNames[i];
+            var style = $scope.styles[j];
+            if (style.name === name)
+            {
+              tmp.push( style )
+            }
+          }
+
+        }
+        if (tmp.length > 1)
+        {
+          $scope.styles = tmp;
+        }
+      }
       $scope.filterOnStyle = function (style) {
         console.log('filtering on ' + style);
-        if (style == 'all') {
+        if (style.name == 'all') {
           $scope.filters = {};
         }
         else {
-          $scope.filters.style = style;
+          $scope.filters.style = style.name;
         }
       }
 
@@ -131,12 +155,15 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
             $scope.work.soldDate = $filter('date')(new Date(), "yyyy-MM-dd");
           }
         }
+        $scope.change();
       }
 
       $scope.styles = Style.query({}, function (styles) {
         // do anything special, or just allow data bindings to do it...
         console.log('styles ');
         console.log($scope.styles);
+        $scope.setStyles();
+
       });
 
 
@@ -242,7 +269,7 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate'])
 var workServices = angular.module('myApp.workServices', ['ngResource']);
 workServices.factory('Work', ['$resource',
   function ($resource) {
-    return $resource('http://www.ericavhay.com/portfolio/work/json/:id', {id: '@id'}, {
+    return $resource('http://www.rest.ericavhay.com/portfolio/work/json/:id', {id: '@id'}, {
       update: {
         method: 'PUT'
       }

@@ -16,41 +16,43 @@
     <div class="col-md-12">
       <!--Sidebar content-->
       <ul class="list-inline button-list">
-        <li ng-repeat="style in styleNames" class="style-listing ">
-          <a href="" ng-click="filterOnStyle( style )" title="oil painting style">{{style}}</a>
+        <li ng-repeat="style in styles" class="style-listing ">
+          <span ng-if="!$first"> | </span><a href="" ng-click="filterOnStyle( style )" title="oil painting style">{{style.name}}</a>
         </li>
       </ul>
     </div>
   </div>
 
-  <div class="row">
+  <div class="row fade-in" ng-if="runAnimation">
     <!--Body content-->
+    <div class="col-md-12">
 
-    <ul class="grid  " masonry="true" style="list-style: none;">
-      <li masonry-tile
-          ng-repeat="work in works | filter:{archive:false} | filter:{featured:true} | filter:filters | orderBy:orderProp"
-          class="thumbnail work-listing  {{work.style}} ">
-        <div class="tile-container ">
-          <a href="#/work/{{work.id}}" class=""><img ng-src="{{work.imageUrl}}" alt="{{work.name}}"></a>
-          <div class="caption">
-            <h3>
-              <a class="title" href="#/work/{{work.id}}">{{work.name}}</a>
-            </h3>
-            <div class="pull-right">
-              <a ng-show="work.sold==false" class="inquire" href="#/work/inquire/{{work.id}}"
-                 title="inquire for purchase">[
-                inquire ]</a>
-              <span ng-show="work.sold==true" class="sold">[ sold ]</span>
-            </div>
+      <ul class="grid  " masonry="true" style="list-style: none;">
+        <li masonry-tile
+            ng-repeat="work in works | filter:{archive:false} | filter:{featured:true} | filter:filters | orderBy:orderProp"
+            class="thumbnail work-listing  {{work.style}} ">
+          <div class="tile-container ">
+            <a href="#/work/{{work.id}}" class=""><img ng-src="{{work.imageUrl}}" alt="{{work.name}}"></a>
+            <div class="caption">
+              <h3>
+                <a class="title" href="#/work/{{work.id}}">{{work.name}}</a>
+              </h3>
+              <div class="pull-right">
+                <a ng-show="work.sold==false" class="inquire" href="#/work/inquire/{{work.id}}"
+                   title="inquire for purchase">[
+                  inquire ]</a>
+                <span ng-show="work.sold==true" class="sold">[ sold ]</span>
+              </div>
               <span class="notes">{{work.width}}" x {{work.height}}" <span
                   ng-if="work.notes">{{ ' / ' + work.notes }}</span> </span><br/>
 
+            </div>
           </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
 
 
+    </div>
   </div>
 </div>
 

@@ -181,7 +181,7 @@ angular.module('myApp.gallery', ['ngRoute'])
 var galleryServices = angular.module('myApp.galleryServices', ['ngResource', 'ngAnimate']);
 galleryServices.factory('Gallery', ['$resource',
   function ($resource) {
-    return $resource('http://www.ericavhay.com/portfolio/gallery/json/:id', {id: '@id'}, {
+    return $resource('http://www.rest.ericavhay.com/portfolio/gallery/json/:id', {id: '@id'}, {
       update: {
         method: 'PUT'
       }

@@ -2,15 +2,15 @@
  * animations css stylesheet
  */
 
-/* animate ngRepeat in phone listing */
+/* animate ngRepeat in  listing */
 
 .fade-in.ng-enter,
 .fade-in.ng-leave,
 .fade-in.ng-move {
-    -webkit-transition: 5s linear all;
-    -moz-transition: 5s linear all;
-    -o-transition: 5s linear all;
-    transition: 5s linear all;
+    -webkit-transition: 3s linear all;
+    -moz-transition: 3s linear all;
+    -o-transition: 3s linear all;
+    transition: 3s linear all;
 }
 
 .fade-in.ng-enter,
@@ -41,18 +41,18 @@
 }
 
 .view-frame.ng-enter {
-    -webkit-animation: 0.5s fade-in;
-    -moz-animation: 0.5s fade-in;
-    -o-animation: 0.5s fade-in;
-    animation: 0.5s fade-in;
+    -webkit-animation: 0.3s fade-in;
+    -moz-animation: 0.3s fade-in;
+    -o-animation: 0.3s fade-in;
+    animation: 0.3s fade-in;
     z-index: 100;
 }
 
 .view-frame.ng-leave {
-    -webkit-animation: 0.5s fade-out;
-    -moz-animation: 0.5s fade-out;
-    -o-animation: 0.5s fade-out;
-    animation: 0.5s fade-out;
+    -webkit-animation: 0.3s fade-out;
+    -moz-animation: 0.3s fade-out;
+    -o-animation: 0.3s fade-out;
+    animation: 0.3s fade-out;
     z-index: 99;
 }
 

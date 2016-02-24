@@ -33,21 +33,21 @@
 
 <div ng-controller="menuCtrl">
 
-  <div class="navbar navbar-fixed-top navbar-default">
+  <div class="navbar navbar-fixed-top navbar-default left-buffer">
     <div class="container">
       <div class="navbar-header">
         <a href="http://www.ericavhay.com">
-        erica <span class="vhay hover-{{hoverNav}}" ng-mouseover="setHover(true)"
-                    ng-mouseout="setHover(false)">vhay</span>
+          erica <span class="vhay hover-{{hoverNav}}" ng-mouseover="setHover(true)"
+                      ng-mouseout="setHover(false)">vhay</span>
         </a>
-        <span class="subtitle">oil painter</span>
+        <span title="flagstaff oil painter artist" class="subtitle">artist</span>
       </div>
       <div class="collapse navbar-collapse vhay-nav navbar-right">
         <ul class="nav navbar-nav">
           <li><a class="{{portfolioActive}}" href="#/portfolio">portfolio</a></li>
-          <li><a class="{{galleriesActive}}"  href="#/venues">venues</a></li>
-          <li><a class="{{aboutActive}}"  href="#/about">about</a></li>
-          <li><a class="{{contactActive}}"  href="#/contact">contact</a></li>
+          <li><a class="{{galleriesActive}}" href="#/venues">venues</a></li>
+          <li><a class="{{aboutActive}}" href="#/about">about</a></li>
+          <li><a class="{{contactActive}}" href="#/contact">contact</a></li>
           <li ng-if="currentUser" uib-dropdown on-toggle="toggled(close)">
             <a href uib-dropdown-toggle>admin</a>
             <ul uib-dropdown-menu aria-labelledby="simple-dropdown">
@@ -65,16 +65,19 @@
 
 </div>
 
-<div class="menu-spacer" >
+<div class="menu-spacer">
   <!-- create a space for the menu to be at the top. -->
 </div>
 
-<div class="view-container">
-  <div ng-view class="view-frame"  autoscroll="true" ></div>
+<div class="left-buffer">
+  <div class="view-container">
+    <div ng-view class="view-frame" autoscroll="true"></div>
+  </div>
 </div>
 
 
 <div ng-controller="FooterCtrl">
+  <div class="left-buffer"></div>
   <div class="footer">
     <div class="container">
       <div class="row">
@@ -85,10 +88,10 @@
         <div class="col-sm-4">
           <ul class="list-unstyled">
             <li>
-              <a href="tel:928.255.8884" title="erica vhay phone number" >928.255.8884</a><br/>
+              <a href="tel:928.255.8884" title="erica vhay phone number">928.255.8884</a><br/>
             </li>
             <li>
-              <a href="mailto:info@ericavhay.com" title="erica vhay email" >info@ericavhay.com</a><br/>
+              <a href="mailto:info@ericavhay.com" title="erica vhay email">info@ericavhay.com</a><br/>
             </li>
           </ul>
         </div>
