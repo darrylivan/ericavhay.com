@@ -17,9 +17,18 @@
 
     <div class="col-sm-12 subtitle"><p class="lead">${{soldTotal}}</p></div>
     <div class="clearfix"></div>
-    <ul class="admin  " style="list-style: none;">
-      <li ng-repeat="work in works | filter:{sold:true} | filter:filters | orderBy:'-soldDate' "
-          class="thumbnail work-listing  {{work.style}} ">
+
+    <div masonry class="small-grid  ">
+      <!-- this is a cool way of only filtering on archive IFF the includeArchive
+           in the controller is true.  that variable is bound to the checkbox above
+             and it controlls the filtering of the works
+
+           filter: (!includeArchive || '') && {archive: false}
+           -->
+      <div class="masonry-brick"
+           ng-repeat="work in works | filter: {sold: true} | orderBy:'-soldDate'"
+           class="thumbnail work-listing ">
+
         <div class="admin-row-container ">
           <img ng-src="{{work.imageUrl}}" alt="{{work.name}}">
           <div class="">
@@ -38,8 +47,8 @@
           &nbsp;
         </div>
         <div class="clear:both;"></div>
-      </li>
-    </ul>
+      </div>
+    </div>
 
   </div>
 </div>
