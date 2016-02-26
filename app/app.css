@@ -141,8 +141,17 @@ a:hover, li.active a, a.active {
   opacity: 1.0;
 }
 
-.grid img {
-  width: 100%
+.tile-container img.selected-true {
+  box-sizing: border-box;
+  border: 3px #fc0 solid;
+}
+
+
+/* grid css */
+
+.grid img ,
+.small-grid img {
+  max-width: 100%
 }
 
 /* masonry */
@@ -152,7 +161,8 @@ a:hover, li.active a, a.active {
   margin: 0;
 }
 
-.grid > div {
+.grid > div ,
+.small-grid > div {
   width: 24.9%;
   display: inline-block;
   height: auto;
@@ -163,15 +173,25 @@ a:hover, li.active a, a.active {
   margin-bottom: 10px;
 }
 
+.small-grid > div {
+  width: 9.9%
+}
+
 @media (min-width: 991px) and (max-width: 1200px) {
   .grid > div {
     width: 33.33%;
+  }
+  .small-grid  > div {
+    width: 9.9%
   }
 }
 
 @media (min-width: 770px) and (max-width: 990px) {
   .grid > div {
     width: 50%;
+  }
+  .small-grid  > div {
+    width: 9.9%
   }
 }
 
@@ -180,6 +200,9 @@ a:hover, li.active a, a.active {
     width: 100%;
   }
 
+  .small-grid  > div {
+    width: 24.9%
+  }
   .vhay-nav
   {
     border: none;
@@ -259,9 +282,9 @@ ul.admin li .admin-row-container img {
 
 div.footer {
   margin-top: 0px;
-  border-top: 1px solid #929292;
-  background-color: #393939;
-  color: #ffffff;
+  border-top: 1px solid #e7e7e7;
+  background-color: #ffffff;
+  color: #999999;
   padding-top: 50px;
   padding-bottom: 50px;
   position: relative;
@@ -369,5 +392,21 @@ position: relative;
 }
 
 .overflow-hidden {
+  overflow: hidden;
+}
+
+
+.label-print {
+  padding: 20px;
+  padding-bottom: 100px;
+}
+
+.printLabel {
+  width: 2.95in;
+  height: 1.5in;
+  margin-top: .25in;
+  margin-right: .25in;
+  float: left;
+  text-align: center;
   overflow: hidden;
 }

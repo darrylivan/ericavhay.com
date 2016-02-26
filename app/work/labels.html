@@ -1,0 +1,63 @@
+<div class="intro-title">
+  <div class="container overflow-hidden">
+    <div class="row">
+      <div class="col-sm-12">
+        <p class="lead text-large fade-in " ng-if="runAnimation">
+          <span title="erica vhay oil painter">
+          <strong>featured work<span class="highlight">.</span></strong></span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="row fade-in" ng-if="runAnimation">
+    <!--Body content-->
+    <div class="col-md-12">
+
+      <button class="btn btn-warning" ng-click="createLabels()" >create labels</button>
+      <fieldset>
+        <div class="checkbox">
+          <label>
+            <input id="archive" type="checkbox"  ng-model="includeArchive" >
+            archive
+          </label>
+        </div>
+
+      </fieldset>
+      <fieldset>
+        <div class="checkbox">
+          <label>
+            <input id="sold" type="checkbox"  ng-model="includeSold" >
+            sold
+          </label>
+        </div>
+
+      </fieldset>
+      <div masonry class="small-grid  ">
+        <!-- this is a cool way of only filtering on archive IFF the includeArchive
+             in the controller is true.  that variable is bound to the checkbox above
+               and it controlls the filtering of the works
+
+             filter: (!includeArchive || '') && {archive: false}
+             -->
+        <div class="masonry-brick"
+             ng-repeat="work in works | filter: (!includeArchive || '') && {archive: false} | filter: (!includeSold || '') && {sold: false} | filter:filters | orderBy:orderProp"
+             class="thumbnail work-listing  {{work.style}} ">
+          <div class="tile-container ">
+            <a href="" ng-click="" class=""><img class="selected-{{work.selected}}" ng-src="{{work.imageUrl}}" alt="{{work.name}}"></a>
+            <!-- the following binds to each model in the array of works -->
+            <input type="checkbox" name="works[]" value="{{work.name}}"
+                    ng-model="work.selected" /><span>{{work.name}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

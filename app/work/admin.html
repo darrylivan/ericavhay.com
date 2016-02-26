@@ -22,15 +22,28 @@
     </div>
   </div>
 
+  <fieldset>
+    <div class="checkbox">
+      <label>
+        <input id="archive" type="checkbox" ng-model="includeArchive">
+        archive
+      </label>
+    </div>
+
+  </fieldset>
+
   <div class="row">
     <!--Body content-->
 
 
-    <ul class="admin  " style="list-style: none;">
-      <li ng-repeat="work in works | filter:filters | orderBy:orderProp"
-          class="thumbnail work-listing  {{work.style}} ">
+    <div  class="small-grid  ">
+      <div
+           ng-repeat="work in works | filter:filters | filter: (!includeArchive || '') && {archive: false} | orderBy:orderProp"
+           class="thumbnail work-listing  {{work.style}} ">
         <div class="admin-row-container ">
-          <img ng-src="{{work.imageUrl}}" alt="{{work.name}}">
+          <a class="" title="update" href="#/work/update/{{work.id}}">
+            <img ng-src="{{work.imageUrl}}" alt="{{work.name}}" style="max-height:100px; ">
+          </a>
           <div class="">
             <a class="" title="update" href="#/work/update/{{work.id}}"><i class="glyphicon-pencil glyphicon"></i>
               {{work.name}}</a>
@@ -48,9 +61,9 @@
           &nbsp;
         </div>
         <div class="clear:both;"></div>
-      </li>
-    </ul>
+      </div>
+      </ul>
+    </div>
   </div>
-</div>
 
 

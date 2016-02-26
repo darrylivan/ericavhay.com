@@ -5,6 +5,11 @@
 
 angular.module('myApp.footer', [])
 
-  .controller('FooterCtrl', ['$scope', function( $scope) {
-    $scope.date = new Date();
-  }]);
+    .controller('footerCtrl', ['$scope', 'Printing', function ($scope, Printing) {
+        $scope.date = new Date();
+        $scope.printing = function()
+        {
+            return Printing.printing;
+        }
+
+    }]);

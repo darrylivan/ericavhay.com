@@ -15,6 +15,12 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
         }).when('/work/sold', {
             templateUrl: 'work/sold.html',
             controller: 'WorkCtrl'
+        }).when('/work/labels', {
+            templateUrl: 'work/labels.html',
+            controller: 'WorkCtrl'
+        }).when('/work/printLabels', {
+            templateUrl: 'work/printLabels.html',
+            controller: 'WorkCtrl'
         }).when('/work/:workId', {
             templateUrl: 'work/work-detail.html',
             controller: 'WorkCtrl'
@@ -28,11 +34,14 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
 
     }])
     .controller('WorkCtrl', ['$scope', '$timeout', '$routeParams', 'Work',
-        'Style', 'Gallery', '$filter', '$http',
-        function ($scope, $timeout, $routeParams, Work, Style, Gallery, $filter, $http) {
+        'Style', 'Gallery', '$filter', '$http', 'SelectedWork', '$location', 'Printing',
+        function ($scope, $timeout, $routeParams, Work, Style,
+                  Gallery, $filter, $http, SelectedWork, $location, Printing) {
             /* for single work pages. */
             $scope.work = new Work;
             $scope.gallery = {};
+            $scope.selected = SelectedWork.selectedWorks();
+
             $scope.changed = false;
 
             $scope.tryAutoPrice = false;
@@ -50,6 +59,9 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
             $scope.updated = false;
 
             $scope.imageFile = false;
+
+            $scope.includeArchive = false;
+            $scope.includeSold = false;
 
             /* to accumulate the total of sold paintings */
             $scope.soldTotal = 0;
@@ -70,6 +82,8 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
                     if (work.sold) {
                         $scope.soldTotal += parseInt(work.price);
                     }
+
+                    work.selected = false;
                 }
 
                 $timeout(function () {
@@ -192,13 +206,13 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
                         url: uploadUrl,
                         data: fd,
                         withCredentials: true,
-                        headers: {'Content-Type': undefined },
+                        headers: {'Content-Type': undefined},
                         transformRequest: angular.identity
                     })
                         .then(
                             function (response) {
 
-                                console.log('returned data ' );
+                                console.log('returned data ');
                                 console.log(response.data);
                                 $scope.work = response.data;
                                 $scope.updated = true;
@@ -210,26 +224,6 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
                                 alert('set image failed.')
                             }
                         );
-
-
-                    /*
-
-                     var r = new FileReader();
-                     r.onloadend = function (e) {
-                     $scope.rawImage = e.target.result;
-                     //send you binary data via $http or $resource or do anything else with it
-
-                     /*
-                     $scope.work.setImage( $scope.rawImage, function()
-                     {
-                     document.getElementById('file').value = null;
-
-                     });
-                     }
-
-                     r.readAsBinaryString( $scope.imageFile );
-                     }
-                     */
                 } else {
                     console.log('image file not set');
                 }
@@ -270,8 +264,28 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
 
             }
 
-        }])
-;
+            $scope.createLabels = function () {
+                // need to save selected works to the Work service
+                var selected = [];
+                for (var i = 0; i < $scope.works.length; i++) {
+                    var work = $scope.works[i];
+                    if (work.selected) {
+                        selected.push(work);
+                    }
+                }
+                console.log('saving ' + selected.length + ' works');
+                SelectedWork.saveSelectedWorks(selected);
+                Printing.print();
+                $location.path('/work/printLabels');
+            }
+
+            $scope.doneLabels = function()
+            {
+                Printing.cancelPrint();
+                $location.path('/work/admin');
+            };
+
+        }]);
 
 
 /* Work Services */
@@ -284,4 +298,18 @@ workServices.factory('Work', ['$resource',
             }
         });
     }]);
+
+workServices.factory('SelectedWork',
+    function () {
+
+        var service = {};
+        service.saveSelectedWorks = function (works) {
+            this.works = works;
+        };
+        service.selectedWorks = function () {
+            return this.works;
+        }
+        return service;
+    }
+);
 

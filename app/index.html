@@ -32,49 +32,53 @@
 <body ng-controller="SiteCtrl">
 
 <div ng-controller="menuCtrl">
+  <div ng-hide="printing()">
+    <div class="navbar navbar-fixed-top navbar-default left-buffer">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" ng-click="toggleNav()">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="#/portfolio" title="flagstaff oil painter artist">
+            erica <span class="vhay hover-{{hoverNav}}" ng-mouseover="setHover(true)"
+                        ng-mouseout="setHover(false)">vhay</span>
+            <span class="subtitle">artist</span>
+          </a>
 
-  <div class="navbar navbar-fixed-top navbar-default left-buffer">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse"  ng-click="toggleNav()" >
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a href="#/portfolio"  title="flagstaff oil painter artist">
-          erica <span class="vhay hover-{{hoverNav}}" ng-mouseover="setHover(true)"
-                      ng-mouseout="setHover(false)">vhay</span>
-          <span  class="subtitle">artist</span>
-        </a>
-
-      </div>
-      <div class="collapse navbar-collapse vhay-nav navbar-right"  ng-class="!navCollapsed && 'in'">
-        <ul class="nav navbar-nav">
-          <li><a  ng-click="toggleNav('/portfolio')" ng-class="getClass('/portfolio')" href="#/portfolio">portfolio</a></li>
-          <li><a  ng-click="toggleNav('/venues')" ng-class="getClass('/venues')"  href="#/venues">venues</a></li>
-          <li><a  ng-class="getClass('/about')"  ng-click="toggleNav('/about')" href="#/about">about</a></li>
-          <li><a  ng-class="getClass('/contact')" ng-click="toggleNav('/contact')" href="#/contact">contact</a></li>
-          <li ng-if="currentUser" uib-dropdown on-toggle="toggled(close)">
-            <a href uib-dropdown-toggle>admin</a>
-            <ul uib-dropdown-menu aria-labelledby="simple-dropdown">
-              <li role="menuitem"><a  ng-click="toggleNav('/gallery/admin')"  href="#/gallery/admin">gallery admin</a></li>
-              <li role="menuitem"><a  ng-click="toggleNav('/gallery/create')"  href="#/gallery/create">create gallery</a></li>
-              <li role="menuitem"><a  ng-click="toggleNav('/work/admin')"  href="#/work/admin">work admin</a></li>
-              <li role="menuitem"><a  ng-click="toggleNav('/work/create')"  href="#/work/create">create work</a></li>
-              <li role="menuitem"><a  ng-click="toggleNav('/work/sold')"  href="#/work/sold">sold work</a></li>
-            </ul>
-          </li>
-        </ul>
+        </div>
+        <div class="collapse navbar-collapse vhay-nav navbar-right" ng-class="!navCollapsed && 'in'">
+          <ul class="nav navbar-nav">
+            <li><a ng-click="toggleNav('/portfolio')" ng-class="getClass('/portfolio')" href="#/portfolio">portfolio</a>
+            </li>
+            <li><a ng-click="toggleNav('/venues')" ng-class="getClass('/venues')" href="#/venues">venues</a></li>
+            <li><a ng-class="getClass('/about')" ng-click="toggleNav('/about')" href="#/about">about</a></li>
+            <li><a ng-class="getClass('/contact')" ng-click="toggleNav('/contact')" href="#/contact">contact</a></li>
+            <li ng-if="currentUser" uib-dropdown on-toggle="toggled(open)">
+              <a href uib-dropdown-toggle>admin</a>
+              <ul uib-dropdown-menu aria-labelledby="simple-dropdown">
+                <li role="menuitem"><a ng-click="toggleNav('/gallery/admin')" href="#/gallery/admin">gallery admin</a>
+                </li>
+                <li role="menuitem"><a ng-click="toggleNav('/gallery/create')" href="#/gallery/create">create
+                  gallery</a>
+                </li>
+                <li role="menuitem"><a ng-click="toggleNav('/work/admin')" href="#/work/admin">work admin</a></li>
+                <li role="menuitem"><a ng-click="toggleNav('/work/create')" href="#/work/create">create work</a></li>
+                <li role="menuitem"><a ng-click="toggleNav('/work/sold')" href="#/work/sold">sold work</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
+    <div class="menu-spacer">
+      <!-- create a space for the menu to be at the top. -->
+    </div>
   </div>
-
 </div>
 
-<div class="menu-spacer">
-  <!-- create a space for the menu to be at the top. -->
-</div>
 
 <div class="left-buffer">
   <div class="view-container">
@@ -83,31 +87,33 @@
 </div>
 
 
-<div ng-controller="FooterCtrl">
-  <div class="left-buffer"></div>
-  <div class="footer">
-    <div class="container">
-      <div class="row">
+<div ng-controller="footerCtrl">
+  <div ng-hide="printing()">
+    <div class="left-buffer"></div>
+    <div class="footer">
+      <div class="container">
+        <div class="row">
 
-        <div class="col-sm-4">
-        </div>
+          <div class="col-sm-4">
+          </div>
 
-        <div class="col-sm-4">
-          <ul class="list-unstyled">
-            <li>
-              <a href="tel:928.255.8884" title="erica vhay phone number">928.255.8884</a><br/>
-            </li>
-            <li>
-              <a href="mailto:info@ericavhay.com" title="erica vhay email">info@ericavhay.com</a><br/>
-            </li>
-          </ul>
-        </div>
+          <div class="col-sm-4">
+            <ul class="list-unstyled">
+              <li>
+                <a href="tel:928.255.8884" title="erica vhay phone number">928.255.8884</a><br/>
+              </li>
+              <li>
+                <a href="mailto:info@ericavhay.com" title="erica vhay email">info@ericavhay.com</a><br/>
+              </li>
+            </ul>
+          </div>
 
-        <div class="col-sm-4">
-          &copy; Erica Vhay, {{date | date:'yyyy'}}<br/>
-          <a ng-if="!currentUser" href="#/login"><i class="glyphicon glyphicon-user"></i> login</a>
-          <a ng-if="currentUser" href="#/logout"><i class="glyphicon glyphicon-star"></i></a>
+          <div class="col-sm-4">
+            &copy; Erica Vhay, {{date | date:'yyyy'}}<br/>
+            <a ng-if="!currentUser" href="#/login"><i class="glyphicon glyphicon-user"></i> login</a>
+            <a ng-if="currentUser" href="#/logout"><i class="glyphicon glyphicon-star"></i></a>
 
+          </div>
         </div>
       </div>
     </div>

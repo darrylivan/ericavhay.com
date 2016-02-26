@@ -6,7 +6,7 @@ angular.module('myApp.menu', ['ui.bootstrap'])
 
     }])
 
-    .controller('menuCtrl', function ($scope, $location) {
+    .controller('menuCtrl', ['$scope', '$location', 'Printing', function ($scope, $location, Printing) {
 
         /* for controlling collapsable dropdown on mobile */
         $scope.navCollapsed = true;
@@ -39,7 +39,11 @@ angular.module('myApp.menu', ['ui.bootstrap'])
             $scope.status.isopen = !$scope.status.isopen;
         };
 
-        $scope.name = ['e', 'r', 'i', 'c', 'a', ' ', 'v', 'h', 'a', 'y'];
+        $scope.printing = function()
+        {
+            return Printing.printing;
+        }
 
 
-    });
+    }]);
+
