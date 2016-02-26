@@ -264,6 +264,7 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
 
             }
 
+
             $scope.createLabels = function () {
                 // need to save selected works to the Work service
                 var selected = [];

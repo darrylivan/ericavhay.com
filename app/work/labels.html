@@ -47,10 +47,10 @@
              ng-repeat="work in works | filter: (!includeArchive || '') && {archive: false} | filter: (!includeSold || '') && {sold: false} | filter:filters | orderBy:orderProp"
              class="thumbnail work-listing  {{work.style}} ">
           <div class="tile-container ">
-            <a href="" ng-click="" class=""><img class="selected-{{work.selected}}" ng-src="{{work.imageUrl}}" alt="{{work.name}}"></a>
+            <a href="" ng-click="work.selected = !work.selected" class=""><img class="selected-{{work.selected}}" ng-src="{{work.imageUrl}}" alt="{{work.name}}"></a>
             <!-- the following binds to each model in the array of works -->
             <input type="checkbox" name="works[]" value="{{work.name}}"
-                    ng-model="work.selected" /><span>{{work.name}}</span>
+                    ng-model="work.selected" style="opacity: 0;" /><span>{{work.name}}</span>
           </div>
         </div>
       </div>
