@@ -130,7 +130,9 @@ a:hover, li.active a, a.active {
 }
 
 .tile-container .caption .title {
+  /*
   font-weight: bold;
+  */
 }
 
 .sold {
