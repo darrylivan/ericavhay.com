@@ -36,10 +36,10 @@
     <!--Body content-->
 
 
-    <div  class="small-grid  ">
+    <div class="small-grid  ">
       <div
-           ng-repeat="work in works | filter:filters | filter: (!includeArchive || '') && {archive: false} | orderBy:orderProp"
-           class="thumbnail work-listing  {{work.style}} ">
+          ng-repeat="work in works | filter:filters | filter: (!includeArchive || '') && {archive: false} | orderBy:orderProp"
+          class="thumbnail work-listing  {{work.style}} ">
         <div class="admin-row-container ">
           <a class="" title="update" href="#/work/update/{{work.id}}">
             <img ng-src="{{work.imageUrl}}" alt="{{work.name}}" style="max-height:100px; ">
@@ -55,15 +55,18 @@
             <span class="notes">{{work.width}}" x {{work.height}}"
             <span ng-if="work.notes">{{ '|' + work.notes }}</span>
             </span>
-
+            <div ></div>
+            <a href="" ng-click="delete(work)">
+              <i class="glyphicon glyphicon-remove"></i>
+            </a>
           </div>
           <div class="clear:both;"></div>
           &nbsp;
         </div>
         <div class="clear:both;"></div>
       </div>
-      </ul>
     </div>
   </div>
+</div>
 
 

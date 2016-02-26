@@ -256,6 +256,14 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
 
             }
 
+
+            $scope.delete = function (work) {
+                if (confirm('are you sure you want to delete ' + work.name)) {
+                    Work.delete(work)
+                    _.remove($scope.works, work)
+                }
+            }
+
             $scope.change = function () {
 
                 $scope.changed = true;
@@ -280,8 +288,7 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
                 $location.path('/work/printLabels');
             }
 
-            $scope.doneLabels = function()
-            {
+            $scope.doneLabels = function () {
                 Printing.cancelPrint();
                 $location.path('/work/admin');
             };
