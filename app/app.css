@@ -133,6 +133,7 @@ a:hover, li.active a, a.active {
   /*
   font-weight: bold;
   */
+  font-size: 20px;
 }
 
 .sold {
