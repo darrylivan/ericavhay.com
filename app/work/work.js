@@ -39,15 +39,7 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
                   Gallery, $filter, $http, SelectedWork, $location, Printing) {
             /* for single work pages. */
             $scope.work = new Work;
-            var d = new Date();
-            var year=d.getFullYear();
-            var month=d.getMonth()+1;
-            if (month<10){
-                month="0" + month;
-            };
-            var day=d.getDate();
-            $scope.date = year + "-" + month + "-" + day;
-            $scope.work.date = $scope.date;
+            $scope.work.date = $filter('date')(new Date(), "yyyy-MM-dd");
             $scope.gallery = {};
             $scope.selected = SelectedWork.selectedWorks();
 
@@ -171,7 +163,9 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
             $scope.updateSoldDate = function () {
                 if ($scope.work.sold) {
                     // see if we need to set the sold date
-                    if (($scope.work.soldDate === '') || ($scope.work.soldDate === '0000-00-00')) {
+                    if (($scope.work.soldDate === '') ||
+                        (typeof $scope.work.soldDate === 'undefined') ||
+                        ($scope.work.soldDate === '0000-00-00')) {
                         $scope.work.soldDate = $filter('date')(new Date(), "yyyy-MM-dd");
                     }
                 }
