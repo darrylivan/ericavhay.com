@@ -39,6 +39,15 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
                   Gallery, $filter, $http, SelectedWork, $location, Printing) {
             /* for single work pages. */
             $scope.work = new Work;
+            var d = new Date();
+            var year=d.getFullYear();
+            var month=d.getMonth()+1;
+            if (month<10){
+                month="0" + month;
+            };
+            var day=d.getDate();
+            $scope.date = year + "-" + month + "-" + day;
+            $scope.work.date = $scope.date;
             $scope.gallery = {};
             $scope.selected = SelectedWork.selectedWorks();
 
@@ -123,7 +132,7 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
             }
 
             if ((typeof $routeParams.workId !== 'undefined') && ($routeParams.workId !== 'create')) {
-                console.log('workid = ' + $routeParams.workId);
+                console.log('work.get workid = ' + $routeParams.workId);
                 $scope.work = Work.get({id: $routeParams.workId}, function (work) {
 
                     // get the gallery
@@ -253,7 +262,6 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
                         $scope.saving = false;
                     });
                 }
-
             }
 
 

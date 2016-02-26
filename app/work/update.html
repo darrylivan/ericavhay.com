@@ -159,11 +159,20 @@
               </div>
             </div>
           </div>
+
           <div class="form-group" ng-if="work.sold">
             <label for="notes" class="col-sm-3 control-label">sold date</label>
             <div class="col-sm-9">
               <input type="text" class="form-control" id="soldDate" placeholder="soldDate"
                      ng-model="work.soldDate" ng-change="change()">
+            </div>
+          </div>
+
+          <div class="form-group" >
+            <label for="date" class="col-sm-3 control-label">create date</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="date" placeholder="date"
+                     ng-model="work.date" ng-change="change()">
             </div>
           </div>
 
