@@ -146,7 +146,7 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
                 // calculate auto price after work is loaded.
                 var MIN_PRICE = 55.0;
                 var EXPONENT_FACTOR = 1.35;
-                var LINEAR_FACTOR = 18;
+                var LINEAR_FACTOR = 30;
 
                 var area = $scope.work.height * $scope.work.width;
                 // work on square root of area...
