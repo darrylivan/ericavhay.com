@@ -300,8 +300,14 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
 
 /* Work Services */
 var workServices = angular.module('myApp.workServices', ['ngResource']);
-workServices.factory('Work', ['$resource',
-    function ($resource) {
+workServices.factory('Work', ['$resource', 'BaseClass',
+    function ($resource, BaseClass) {
+
+        function Work( attributes )
+        {
+            this.id = attributes.id;
+        }
+        Work.inherits( BaseClass.Base );
         return $resource('http://www.rest.ericavhay.com/portfolio/work/json/:id', {id: '@id'}, {
             update: {
                 method: 'PUT'

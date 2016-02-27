@@ -6,9 +6,11 @@ describe('myApp.gallery module', function() {
 
   describe('gallery controller', function(){
 
-    it('should ....', inject(function($controller) {
+    it('should ....', inject(function($controller, $rootScope, Gallery) {
       //spec body
-      var galleryCtrl = $controller('GalleryCtrl');
+      var scope = $rootScope.$new();// get a child scope
+      var galleryCtrl = $controller('GalleryCtrl', {$scope: scope , Gallery: Gallery});
+
       expect(galleryCtrl).toBeDefined();
     }));
 

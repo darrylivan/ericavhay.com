@@ -6,9 +6,11 @@ describe('myApp.work module', function() {
 
   describe('work controller', function(){
 
-    it('should ....', inject(function($controller) {
+    it('should ....', inject(function($controller, $rootScope, Work) {
       //spec body
-      var workCtrl = $controller('WorkCtrl');
+      var scope = $rootScope.$new();// get a child scope
+      var workCtrl = $controller('WorkCtrl', {$scope: scope , Work: Work});
+
       expect(workCtrl).toBeDefined();
     }));
 

@@ -6,6 +6,7 @@ angular.module('myApp', [
         'ngTouch',
         'ui.bootstrap',
         'wu.masonry',
+        'ngActiveResource',
         'myApp.animations',
         'myApp.menu',
         'myApp.work',

@@ -138,6 +138,7 @@ a:hover, li.active a, a.active {
 
 .sold {
   color: #2e2e2e;
+  font-weight: bold;
 }
 
 .tile-container .caption.show_true {
