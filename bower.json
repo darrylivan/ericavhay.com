@@ -24,12 +24,17 @@
     "jquery-bridget": "~2.0.0",
     "matches-selector": "^2.0.1",
     "lodash": "^4.5.1",
-    "ActiveResource": "ngActiveResource#^0.7.7"
+    "ActiveResource": "ngActiveResource#^0.7.7",
+    "ActiveSupport": "^0.1.4"
   },
   "resolutions": {
     "angular": "~1.4.9",
     "angular-touch": "~1.4.0",
     "angular-resource": "1.4.x",
     "angular-animate": "1.4.x"
+  },
+  "devDependencies": {
+    "ActiveResource": "ngActiveResource#^0.7.7",
+    "ActiveSupport": "^0.1.4"
   }
 }

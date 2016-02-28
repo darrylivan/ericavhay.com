@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
+angular.module('myApp.work', ['ngRoute', 'ngAnimate', 'ActiveResource'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/portfolio', {
@@ -66,6 +66,9 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
 
             /* to accumulate the total of sold paintings */
             $scope.soldTotal = 0;
+
+
+
 
             Work.query(function (data) {
                 $scope.works = data;
@@ -138,25 +141,6 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
                     $scope.updated = true;
 
                 });
-            }
-
-
-            /* when supplement changes, calculate the new autoprice */
-            $scope.updateAuto = function () {
-                // calculate auto price after work is loaded.
-                var MIN_PRICE = 55.0;
-                var EXPONENT_FACTOR = 1.35;
-                var LINEAR_FACTOR = 30;
-
-                var area = $scope.work.height * $scope.work.width;
-                // work on square root of area...
-                var sqArea = Math.sqrt(area);
-
-                var psif = LINEAR_FACTOR;
-                var price = Math.pow(sqArea, 2) * EXPONENT_FACTOR + psif * sqArea + MIN_PRICE;
-                price = Math.floor(price / 10) * 10;
-                $scope.basePrice = price;
-                $scope.autoPrice = $scope.basePrice + $scope.supplement;
             }
 
             /* when sold is set to true, need to set the sold date to today if not already set */
@@ -299,20 +283,53 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
 
 
 /* Work Services */
-var workServices = angular.module('myApp.workServices', ['ngResource']);
-workServices.factory('Work', ['$resource', 'BaseClass',
-    function ($resource, BaseClass) {
+var workServices = angular.module('myApp.workServices', [ 'ActiveResource']);
+workServices.factory('Work', ['ActiveResource',
+    function (ActiveResource) {
 
         function Work( attributes )
         {
             this.id = attributes.id;
+            this.name = attributes.name;
+            this.date = attributes.date;
+            this.sold = attributes.sold;
+            this.featured = attributes.featured;
+            this.archive = attributes.archive;
+            this.height = attributes.height;
+            this.width = attributes.width;
+            this.notes = attributes.notes;
+            this.price = attributes.price;
+            this.internalNotes = attributes.internalNotes;
+            this.soldDate = attributes.soldDate;
+            this.url = attributes.url;
+
+            /* when supplement changes, calculate the new autoprice */
+            this.autoPrice = function () {
+                    // calculate auto price after work is loaded.
+                    var MIN_PRICE = 55.0;
+                    var EXPONENT_FACTOR = 1.35;
+                    var LINEAR_FACTOR = 30;
+
+                    var area = $scope.work.height * $scope.work.width;
+                    // work on square root of area...
+                    var sqArea = Math.sqrt(area);
+
+                    var psif = LINEAR_FACTOR;
+                    var price = Math.pow(sqArea, 2) * EXPONENT_FACTOR + psif * sqArea + MIN_PRICE;
+                    price = Math.floor(price / 10) * 10;
+                    $scope.basePrice = price;
+                    $scope.autoPrice = $scope.basePrice + $scope.supplement;
+                }
+
+            this.belongsTo('gallery');
+            this.hasOne('style');
+
+
         }
-        Work.inherits( BaseClass.Base );
-        return $resource('http://www.rest.ericavhay.com/portfolio/work/json/:id', {id: '@id'}, {
-            update: {
-                method: 'PUT'
-            }
-        });
+        Work.inherits( ActiveResource.Base );
+        Work.api.set( 'http://www.rest.ericavhay.com/portfolio/work/json');
+
+        return Work;
     }]);
 
 workServices.factory('SelectedWork',

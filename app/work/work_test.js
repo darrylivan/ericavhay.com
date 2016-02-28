@@ -2,7 +2,7 @@
 
 describe('myApp.work module', function() {
 
-  beforeEach(module('myApp.work'));
+  beforeEach(module('myApp.work', '$rootScope', 'Work'));
 
   describe('work controller', function(){
 
