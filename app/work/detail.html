@@ -24,17 +24,19 @@
           </p>
           <p>{{work.notes}}</p>
           <p>
-            {{work.date | date:'MMM/yy' }}
+            {{work.date | date:'MMM yyyy' }}
           </p>
 
           <hr/>
           <div ng-if="!work.sold" class="text-muted text-right">
             purchase inquiries, contact: <br/>
-            <h4><strong>{{gallery.name}}</strong></h4>
-            <span class="">{{gallery.contact}}</span><br/>
-            <span class="phone"><a href="tel:{{gallery.phone}}">{{gallery.phone}}</a></span><br/>
-            <span class="email">{{gallery.email}}</span>
-            <span class="address">{{gallery.location}}</span><br/>
+            <h4><strong><a ng-href="#/gallery/{{work.gallery.id}}" >
+              {{work.gallery.name}}
+            </a></strong></h4>
+            <span class="">{{work.gallery.contact}}</span><br/>
+            <span class="phone"><a href="tel:{{gallery.phone}}">{{work.gallery.phone}}</a></span><br/>
+            <span class="email">{{work.gallery.email}}</span>
+            <span class="address">{{work.gallery.location}}</span><br/>
           </div>
           <p ng-if="work.sold"> [ sold ]
           </p>

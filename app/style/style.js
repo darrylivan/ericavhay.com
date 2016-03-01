@@ -32,14 +32,93 @@ angular.module('myApp.style', ['ngRoute'])
     }])
 
 /* Style Services */
-var styleServices = angular.module('myApp.styleServices', ['ngResource']);
-styleServices.factory('Style', ['$resource',
-  function($resource){
-    return $resource('http://www.rest.ericavhay.com/portfolio/style/json/:id', {id: '@id'}, {
-      update: {
-        method:'PUT'
-      }
-    });
-  }]);
+var styleServices = angular.module('myApp.styleServices', ['ngResource'])
+.factory('StyleResource', ['$resource',
+    function ($resource) {
+        return $resource('http://www.rest.ericavhay.com/portfolio/style/json/:id', {id: '@id'}, {
+            update: {
+                method: 'PUT'
+            }
+        });
+    }])
+    .factory('StyleCollection', ['StyleResource', 'Work',
+        'Style',
+        function (StyleResource, Work, Style ) {
+
+            var collection = {};
+            collection.styles = [];
+
+            collection.initialize = function () {
+
+                /* query for all the styles */
+                StyleResource.query(function (data) {
+                    // randomize the order.
+                    for (var i = 0; i < data.length; i++) {
+                        var style = new Style();
+                        style.initialize(data[i]);
+                        collection.styles.push(style);
+                    }
+                });
+
+            }
+
+
+            collection.initialize();
+
+            return collection;
+        }
+    ])
+
+styleServices.factory('Style', ['StyleResource', 'WorkResource', '$cacheFactory',
+
+    function (StyleResource, WorkResource, $cacheFactory) {
+
+        function Style(id) {
+
+            var self = this;
+
+            this.initialize = function (data) {
+                self.id = null;
+                self.updated = false;
+                angular.extend(self, data);
+                if (!angular.isUndefined(self.id))
+                {
+                    Style.cache.put(self.id, self);
+                }
+
+            }
+
+
+            if (typeof id !== 'undefined') {
+                this.id = id;
+                console.log('requesting id ' + this.id);
+
+                StyleResource.get({id: this.id}, self, function (data) {
+                    //console.log('retrieved work ');
+                    console.log(data);
+                    self.initialize(data);
+                });
+            }
+            else {
+                var data = {};
+                self.initialize(data);
+            }
+
+        }
+        Style.cache = new $cacheFactory('Style');
+        Style.instance = function( id )
+        {
+            var result = Style.cache.get(id);
+            if (angular.isUndefined(result))
+            {
+                result = new Style( id );
+            }
+            return result;
+        }
+
+        return Style;
+    }
+]);
+
 
 

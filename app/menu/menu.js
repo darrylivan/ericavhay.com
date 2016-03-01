@@ -12,10 +12,7 @@ angular.module('myApp.menu', ['ui.bootstrap'])
         $scope.navCollapsed = true;
         $scope.toggleNav = function (href) {
             $scope.navCollapsed = !$scope.navCollapsed;
-            console.log('toggled nav collapse');
             if (typeof href !== 'undefined') {
-
-                console.log(href);
                 $location.path( href );
             }
         }

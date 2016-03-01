@@ -41,15 +41,14 @@ siteServices.factory('Printing',
         var service = {};
         service.printing = false;
         service.print = function () {
-            console.log('setting printing to true')
             this.printing = true;
         };
         service.cancelPrint = function () {
-            console.log('setting printing to false')
             this.printing = false;
         }
 
         return service;
     }
 );
+
 

@@ -37,8 +37,7 @@
 
 
     <div class="small-grid  ">
-      <div
-          ng-repeat="work in works | filter:filters | filter: (!includeArchive || '') && {archive: false} | orderBy:orderProp"
+      <div ng-repeat="work in works | filter:filters | filter: (!includeArchive || '') && {archive: false} | orderBy:orderProp"
           class="thumbnail work-listing  {{work.style}} ">
         <div class="admin-row-container ">
           <a class="" title="update" href="#/work/update/{{work.id}}">
@@ -53,12 +52,14 @@
             <span ng-if="work.archive=='true'">archived | </span>
 
             <span class="notes">{{work.width}}" x {{work.height}}"
-            <span ng-if="work.notes">{{ '|' + work.notes }}</span>
+            <span ng-if="work.notes">{{ '| ' + work.notes }}</span>
             </span>
             <div ></div>
-            <a href="" ng-click="delete(work)">
+            <a ng-if="!work.saving" ng-click="delete( work )" >
               <i class="glyphicon glyphicon-remove"></i>
             </a>
+            <span ng-if="work.saving"><i class="glyphicon glyphicon-refresh spinning"></i></span>
+
           </div>
           <div class="clear:both;"></div>
           &nbsp;
