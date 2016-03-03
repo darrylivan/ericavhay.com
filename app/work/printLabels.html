@@ -1,22 +1,20 @@
 <div class="label-print">
   <div class="" ng-repeat="work in selected" >
     <div class="printLabel">
-      <img src="{{work.imageUrl}}" alt=""
-           style="float:left; margin-right: 10px; max-height:100px; max-width:60px;">
-
+      <img src="{{work.imageUrl}}" />
       <div style="float:left; ">
 
         <p>
+          <span class="title" style="font-size:14px;" class="name">{{work.name}}</span><br/>
           <strong>erica vhay</strong><br>
 
-          {{work.width}}" x " {{work.height}}
-          <span ng-if="work.notes"> / {{work.notes}}</span><br>
+          {{work.width}}" x " {{work.height}}<br/>
+          <span ng-if="work.notes">{{work.notes}}<br/></span>
           ${{work.price}}
         </p>
       </div>
-      <div class="clear clearfix" style="height:10px; clear:both;"></div>
-      <strong style="font-size:18px;" class="name">{{work.name}}</strong>
-      <div class="clear clearfix" style="height:10px; clear:both;"></div>
+
+      <div class="clear clearfix" style="height:0px; clear:both;"></div>
     </div>
   </div>
 

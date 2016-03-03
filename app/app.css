@@ -405,8 +405,18 @@ position: relative;
   padding-bottom: 100px;
 }
 
+.printLabel img
+{
+  max-height: 100px;
+  max-width: 60px;
+  float:left;
+  margin-right: 10px;
+  vertical-align: top;
+  border:none;
+}
+
 .printLabel {
-  width: 2.95in;
+  width: 1.95in;
   height: 1.5in;
   margin-top: .25in;
   margin-right: .25in;
