@@ -28,16 +28,16 @@
         <input id="archive" type="checkbox" ng-model="includeArchive">
         archive
       </label>
+      <br/>
+        <input id="nameSearch" type="text" ng-model="searchName"  placeholder="name search">
     </div>
 
   </fieldset>
 
   <div class="row">
     <!--Body content-->
-
-
     <div class="small-grid  ">
-      <div ng-repeat="work in works | filter:filters | filter: (!includeArchive || '') && {archive: false} | orderBy:orderProp"
+      <div ng-repeat="work in works | filter:filters | filter: ((searchName.length > 0) || '') && {name: searchName}  | filter: (!includeArchive || '') && {archive: false} | orderBy:orderProp"
           class="thumbnail work-listing  {{work.style}} ">
         <div class="admin-row-container ">
           <a class="" title="update" href="#/work/update/{{work.id}}">

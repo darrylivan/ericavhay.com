@@ -6,6 +6,7 @@ angular.module('myApp', [
         'ngTouch',
         'ui.bootstrap',
         'wu.masonry',
+        '720kb.datepicker',
         'myApp.animations',
         'myApp.menu',
         'myApp.work',

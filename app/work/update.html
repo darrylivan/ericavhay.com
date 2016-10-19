@@ -1,211 +1,261 @@
 <div class="container">
-  <div class="row ">
-    <!--Body content-->
-    <form class="form-horizontal" ng-submit="work.save()">
-      <div class="detail">
-        <div class="col-sm-2"
-             class="thumbnail ">
-          <img ng-src="{{work.imageUrl}}" alt="{{work.name}}" ng-if="work.imageUrl">
+    <div class="row ">
+        <!--Body content-->
+        <form class="form-horizontal" ng-submit="work.save()">
+            <div class="detail">
+                <div class="col-sm-2"
+                     class="thumbnail ">
+                    <img ng-src="{{work.imageUrl}}" alt="{{work.name}}" ng-if="work.imageUrl">
 
-          <!-- price info -->
-          <div class="form-group">
-            <div class=" col-sm-12">
-              <div class="checkbox">
-                <label>
-                  <input ng-model="tryAutoPrice" type="checkbox"> see auto price
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="form-inline">
+                    <!-- price info -->
+                    <div class="form-group">
+                        <div class=" col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input ng-model="tryAutoPrice" type="checkbox"> see auto price
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-inline">
 
-            <div class="form-group" ng-if="tryAutoPrice">
+                        <div class="form-group" ng-if="tryAutoPrice">
 
-              <div class="">
-                <div class="input-group">
+                            <div class="">
+                                <div class="input-group">
 
-                  <span class="input-group-addon">$</span>
-                  <input type="text" class="form-control" name="supplement" id="supplement"
-                         placeholder="supplement" ng-model="work.supplement" />
+                                    <span class="input-group-addon">$</span>
+                                    <input type="text" class="form-control" name="supplement" id="supplement"
+                                           placeholder="supplement" ng-model="work.supplement"/>
+
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon">$</span>
+                                    <input type="text" readonly="readonly" class="form-control" name="basePrice"
+                                           placeholder="basePrice" ng-model="work.basePrice"/>
+                                </div>
+                                +
+                                <hr/>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">$</span>
+                                    <input type="text" class="form-control " id="autoPrice"
+                                           value="{{work.autoPrice()}}"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
 
                 </div>
-                <div class="input-group">
-                  <span class="input-group-addon">$</span>
-                  <input type="text" readonly="readonly" class="form-control" name="basePrice"
-                         placeholder="basePrice" ng-model="work.basePrice"/>
+                <div class=" col-sm-5">
+                    <div class="form-group">
+                        <label for="name" class="col-sm-3 control-label">name</label>
+                        <div class="col-sm-9">
+                            <input type="text" ng-change="work.change()" class="form-control" id="name" name="name"
+                                   placeholder="name"
+                                   ng-model="work.name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes" class="col-sm-3 control-label">notes</label>
+                        <div class="col-sm-9">
+                            <input type="text" ng-change="work.change()" class="form-control" id="notes"
+                                   placeholder="notes"
+                                   ng-model="work.notes">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="styleId" class="col-sm-3 control-label">style</label>
+                        <div class="col-sm-9">
+                            <select ng-model="work.styleId" ng-change="work.change()" class="form-control"
+                                    name="styleId" id="styleId">
+                                <option ng-repeat="style in styles" class="style-listing " value="{{style.id}}">
+                                    {{style.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="galleryId" class="col-sm-3 control-label">gallery</label>
+                        <div class="col-sm-9">
+                            <select ng-model="work.galleryId" ng-change="work.change()" class="form-control"
+                                    name="galleryId"
+                                    id="galleryId">
+                                <option ng-repeat="gallery in galleries | filter:{active:true}" class="gallery-listing "
+                                        value="{{gallery.id}}">{{gallery.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="width" class="col-sm-3 control-label">size</label>
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input ng-change="work.change()" type="text" class="form-control" id="width"
+                                       name="width"
+                                       placeholder="width in inches"
+                                       ng-model="work.width">
+                                <span class="input-group-addon">"</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">x</div>
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input ng-change="work.change()" type="text" class="form-control" id="height"
+                                       name="height"
+                                       placeholder="height in inches"
+                                       ng-model="work.height">
+                                <span class="input-group-addon">"</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="price" class="col-sm-3 control-label">price</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input type="text" ng-change="work.change()" class="form-control" id="price"
+                                       name="price" placeholder="price"
+                                       ng-model="work.price">
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
-                +
-                <hr/>
 
-                <div class="input-group">
-                  <span class="input-group-addon">$</span>
-                  <input type="text" class="form-control " id="autoPrice" value="{{work.autoPrice()}}"/>
+                <!-- second column -->
+                <div class="col-sm-5">
+
+                    <!-- featured info -->
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <div class="checkbox">
+                                <label>
+                                    <input id="featured" ng-change="work.change()" name="featured"
+                                           ng-model="work.featured" type="checkbox">
+                                    featured
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- archive info -->
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <div class="checkbox">
+                                <label>
+                                    <input id="archive" name="archive" ng-change="work.change()" ng-model="work.archive"
+                                           type="checkbox">
+                                    archive
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- sold info -->
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <div class="checkbox">
+                                <label>
+                                    <input ng-model="work.sold" ng-change="work.updateSoldDate(); work.change()"
+                                           type="checkbox"> sold
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-if="work.sold">
+                        <label for="notes" class="col-sm-3 control-label">sold date</label>
+                        <div class="col-sm-9">
+                            <datepicker date-format="yyyy-MM-dd">
+                                <input type="text" class="form-control" id="soldDate" placeholder="soldDate"
+                                       ng-model="work.soldDate" ng-change="work.change()">
+                            </datepicker>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" ng-if="work.sold">
+                        <label for="notes" class="col-sm-3 control-label">sold price</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="soldPrice" placeholder="soldPrice"
+                                   ng-model="work.soldPrice" ng-change="work.change()">
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-if="work.sold">
+                        <label for="notes" class="col-sm-3 control-label" title="date gallery paid for painting">payment
+                            date</label>
+                        <div class="col-sm-9">
+                            <datepicker date-format="yyyy-MM-dd">
+                                <input type="text" class="form-control" id="paymentDate" placeholder="paymentDate"
+                                       ng-model="work.paymentDate" ng-change="work.change()">
+                            </datepicker>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-if="work.sold">
+                        <label for="notes" class="col-sm-3 control-label" title="amount paid to evhay from gallery">payment
+                            price</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="paymentPrice" placeholder="paymentPrice"
+                                   ng-model="work.paymentPrice" ng-change="work.change()">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date" class="col-sm-3 control-label">create date</label>
+                        <div class="col-sm-9">
+                            <datepicker date-format="yyyy-MM-dd">
+                                <input type="text" class="form-control" id="date" placeholder="date"
+                                       ng-model="work.date" ng-change="work.change()">
+                            </datepicker>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-if="work.id">
+                        <label for="width" class="col-sm-3 control-label">
+                            <span ng-if="work.imageUrl">Re-</span>Set Image
+                        </label>
+                        <div class="col-sm-9">
+                            <!-- if this is a new work, display 'add image' only after creating the work -->
+                            <input type="file" id="file" ng-model="work.imageFile"
+                                   onchange="angular.element(this).scope().selectImage(this)"/>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="width" class="col-sm-3 control-label">internal</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="internalNotes" ng-change="work.change()"
+                                   placeholder="internal notes" ng-model="work.internalNotes">
+                        </div>
+                    </div>
                 </div>
-              </div>
 
+                <div class="col-sm-offset-7 col-sm-5">
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button ng-if="work.changed" type="submit" class="btn btn-warning ">save
+                                <span ng-if="work.saving"><i class="glyphicon glyphicon-refresh spinning"></i></span>
+                            </button>
+                            <button ng-if="!work.changed" disabled="disabled" type="submit" class="btn btn-warning  ">
+                                save
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-
-        </div>
-        <div class=" col-sm-5">
-          <div class="form-group">
-            <label for="name" class="col-sm-3 control-label">name</label>
-            <div class="col-sm-9">
-              <input type="text" ng-change="work.change()" class="form-control" id="name" name="name" placeholder="name"
-                     ng-model="work.name">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="notes" class="col-sm-3 control-label">notes</label>
-            <div class="col-sm-9">
-              <input type="text" ng-change="work.change()" class="form-control" id="notes" placeholder="notes"
-                     ng-model="work.notes">
-            </div>
-          </div>
-
-
-          <div class="form-group">
-            <label for="styleId" class="col-sm-3 control-label">style</label>
-            <div class="col-sm-9">
-              <select ng-model="work.styleId" ng-change="work.change()" class="form-control" name="styleId" id="styleId">
-                <option ng-repeat="style in styles" class="style-listing " value="{{style.id}}">{{style.name}}</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="galleryId" class="col-sm-3 control-label">gallery</label>
-            <div class="col-sm-9">
-              <select ng-model="work.galleryId" ng-change="work.change()" class="form-control" name="galleryId"
-                      id="galleryId">
-                <option ng-repeat="gallery in galleries | filter:{active:true}" class="gallery-listing "
-                        value="{{gallery.id}}">{{gallery.name}}
-                </option>
-              </select>
-            </div>
-          </div>
-
-
-          <div class="form-group">
-            <label for="width" class="col-sm-3 control-label">size</label>
-            <div class="col-sm-3">
-              <div class="input-group">
-                <input ng-change="work.change()" type="text" class="form-control" id="width" name="width"
-                       placeholder="width in inches"
-                       ng-model="work.width">
-                <span class="input-group-addon">"</span>
-              </div>
-            </div>
-            <div class="col-sm-1">x</div>
-            <div class="col-sm-3">
-              <div class="input-group">
-                <input ng-change="work.change()" type="text" class="form-control" id="height" name="height"
-                       placeholder="height in inches"
-                       ng-model="work.height">
-                <span class="input-group-addon">"</span>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="form-group">
-            <label for="price" class="col-sm-3 control-label">price</label>
-            <div class="col-sm-9">
-              <div class="input-group">
-                <span class="input-group-addon">$</span>
-                <input type="text" ng-change="work.change()" class="form-control" id="price" name="price" placeholder="price"
-                       ng-model="work.price">
-              </div>
-            </div>
-          </div>
-
-
-        </div>
-
-        <!-- second column -->
-        <div class="col-sm-5">
-
-          <!-- featured info -->
-          <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-9">
-              <div class="checkbox">
-                <label>
-                  <input id="featured" ng-change="work.change()" name="featured" ng-model="work.featured" type="checkbox">
-                  featured
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <!-- archive info -->
-          <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-9">
-              <div class="checkbox">
-                <label>
-                  <input id="archive" name="archive" ng-change="work.change()" ng-model="work.archive" type="checkbox">
-                  archive
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <!-- sold info -->
-          <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-9">
-              <div class="checkbox">
-                <label>
-                  <input ng-model="work.sold" ng-change="work.updateSoldDate(); change()" type="checkbox"> sold
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="form-group" ng-if="work.sold">
-            <label for="notes" class="col-sm-3 control-label">sold date</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" id="soldDate" placeholder="soldDate"
-                     ng-model="work.soldDate" ng-change="work.change()">
-            </div>
-          </div>
-
-          <div class="form-group" >
-            <label for="date" class="col-sm-3 control-label">create date</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" id="date" placeholder="date"
-                     ng-model="work.date" ng-change="work.change()">
-            </div>
-          </div>
-
-          <div class="form-group" ng-if="work.id">
-            <label for="width" class="col-sm-3 control-label">
-              <span ng-if="work.imageUrl">Re-</span>Set Image
-            </label>
-            <div class="col-sm-9">
-              <!-- if this is a new work, display 'add image' only after creating the work -->
-              <input type="file" id="file" ng-model="work.imageFile" onchange="angular.element(this).scope().selectImage(this)" />
-            </div>
-          </div>
-
-
-          <div class="form-group">
-            <label for="width" class="col-sm-3 control-label">internal</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="internalNotes" ng-change="work.change()"
-                     placeholder="internal notes" ng-model="work.internalNotes">
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-offset-7 col-sm-5">
-          <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-9">
-              <button ng-if="work.changed" type="submit" class="btn btn-warning ">save
-                <span ng-if="work.saving"><i class="glyphicon glyphicon-refresh spinning"></i></span>
-              </button>
-              <button ng-if="!work.changed" disabled="disabled" type="submit" class="btn btn-warning  ">save</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
+        </form>
+    </div>
 </div>

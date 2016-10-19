@@ -48,11 +48,13 @@ angular.module('myApp.gallery', ['ngRoute'])
 
             }
 
+            /*
             $scope.save = function (gallery) {
                 if ($scope.gallery.id) {
                     // update existing.
                     console.log('sending update...');
-                    Gallery.update({id: $scope.gallery.id}, $scope.gallery);
+                    //Gallery.save({id: $scope.gallery.id}, $scope.gallery);
+                    $scope.gallery.save();
                 } else {
                     // create new
                     $scope.gallery.$save().then(function (response) {
@@ -60,6 +62,7 @@ angular.module('myApp.gallery', ['ngRoute'])
                     });
                 }
             }
+            */
 
             $timeout(function () {
                 $scope.runAnimation = true;
@@ -100,6 +103,18 @@ galleryServices
 
             }
 
+            collection.find = function( id )
+            {
+                var result = null;
+                var index = _.findIndex( collection.galleries, function (gallery) {
+                    return gallery.id === id;
+                })
+                if (index > -1)
+                {
+                    result = collection.galleries[index];
+                }
+                return result;
+            }
 
             /* for shuffling the order of the galleries */
             function shuffle(array) {
@@ -130,6 +145,43 @@ galleryServices.factory('Gallery', ['GalleryResource', 'WorkResource', '$cacheFa
         function Gallery(id) {
 
             var self = this;
+
+            this.save = function () {
+
+                self.saving = true;
+                console.log('saving');
+                if (self.id) {
+                    // update existing.
+                    GalleryResource.update({id: self.id}, self, function (work) {
+                        if (typeof work.name !== 'undefined') {
+                            self.changed = false;
+                        }
+                    });
+                } else {
+                    // create new
+                    /*
+                     todo: this does not work super nice since I am creating a new
+                     work resource based on this object, it saves it correctly,
+                     but does not change 'self'.  So, I have to re-initialize
+                     self based on the response.  not terrible, but not pretty.
+
+                     */
+                    var resource = new GalleryResource(self);
+                    resource.$save().then(function (response) {
+                        if (typeof response.error !== 'undefined') {
+                            alert('error in saving ' + response.error);
+                            console.log(response);
+                        }
+                        else {
+                            console.log('saved successfully.');
+                            console.log(response);
+                            self.changed = false;
+                            self.initialize(response);
+                        }
+                        self.saving = false;
+                    });
+                }
+            };
 
             this.initialize = function (data) {
                 self.id = null;

@@ -46,12 +46,14 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
             $scope.filters = {};
             $scope.orderProp = '-date';
             $scope.includeArchive = false;
+            $scope.searchName = '';
             $scope.includeSold = false;
             $scope.styles = WorkCollection.styles;
             $scope.styleNames = WorkCollection.styleNames;
             $scope.galleries = WorkCollection.galleries;
             $scope.works = WorkCollection.works;
             $scope.selected = WorkCollection.selectedWorks;
+            $scope.galleryPayments = WorkCollection.galleryPayments;
 
             /* to accumulate the total of sold paintings */
             $scope.soldTotal = function()
@@ -155,8 +157,8 @@ workServices.factory('WorkResource', ['$resource', function ($resource) {
 ]);
 
 workServices.factory('WorkCollection', ['WorkResource', 'Work', 'StyleCollection',
-    'GalleryCollection',
-    function (WorkResource, Work, StyleCollection, GalleryCollection) {
+    'GalleryCollection', 'Gallery',
+    function (WorkResource, Work, StyleCollection, GalleryCollection, Gallery) {
 
         var collection = {};
         collection.styles = StyleCollection.styles;
@@ -165,6 +167,7 @@ workServices.factory('WorkCollection', ['WorkResource', 'Work', 'StyleCollection
         collection.galleries = GalleryCollection.galleries;
         collection.works = [];
         collection.soldTotal = 0;
+        collection.galleryPayments = [];
 
         collection.initialize = function () {
             // get index ..
@@ -184,7 +187,7 @@ workServices.factory('WorkCollection', ['WorkResource', 'Work', 'StyleCollection
                         }
                     }
                     if (work.sold) {
-                        collection.soldTotal += parseInt(work.price);
+                        collection.addSoldWork( work );
                     }
                     work.selected = false;
                 }
@@ -193,6 +196,67 @@ workServices.factory('WorkCollection', ['WorkResource', 'Work', 'StyleCollection
 
         };
 
+
+        collection.setSoldValues = function( galleryName, work )
+        {
+            var index = _.findIndex( collection.galleryPayments, function( payments ) {
+                return payments.name === galleryName;
+            });
+
+
+            if ( index === -1)
+            {
+                 collection.galleryPayments.push(  {
+                     name: galleryName,
+                     pending: 0,
+                     totalPayments: 0,
+                     totalSold: 0
+                 });
+                index = _.findIndex( collection.galleryPayments, function( payments ) {
+                    return payments.name === galleryName;
+                });
+            }
+
+            var payments = collection.galleryPayments[index];
+            if (work.soldPrice)
+            {
+                payments.totalSold += parseInt( work.soldPrice );
+            }
+            else {
+                console.log('painting sold without setting sold price: http://www.ericavhay.com/#/work/' + work.id);
+                // assume sold price is same as asking price...
+                payments.totalSold += parseInt( work.price );
+            }
+
+            if (work.soldDate > '2015-10-01')
+            {
+            if (work.paymentPrice && work.paymentDate)
+            {
+                payments.totalPayments += parseInt( work.paymentPrice );
+            }
+            else
+            {
+                payments.pending += parseInt( (parseInt( work.soldPrice || work.price )) / 2 );
+            }
+            }
+
+
+        }
+
+        collection.addSoldWork = function (work )
+        {
+            var gallery = GalleryCollection.find(work.galleryId);
+
+            collection.soldTotal += parseInt(work.price);
+            var galleryName = 'Vhay Studio';
+
+            if (!_.isNull( gallery ))
+            {
+                galleryName = gallery.name;
+            }
+            collection.setSoldValues( galleryName, work);
+
+        }
         /* loop over current works and extract the list of styles */
         collection.setStyles = function () {
             var tmp = [{name: 'all'}];
@@ -279,9 +343,12 @@ workServices.factory('Work', ['WorkResource', '$filter', 'Gallery', '$timeout', 
             this.updateSoldDate = function () {
                 if (self.sold) {
                     // see if we need to set the sold date
-                    if ((self.soldDate === '') ||
-                        (typeof self.soldDate === 'undefined') ||
-                        (self.soldDate === '0000-00-00')) {
+                    if ((typeof self.soldDate === 'undefined') ||
+                            _.isNull( self.soldDate ) ||
+                        (self.soldDate === '0000-00-00') ||
+                        (self.soldDate.length < 10)
+
+                    ) {
                         self.soldDate = $filter('date')(new Date(), "yyyy-MM-dd");
                     }
                 }
