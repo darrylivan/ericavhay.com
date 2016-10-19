@@ -43,26 +43,8 @@ angular.module('myApp.gallery', ['ngRoute'])
             $scope.galleries = GalleryCollection.galleries;
 
             if ('undefined' != typeof $routeParams.galleryId) {
-
                 $scope.gallery = new Gallery($routeParams.galleryId);
-
             }
-
-            /*
-            $scope.save = function (gallery) {
-                if ($scope.gallery.id) {
-                    // update existing.
-                    console.log('sending update...');
-                    //Gallery.save({id: $scope.gallery.id}, $scope.gallery);
-                    $scope.gallery.save();
-                } else {
-                    // create new
-                    $scope.gallery.$save().then(function (response) {
-                        $scope.gallery.push(response)
-                    });
-                }
-            }
-            */
 
             $timeout(function () {
                 $scope.runAnimation = true;
