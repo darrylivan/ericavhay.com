@@ -111,4 +111,21 @@
     "phone": "480-970-3111",
     "styleId": null
   }
+  ,
+  {
+    "id": "15",
+    "name": "new gallery",
+    "description": "",
+    "location": "7106 E. Main St., Scottsdale, Az 85251",
+    "contact": "Janet Sandino",
+    "active": "1",
+    "latitude": "",
+    "longitude": "",
+    "tagline": "",
+    "imageId": null,
+    "website": "http:\/\/www.themarshallgallery.com\/artists\/erica-vhay\/",
+    "email": "email@themarshallgallery.com",
+    "phone": "480-970-3111",
+    "styleId": null
+  }
 ]

@@ -27,6 +27,10 @@ angular.module('myApp.gallery', ['ngRoute'])
                 templateUrl: 'gallery/admin.html',
                 controller: 'GalleryCtrl'
             })
+            .when('/gallery/create', {
+                templateUrl: 'gallery/update.html',
+                controller: 'GalleryCtrl'
+            })
             .when('/gallery/:galleryId', {
                 templateUrl: 'gallery/gallery-detail.html',
                 controller: 'GalleryCtrl'
@@ -44,6 +48,9 @@ angular.module('myApp.gallery', ['ngRoute'])
 
             if ('undefined' != typeof $routeParams.galleryId) {
                 $scope.gallery = new Gallery($routeParams.galleryId);
+            } else {
+                $scope.gallery = new Gallery;
+
             }
 
             $timeout(function () {
@@ -131,8 +138,8 @@ galleryServices.factory('Gallery', ['GalleryResource', 'WorkResource', '$cacheFa
             this.save = function () {
 
                 self.saving = true;
-                console.log('saving');
                 if (self.id) {
+                    console.log('saving existing');
                     // update existing.
                     GalleryResource.update({id: self.id}, self, function (work) {
                         if (typeof work.name !== 'undefined') {
@@ -140,6 +147,7 @@ galleryServices.factory('Gallery', ['GalleryResource', 'WorkResource', '$cacheFa
                         }
                     });
                 } else {
+                    console.log('saving new');
                     // create new
                     /*
                      todo: this does not work super nice since I am creating a new
