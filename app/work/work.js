@@ -49,6 +49,7 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
             $scope.searchName = '';
             $scope.includeSold = false;
             $scope.styles = WorkCollection.styles;
+            $scope.featuredStyles = WorkCollection.featuredStyles;
             $scope.styleNames = WorkCollection.styleNames;
             $scope.galleries = WorkCollection.galleries;
             $scope.works = WorkCollection.works;
@@ -60,7 +61,6 @@ angular.module('myApp.work', ['ngRoute', 'ngAnimate',])
             {
                 return WorkCollection.soldTotal;
             }
-
 
             $scope.selectImage = function () {
                 $scope.$apply(function () {
@@ -162,7 +162,8 @@ workServices.factory('WorkCollection', ['WorkResource', 'Work', 'StyleCollection
 
         var collection = {};
         collection.styles = StyleCollection.styles;
-
+        collection.featuredStyles = [{ name: 'all'}];
+        
         collection.styleNames = [];
         collection.galleries = GalleryCollection.galleries;
         collection.works = [];
@@ -196,7 +197,6 @@ workServices.factory('WorkCollection', ['WorkResource', 'Work', 'StyleCollection
 
         };
 
-
         collection.setSoldValues = function( galleryName, work )
         {
             var index = _.findIndex( collection.galleryPayments, function( payments ) {
@@ -223,7 +223,7 @@ workServices.factory('WorkCollection', ['WorkResource', 'Work', 'StyleCollection
                 payments.totalSold += parseInt( work.soldPrice );
             }
             else {
-                console.log('painting sold without setting sold price: http://www.ericavhay.com/#/work/' + work.id);
+                // console.log('painting sold without setting sold price: http://www.ericavhay.com/#/work/' + work.id);
                 // assume sold price is same as asking price...
                 payments.totalSold += parseInt( work.price );
             }
@@ -259,20 +259,37 @@ workServices.factory('WorkCollection', ['WorkResource', 'Work', 'StyleCollection
         }
         /* loop over current works and extract the list of styles */
         collection.setStyles = function () {
-            var tmp = [{name: 'all'}];
+            var tmp = {all: 0};
+            var current = {all: 0};
+            var featured = {all: 0};
+            const setStyle = (style, record) => {
+                if (record[style]) {
+                    record[style] += 1; 
+                } else {
+                    record[style] = 1;
+                }
+                record.all += 1;
+            }
+            collection.works.forEach(work => {
+                const stylename = work.style
+               setStyle(stylename, tmp);
 
-            for (var i = 0; i < collection.styleNames.length; i++) {
-                for (var j = 0; j < collection.styles.length; j++) {
-                    var name = collection.styleNames[i];
-                    var style = collection.styles[j];
-                    if (style.name === name) {
-                        tmp.push(style)
+                if (work.style && (work.archive === false)){
+                    setStyle(stylename, current);
+                    if (work.featured) {
+                        setStyle(stylename, featured);
+                        
                     }
                 }
-            }
-            if (tmp.length > 1) {
-                collection.styles = tmp;
-            }
+            });
+            const featuredStyles = Object.keys(featured);
+            featuredStyles.forEach(featuredStyle => {
+                const st = collection.styles.find(style => style.name === featuredStyle);
+                console.log('style', st)
+                if (st) {
+                    collection.featuredStyles.push(st);                    
+                }
+            });
         }
         collection.selectedWorks = [];
         collection.saveSelectedWorks = function (works) {
