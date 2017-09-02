@@ -1,0 +1,20 @@
+# Comment line starts with '#'
+
+# List each directory to be backed up on its own line. 
+#  - candidates include media, wordpress, magento.
+/images
+/images/uploads
+
+# To specify a repo name (else host dir is assumed),
+# use the keyword repoName followed by a space then the repository name.
+#repoName caraccidentlawyerflagstaff.com
+
+# To specify the web directory to be used for backup
+# use the keyword webDirectory followed by the web directory name.
+# If set then copying and backup occurs IFF the web directory 
+# being processed matches the web directory name configured here.
+# webDirectory <webdir>
+
+# Set to save time by avoiding copying files from the web dir
+# that already exist in the repo.
+# ignoreExisting true
