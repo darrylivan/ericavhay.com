@@ -62,6 +62,7 @@ var styleServices = angular.module('myApp.styleServices', ['ngResource'])
 
             }
 
+
             collection.initialize();
 
             return collection;
