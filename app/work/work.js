@@ -147,7 +147,7 @@ var workServices = angular.module('myApp.workServices', ['ngResource']);
 
 /* define a factory for the work resource to be used in other services */
 workServices.factory('WorkResource', ['$resource', function ($resource) {
-    return $resource('http://www.rest.ericavhay.com/portfolio/work/json/:id', {id: '@id'}, {
+    return $resource('https://www.rest.ericavhay.com/portfolio/work/json/:id', {id: '@id'}, {
         update: {
             method: 'PUT'
         }

@@ -35,7 +35,7 @@ angular.module('myApp.style', ['ngRoute'])
 var styleServices = angular.module('myApp.styleServices', ['ngResource'])
 .factory('StyleResource', ['$resource',
     function ($resource) {
-        return $resource('http://www.rest.ericavhay.com/portfolio/style/json/:id', {id: '@id'}, {
+        return $resource('https://www.rest.ericavhay.com/portfolio/style/json/:id', {id: '@id'}, {
             update: {
                 method: 'PUT'
             }
