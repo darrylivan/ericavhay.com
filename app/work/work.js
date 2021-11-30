@@ -147,7 +147,7 @@ var workServices = angular.module('myApp.workServices', ['ngResource']);
 
 /* define a factory for the work resource to be used in other services */
 workServices.factory('WorkResource', ['$resource', function ($resource) {
-    return $resource('https://www.rest.ericavhay.com/portfolio/work/json/:id', {id: '@id'}, {
+    return $resource('http://www.rest.ericavhay.com/portfolio/work/json/:id', {id: '@id'}, {
         update: {
             method: 'PUT'
         }
@@ -461,7 +461,7 @@ workServices.factory('Work', ['WorkResource', '$filter', 'Gallery', '$timeout', 
                     var fd = new FormData();
 
                     fd.append("file", self.imageFile);
-                    var uploadUrl = 'https://www.rest.ericavhay.com/portfolio/work/setImageJson/id/' +
+                    var uploadUrl = 'http://www.rest.ericavhay.com/portfolio/work/setImageJson/id/' +
                         self.id;
 
                     $http({

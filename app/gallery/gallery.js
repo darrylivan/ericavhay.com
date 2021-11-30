@@ -64,7 +64,7 @@ var galleryServices = angular.module('myApp.galleryServices', ['ngResource']);
 galleryServices
     .factory('GalleryResource', ['$resource',
         function ($resource) {
-            return $resource('https://www.rest.ericavhay.com/portfolio/gallery/json/:id', {id: '@id'}, {
+            return $resource('http://www.rest.ericavhay.com/portfolio/gallery/json/:id', {id: '@id'}, {
                 update: {
                     method: 'PUT'
                 }

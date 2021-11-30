@@ -15,7 +15,7 @@ module.exports = function (config) {
             'bower_components/angular-masonry/angular-masonry.js',
             'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
             'bower_components/angular-animate/angular-animate.js',
-            'http://cdnjs.cloudflare.com/ajax/libs/gsap/1.10.3/TweenMax.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.10.3/TweenMax.min.js',
             'app/app.js',
             'app/js/*.js',
             'app/work/*.js',
